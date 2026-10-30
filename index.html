@@ -1,0 +1,1694 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DevCom Homes — Developing Our Communities</title>
+<meta name="description" content="DevCom Homes develops, builds, and finances quality rental and residential communities across Southern Georgian Bay. Fixed price. Full accountability. One integrated team.">
+
+<!-- Open Graph â€” iMessage, LinkedIn, Facebook, WhatsApp -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://devcomhomes.ca/">
+<meta property="og:site_name" content="DevCom Homes">
+<meta property="og:title" content="DevCom Homes — Developer · Builder · Financing">
+<meta property="og:description" content="We develop, build, and finance quality rental and residential communities across Southern Georgian Bay. Fixed price. Full accountability. One team.">
+<meta property="og:image" content="https://devcomhomes.ca/images/og-image.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="en_CA">
+
+<!-- Twitter / X Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="DevCom Homes — Developer · Builder · Financing">
+<meta name="twitter:description" content="We develop, build, and finance quality rental and residential communities across Southern Georgian Bay. Fixed price. Full accountability. One team.">
+<meta name="twitter:image" content="https://devcomhomes.ca/images/og-image.jpg">
+
+<!-- Canonical -->
+<link rel="canonical" href="https://devcomhomes.ca/">
+
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&amp;family=DM+Sans:wght@300;400;500&amp;display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --gold:#C9A84C;
+  --gold-lt:#e8d5a3;
+  --black:#0c0c0c;
+  --dark:#161616;
+  --mid:#222;
+  --border:rgba(255,255,255,0.08);
+  --border-gold:rgba(201,168,76,0.25);
+  --text:#fff;
+  --muted:rgba(255,255,255,0.82);
+  --dim:rgba(255,255,255,0.85);
+}
+html{scroll-behavior:smooth;overflow-x:hidden;}
+body{background:var(--black);color:var(--text);font-family:"DM Sans",sans-serif;font-size:15px;line-height:1.65;-webkit-font-smoothing:antialiased;overflow-x:hidden;}
+a{color:inherit;text-decoration:none;}
+img{display:block;max-width:100%;}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:999;height:76px;display:flex;align-items:center;justify-content:space-between;padding:0 32px;background:rgba(12,12,12,0.97);border-bottom:1px solid var(--border);overflow:visible;white-space:nowrap;}
+.nav-logo img{height:160px;width:auto;overflow:visible;flex-shrink:0;}
+.nav-links{display:flex;gap:22px;align-items:center;flex-shrink:0;}
+.nav-links a{font-size:14px;font-weight:500;letter-spacing:1px;text-transform:uppercase;color:var(--muted);transition:color .2s;white-space:nowrap;}
+.nav-links a:hover{color:var(--gold);}.nav-links a.nav-active{color:var(--gold);}
+.nav-cta{font-size:14px;font-weight:500;letter-spacing:1px;text-transform:uppercase;color:var(--black);background:var(--gold);padding:6px 14px;transition:background .2s;flex-shrink:0;}
+.nav-cta:hover{background:var(--gold-lt);}
+
+/* PAGES */
+.page{display:none;padding-top:76px;}
+.page.active{display:block;}
+
+/* TYPOGRAPHY */
+.serif{font-family:"Cormorant Garamond",serif;}
+.eyebrow{font-size:13px;font-weight:500;letter-spacing:2.5px;text-transform:uppercase;color:var(--gold);margin-bottom:4px;}
+h1{font-family:"Cormorant Garamond",serif;font-size:clamp(36px,4vw,58px);font-weight:300;line-height:1.1;letter-spacing:-0.5px;}
+h2{font-family:"Cormorant Garamond",serif;font-size:clamp(28px,3vw,42px);font-weight:300;line-height:1.15;letter-spacing:-0.3px;}
+h3{font-family:"Cormorant Garamond",serif;font-size:clamp(20px,2vw,28px);font-weight:400;line-height:1.2;}
+h4{font-size:16px;font-weight:500;letter-spacing:0.5px;}
+p{color:var(--muted);font-size:16px;line-height:1.8;}
+.text-gold{color:var(--gold);}
+
+/* LAYOUT */
+.wrap{max-width:1140px;margin:0 auto;padding:0 48px;}
+.wrap-sm{max-width:760px;margin:0 auto;padding:0 48px;}
+.sec{padding:32px 0;}
+.sec-sm{padding:20px 0;}
+.divider{border:none;border-top:1px solid var(--border);margin:0;}
+.gold-line{width:32px;height:1px;background:var(--gold);margin-bottom:16px;}
+
+/* BUTTONS */
+.btn{display:inline-block;font-size:13px;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;padding:10px 24px;background:var(--gold);color:var(--black);cursor:pointer;transition:background .2s;border:none;}
+.btn:hover{background:var(--gold-lt);}
+.btn-ghost{background:transparent;border:1px solid rgba(201,168,76,0.4);color:var(--gold);}
+.btn-ghost:hover{background:var(--gold);color:var(--black);}
+
+/* ── HOME ─────────────────────── */
+.hero{min-height:68vh;display:flex;align-items:center;border-bottom:1px solid var(--border);position:relative;overflow:hidden;}
+.hero::before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse 60% 70% at 70% 50%,rgba(201,168,76,0.04) 0%,transparent 70%);}
+.hero-inner{max-width:1140px;margin:0 auto;padding:48px 48px 48px;position:relative;}
+.hero h1{max-width:620px;margin-bottom:16px;}
+.hero-sub{font-size:16px;color:var(--muted);max-width:440px;margin-bottom:32px;line-height:1.8;}
+.hero-btns{display:flex;gap:12px;flex-wrap:wrap;}
+.hero-stats{display:flex;gap:0;margin-top:28px;border-top:1px solid var(--border);padding-top:16px;}
+.stat{flex:1;padding-right:32px;border-right:1px solid var(--border);}
+.stat:last-child{border-right:none;padding-left:32px;padding-right:0;}
+.stat:first-child{padding-left:0;}
+.stat-n{font-family:"Cormorant Garamond",serif;font-size:36px;font-weight:300;color:var(--gold);line-height:1;margin-bottom:4px;}
+.stat-l{font-size:13px;letter-spacing:1px;text-transform:uppercase;color:var(--dim);white-space:nowrap;}
+
+/* DIFF SECTION */
+.diff-grid{display:grid;grid-template-columns:1fr 1.3fr;gap:36px;align-items:start;}
+.diff-list{display:flex;flex-direction:column;gap:16px;}
+.diff-item{padding-left:16px;border-left:1px solid var(--border-gold);}
+.diff-item h4{margin-bottom:6px;font-size:15px;color:#fff;}
+.diff-item p{font-size:15px;}
+/* CTA BAND */
+.cta-band{padding:28px 48px;border-top:1px solid var(--border);border-bottom:1px solid var(--border);background:var(--dark);}
+.cta-band-inner{max-width:1140px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;gap:40px;}
+.cta-band h2{font-size:32px;max-width:560px;}
+.cta-band p{color:var(--muted);font-size:15px;max-width:560px;margin-top:8px;}
+.cta-btns{display:flex;gap:10px;flex-shrink:0;flex-wrap:wrap;}
+
+/* ── WHY RE ───────────────────── */
+.page-hero{padding:28px 0 18px;border-bottom:1px solid var(--border);}
+.returns{display:flex;flex-direction:column;}
+.return-row{display:grid;grid-template-columns:48px 1fr 1fr;gap:32px;padding:14px 48px;border-bottom:1px solid var(--border);align-items:start;transition:background .2s;}
+.return-row:hover{background:var(--dark);}
+.return-num{font-family:"Cormorant Garamond",serif;font-size:15px;color:var(--dim);padding-top:3px;}
+.return-row h3{font-size:20px;margin-bottom:8px;}
+.return-badge{display:inline-block;font-size:12px;letter-spacing:1.5px;text-transform:uppercase;background:rgba(201,168,76,0.1);color:var(--gold);padding:3px 8px;margin-bottom:10px;}
+.return-row p{font-size:16px;}.return-row > div:last-child{padding-top:60px;}
+.pull-quote{border-left:1px solid var(--border-gold);padding-left:16px;margin-top:16px;}
+.pull-quote p{font-size:16px;font-style:normal;color:rgba(255,255,255,0.85);}
+.risk-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--border);}
+.risk-card{background:var(--dark);padding:20px 24px;}
+.risk-card h4{font-size:16px;margin-bottom:8px;}
+.risk-card p{font-size:16px;}
+
+/* ── WHAT WE DO ───────────────── */
+.int-diagram{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border-gold);border:1px solid var(--border-gold);}
+.int-item{background:var(--black);padding:16px 22px;text-align:center;}
+.int-icon{font-size:24px;color:var(--gold);margin-bottom:8px;opacity:.5;}
+.int-item h3{font-size:26px;margin-bottom:6px;}
+.int-item p{font-size:14px;}
+.int-caption{text-align:center;padding:12px;background:rgba(201,168,76,0.04);border:1px solid var(--border-gold);border-top:none;font-size:12px;letter-spacing:1.5px;text-transform:uppercase;color:var(--dim);}
+.svc-block{padding:28px 0;border-bottom:1px solid var(--border);}
+.svc-block:nth-child(even){background:var(--dark);}
+.svc-inner{max-width:1140px;margin:0 auto;padding:0 48px;display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start;}
+.svc-num{font-family:"Cormorant Garamond",serif;font-size:80px;color:rgba(201,168,76,0.28);line-height:1;margin-bottom:-12px;}
+.svc-list{list-style:none;margin-top:20px;display:flex;flex-direction:column;gap:0;}
+.svc-list li{font-size:15px;color:var(--muted);padding:9px 0;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px;}
+.svc-list li::before{content:"";width:4px;height:4px;background:var(--gold);flex-shrink:0;border-radius:50%;}
+.svc-box{background:var(--mid);padding:32px;border-top:2px solid var(--gold);}
+.svc-box .eyebrow{margin-bottom:8px;}
+.svc-box h3{font-size:20px;margin-bottom:12px;}
+.svc-box p{font-size:15px;}
+.svc-metrics{margin-top:20px;padding-top:20px;border-top:1px solid var(--border);}
+.metric-row{display:flex;justify-content:space-between;padding:7px 0;font-size:14px;}
+.metric-row span{color:var(--muted);}
+.metric-row strong{color:var(--gold);}
+
+/* ── PROJECTS ─────────────────── */
+.filter-bar{display:flex;gap:6px;padding:28px 48px;border-bottom:1px solid var(--border);}
+.f-btn{font-size:13px;letter-spacing:1.5px;text-transform:uppercase;padding:6px 14px;border:1px solid var(--border);background:transparent;color:var(--muted);cursor:pointer;transition:all .2s;}
+.f-btn.active,.f-btn:hover{border-color:var(--gold);color:var(--gold);}
+.proj-full-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);}
+.pfc{background:var(--dark);}
+.pfc-img{height:200px;display:flex;align-items:center;justify-content:center;position:relative;background:var(--mid);overflow:hidden;}
+.status-badge{position:absolute;top:12px;left:12px;font-size:12px;letter-spacing:1px;text-transform:uppercase;padding:6px 14px;font-weight:700;box-shadow:0 2px 8px rgba(0,0,0,0.5);}
+.s-current{background:#C9A84C;color:#0c0c0c;}
+.s-done{background:#ffffff;color:#0c0c0c;}
+.pfc-body{padding:20px 24px;}
+.pfc-type{font-size:12px;letter-spacing:1.5px;text-transform:uppercase;color:var(--gold);margin-bottom:6px;}
+.pfc-body h4{font-size:15px;margin-bottom:6px;}
+.pfc-body p{font-size:16px;}
+.pfc-meta{display:flex;gap:20px;margin-top:14px;padding-top:14px;border-top:1px solid var(--border);}
+.pfc-meta-item .ml{font-size:12px;letter-spacing:.5px;text-transform:uppercase;color:var(--dim);display:block;}
+.pfc-meta-item .mv{font-size:14px;color:var(--muted);}
+
+/* ── FINANCING ────────────────── */
+.myth-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border);}
+.myth-box{padding:14px 18px;}.myth-body{display:none;margin-top:10px;}.myth-toggle{background:none;border:none;color:var(--gold);font-size:12px;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;padding:6px 0 0;font-family:"DM Sans",sans-serif;display:inline-block;}.myth-toggle:hover{opacity:0.75;}
+.myth-box .myth-label{font-size:12px;letter-spacing:2px;text-transform:uppercase;margin-bottom:12px;}
+.myth-false .myth-label{color:#e07070;}
+.myth-true .myth-label{color:var(--gold);}
+.myth-box h3{font-size:22px;font-family:"Cormorant Garamond",serif;font-weight:400;margin-bottom:10px;}
+.myth-box p{font-size:15px;}
+.myth-false{background:rgba(200,60,60,0.04);}
+.myth-true{background:rgba(201,168,76,0.03);}
+.nums-row{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);}
+.num-box{background:var(--dark);padding:22px;border-top:2px solid var(--gold);}
+.num-box .big{font-family:"Cormorant Garamond",serif;font-size:48px;font-weight:300;color:var(--gold);line-height:1;margin-bottom:8px;}
+.num-box p{font-size:15px;}
+.steps{display:flex;flex-direction:column;}
+.step{display:grid;grid-template-columns:40px 1fr;gap:24px;padding:28px 0;border-bottom:1px solid var(--border);align-items:start;}
+.step-n{font-family:"Cormorant Garamond",serif;font-size:28px;color:var(--gold);line-height:1;}
+.step h4{font-size:16px;margin-bottom:6px;}
+.step p{font-size:16px;}
+.tmc-box{background:var(--dark);border:1px solid var(--border-gold);padding:28px;}
+.tmc-inner{display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:start;}
+.tmc-box h2{font-size:28px;margin-bottom:12px;}
+
+/* ── ADU ──────────────────────── */
+.adu-scenarios{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);}
+.adu-sc{background:var(--dark);padding:28px;border-top:2px solid var(--gold);}
+.adu-sc .sc-type{font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--gold);margin-bottom:10px;}
+.adu-sc h4{font-size:16px;margin-bottom:14px;}
+.adu-sc .income{font-family:"Cormorant Garamond",serif;font-size:40px;font-weight:300;color:#fff;line-height:1;margin-bottom:4px;}
+.adu-sc .inc-label{font-size:14px;color:rgba(255,255,255,0.85);}
+.adu-sc .sc-detail{font-size:14px;margin-top:16px;padding-top:16px;border-top:1px solid var(--border);}
+.calc-box{background:var(--dark);border:1px solid var(--border);padding:24px;max-width:800px;margin:0 auto;}
+.calc-box h3{font-size:20px;margin-bottom:24px;}
+.calc-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px;}
+.calc-item label{display:block;font-size:13px;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,0.85);margin-bottom:6px;}
+.calc-item input{width:100%;background:var(--mid);border:1px solid var(--border);color:#fff;padding:10px 14px;font-family:"DM Sans",sans-serif;font-size:14px;}
+.calc-item input:focus{outline:none;border-color:var(--border-gold);}
+.calc-result{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border-gold);margin-top:24px;}
+.calc-r-item{background:var(--black);padding:20px;}
+.calc-r-item .rl{font-size:13px;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,0.85);margin-bottom:4px;}
+.calc-r-item .rv{font-family:"Cormorant Garamond",serif;font-size:32px;font-weight:300;color:var(--gold);}
+.chain{display:flex;flex-direction:column;}
+.chain-step{display:grid;grid-template-columns:32px 1fr;gap:20px;padding:24px 0;border-bottom:1px solid var(--border);align-items:start;}
+.chain-step:last-child{border-bottom:none;}
+.chain-n{font-family:"Cormorant Garamond",serif;font-size:24px;color:var(--gold);line-height:1;}
+.chain-step h4{font-size:13px;margin-bottom:5px;}
+.chain-step p{font-size:13px;}
+
+/* FOOTER */
+footer{background:#0c0c0c;border-top:1px solid var(--border);padding:36px 0 24px;}
+.footer-inner{max-width:1140px;margin:0 auto;padding:0 48px;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px;}
+.footer-logo img{height:100px;margin-bottom:12px;}
+.footer-tagline{font-size:14px;color:rgba(255,255,255,0.85);line-height:1.7;max-width:200px;}
+.footer-col h5{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:14px;}
+.footer-col ul{list-style:none;display:flex;flex-direction:column;gap:8px;}
+.footer-col ul li{font-size:14px;color:var(--muted);cursor:pointer;transition:color .2s;}
+.footer-col ul li:hover{color:#fff;}
+.footer-bottom{background:var(--black);max-width:1140px;margin:32px auto 0;padding:20px 48px 0;border-top:1px solid var(--border);display:flex;justify-content:space-between;font-size:13px;color:rgba(255,255,255,0.75);}
+
+/* 1200px : small laptops + iPad Pro landscape */
+@media(max-width:1200px){
+  .wrap,.wrap-sm{padding:0 32px;}
+  .hero-inner{padding:48px 32px;}
+  .cta-band{padding:24px 32px;}
+  .return-row{padding:14px 32px;}
+  .filter-bar{padding:20px 32px;}
+  .svc-block .svc-inner{padding:0 32px;}
+  .footer-inner{gap:24px;}
+  h1{font-size:clamp(30px,3.5vw,52px);}
+}
+
+/* 900px : iPad portrait + tablets */
+@media(max-width:900px){
+  nav{padding:0 20px;}
+  .nav-logo img{height:64px;}
+  .nav-links{display:none;}
+  .nav-hamburger{display:flex !important;}
+  .nav-cta{display:none;}
+  .wrap,.wrap-sm{padding:0 20px;}
+  .hero-inner{padding:32px 20px;}
+  h1{font-size:28px;}
+  h2{font-size:22px;}
+  h3{font-size:20px;}
+  .proj-full-grid{grid-template-columns:repeat(2,1fr) !important;}
+  .nums-row{grid-template-columns:repeat(2,1fr);}
+  .adu-scenarios{grid-template-columns:repeat(2,1fr);}
+  .int-diagram{grid-template-columns:repeat(2,1fr);}
+  .diff-grid{gap:24px;}
+  .svc-inner{gap:24px;}
+  .tmc-inner{gap:20px;}
+  .risk-grid{grid-template-columns:repeat(2,1fr);}
+  .myth-grid{grid-template-columns:repeat(2,1fr);}
+  .hero-stats{display:grid;grid-template-columns:repeat(2,1fr);gap:0;}
+  .stat{border-right:1px solid var(--border);border-bottom:1px solid var(--border);padding:12px 16px 12px 0;}
+  .stat:nth-child(2n){border-right:none;}
+  .stat:nth-last-child(-n+2):not(:nth-child(2n+1)){border-bottom:none;}
+  .stat:last-child{border-bottom:none;}
+  .cta-band{padding:24px 20px;}
+  .cta-band-inner{flex-direction:column;gap:20px;}
+  .footer-inner{grid-template-columns:1fr 1fr;gap:20px;}
+  .return-row{grid-template-columns:32px 1fr;gap:16px;padding:12px 20px;}.return-row > div:last-child{padding-top:0;}
+  .calc-row{grid-template-columns:1fr 1fr;}
+  .filter-bar{padding:16px 20px;flex-wrap:wrap;}
+  .svc-block .svc-inner{padding:0 20px;}
+}
+
+/* 600px : phones + small portrait */
+@media(max-width:600px){
+  nav{padding:0 16px;height:64px;}
+  .nav-logo img{height:84px;}
+  .page{padding-top:64px;}
+  .mobile-nav{top:64px;}
+  .wrap,.wrap-sm{padding:0 16px;}
+  .hero-inner{padding:24px 16px;}
+  h1{font-size:24px;}
+  h2{font-size:20px;}
+  h3{font-size:18px;}
+  .risk-grid,.nums-row,.adu-scenarios,.proj-full-grid{grid-template-columns:1fr !important;}
+  .diff-grid,.svc-inner,.tmc-inner,.int-diagram{grid-template-columns:1fr;}
+  .myth-grid,.calc-row{grid-template-columns:1fr;}
+  .footer-inner{grid-template-columns:1fr;}
+  .modal-form-grid{grid-template-columns:1fr;}
+  .hero-stats{display:flex;flex-direction:column;gap:0;}
+  .stat{border-right:none;border-bottom:1px solid var(--border);padding:12px 0;}
+  .stat:last-child{border-bottom:none;padding-left:0;}
+  .cta-btns{flex-direction:column;}
+  .cta-band{padding:20px 16px;}
+  .return-row{grid-template-columns:1fr;padding:16px;}
+  .return-num{display:none;}
+  .return-row > div{padding-top:0 !important;}
+  .filter-bar{padding:12px 16px;}
+  .svc-block .svc-inner{padding:0 16px;}
+  .modal-box{padding:28px 20px;}
+  .svc-num{font-size:32px;}
+  .hero{min-height:55vh;}
+  .mob-stack{grid-template-columns:1fr !important;}
+  .calc-result{grid-template-columns:1fr !important;}
+  .stat-n{font-size:24px;}
+  .num-box .big,.num-box .big-n{font-size:28px;}
+  .adu-sc .income{font-size:24px;}
+  .calc-r-item .rv{font-size:20px;}
+  .pfc-img{height:140px;}
+  .risk-card{padding:14px 12px;}
+  .step{gap:12px;}
+  .chain-step{gap:12px;}
+  .tmc-inner{gap:16px;}
+  .cta-band h2{font-size:22px;}
+  .mission-col{border-left:none !important;padding-left:0 !important;}
+  .hero-logo{height:60px !important;width:auto !important;}
+  .lease-bar{padding:12px 16px;}
+  .lease-bar span{padding:3px 8px;}
+  .lease-desc{padding-top:20px !important;padding-bottom:20px !important;}
+  .lease-unit-card{min-height:0 !important;}
+  .lease-floorplan{flex:0 0 100%;height:140px;}
+  .lease-unit-card > div:last-child{flex-wrap:wrap;}
+  #p-lease .mob-stack > *:nth-child(1){order:1;}
+  #p-lease .mob-stack > *:nth-child(3){order:2;}
+  #p-lease .mob-stack > *:nth-child(5){order:3;}
+  #p-lease .mob-stack > *:nth-child(7){order:4;}
+  #p-lease .mob-stack > *:nth-child(9){order:5;}
+  #p-lease .mob-stack > *:nth-child(2){order:6;margin-top:2px;border-top:2px solid rgba(201,168,76,0.5);}
+  #p-lease .mob-stack > *:nth-child(4){order:7;}
+  #p-lease .mob-stack > *:nth-child(6){order:8;}
+  #p-lease .mob-stack > *:nth-child(8){order:9;}
+  #p-lease .mob-stack > *:nth-child(10){order:10;}
+}
+
+/* CONSULTATION MODAL */
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.88);z-index:2000;align-items:center;justify-content:center;padding:20px;}
+.modal-overlay.open{display:flex;}
+.modal-box{background:var(--dark);border:1px solid var(--border-gold);max-width:680px;width:100%;max-height:90vh;overflow-y:auto;position:relative;padding:48px;}
+.modal-close{position:absolute;top:16px;right:20px;background:none;border:none;color:var(--muted);font-size:22px;cursor:pointer;line-height:1;padding:4px 8px;}
+.modal-close:hover{color:#fff;}
+.modal-form-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+.modal-field{display:flex;flex-direction:column;gap:6px;}
+.modal-field label{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--dim);}
+.modal-field input,.modal-field select{background:var(--mid);border:1px solid var(--border);color:#fff;padding:11px 14px;font-family:"DM Sans",sans-serif;font-size:14px;appearance:none;-webkit-appearance:none;outline:none;width:100%;}
+.modal-field input:focus,.modal-field select:focus{border-color:var(--border-gold);}
+.modal-field select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23C9A84C' stroke-width='1.5' fill='none'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;padding-right:36px;cursor:pointer;}
+.modal-field select option{background:var(--mid);color:#fff;}
+.modal-success{display:none;text-align:center;padding:24px 0;}
+.modal-success h3{font-family:"Cormorant Garamond",serif;font-size:32px;font-weight:300;color:var(--gold);margin-bottom:10px;}
+.modal-error{display:none;padding:10px 14px;background:rgba(200,60,60,0.08);border:1px solid rgba(200,60,60,0.3);color:#e07070;font-size:13px;margin-top:8px;}
+@media(max-width:600px){.modal-box{padding:28px 20px;}.modal-form-grid{grid-template-columns:1fr;}}
+
+
+/* HAMBURGER + MOBILE NAV */
+.nav-hamburger{display:none;flex-direction:column;justify-content:center;gap:6px;background:none;border:none;cursor:pointer;padding:8px 6px;flex-shrink:0;}
+.nav-hamburger span{display:block;width:26px;height:3px;background:#fff;border-radius:2px;transition:background .2s;}
+.nav-hamburger:hover span{background:#fff;}
+.mobile-nav{display:none;position:fixed;top:76px;left:0;right:0;background:rgba(12,12,12,0.98);border-bottom:1px solid var(--border);z-index:998;flex-direction:column;overflow-y:auto;max-height:calc(100vh - 76px);}
+.mobile-nav.open{display:flex;}
+.mobile-nav a{padding:14px 20px;font-size:12px;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);border-bottom:1px solid var(--border);cursor:pointer;transition:color .2s;}
+.mobile-nav a:hover,.mobile-nav a.nav-active{color:var(--gold);}
+.mobile-nav .mn-cta{margin:16px 20px 20px;display:block;text-align:center;}
+
+
+
+
+/* COOKIE BANNER */
+.cookie-banner{display:none;position:fixed;bottom:0;left:0;right:0;background:#1a1a1a;border-top:1px solid var(--border);padding:12px 24px;z-index:3000;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;}
+.cookie-banner.visible{display:flex;}
+.cookie-banner p{margin:0;font-size:13px;color:var(--muted);line-height:1.5;}
+@media(max-width:600px){.cookie-banner{padding:12px 16px;}}
+
+/* PRIVACY PAGE */
+.privacy-body{display:flex;flex-direction:column;gap:32px;color:var(--muted);font-size:15px;line-height:1.8;}
+.privacy-body section h2{font-size:20px;color:#fff;margin-bottom:10px;font-family:inherit;}
+.privacy-body section p{margin:0;}
+
+
+
+
+
+
+/* CARD FLIP */
+.int-item{position:relative;cursor:pointer;transition:transform 0.2s ease;transform-origin:center;}
+.int-item.flipping{transform:scaleX(0);}
+.flip-back{display:none!important;}
+.int-item.flipped .flip-front{display:none!important;}
+.int-item.flipped .flip-back{display:block!important;}
+.flip-back h3{font-size:20px;color:var(--gold);margin-bottom:10px;line-height:1.3;}
+.flip-back p{font-size:13px;color:var(--muted);line-height:1.75;margin:0;}
+.flip-hint{display:block;font-size:11px;letter-spacing:1px;text-transform:uppercase;color:var(--gold);opacity:0.5;margin-bottom:12px;}
+.int-item:hover .flip-hint{opacity:1;}
+.flip-back-hint{display:block;font-size:11px;letter-spacing:1px;text-transform:uppercase;color:var(--gold);opacity:0.45;margin-top:14px;}
+
+.svc-block .eyebrow{font-size:17px;letter-spacing:2px;font-weight:700;}
+</style>
+</head>
+<body>
+<div id="cookie-banner" class="cookie-banner">
+  <p>This site collects contact information to respond to project enquiries. By continuing, you accept our <a onclick="go('privacy')" style="color:var(--gold);cursor:pointer;">Privacy Policy</a>.</p>
+  <button onclick="acceptCookies()" class="btn" style="padding:8px 20px;font-size:12px;white-space:nowrap;flex-shrink:0;">Got it</button>
+</div>
+<div class="modal-overlay" id="modal-overlay" onclick="handleOverlayClick(event)">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeModal()" aria-label="Close">×</button>
+    <div class="gold-line"></div>
+    <div class="eyebrow">Book a Consultation</div>
+    <h2 style="margin-bottom:8px;font-size:clamp(22px,2.5vw,32px);">Let's talk about your project.</h2>
+    
+
+    <div class="modal-success" id="modal-success">
+      <h3>We'll be in touch.</h3>
+      <p style="font-size:15px;color:var(--muted);">Your request has been sent. We'll be in touch soon.</p>
+      <button class="btn" style="margin-top:20px;" onclick="closeModal()">Close</button>
+    </div>
+
+    <form id="modal-form" name="consultation" netlify data-netlify="true" method="POST" style="display:flex;flex-direction:column;gap:14px;"><input type="hidden" name="form-name" value="consultation">
+      <div class="modal-form-grid">
+        <div class="modal-field">
+          <label for="m-name">Name</label>
+          <input type="text" id="m-name" name="name" placeholder="Your full name" required="">
+        </div>
+        <div class="modal-field">
+          <label for="m-email">Email</label>
+          <input type="email" id="m-email" name="email" placeholder="your@email.com" required="">
+        </div>
+      </div>
+      <div class="modal-field">
+        <label for="m-phone">Phone</label>
+        <input type="tel" id="m-phone" name="phone" placeholder="705-000-0000">
+      </div>
+      <div class="modal-form-grid">
+        <div class="modal-field">
+          <label for="m-type">Project Type</label>
+          <select id="m-type" name="project_type" required="">
+            <option value="" disabled="" selected="">Select...</option>
+            <option value="Custom Home">Custom Home</option>
+            <option value="Multi-Unit">Multi-Unit</option>
+            <option value="ADU">ADU</option>
+            <option value="Investor">Investor</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+        <div class="modal-field">
+          <label for="m-timeline">Timeline</label>
+          <select id="m-timeline" name="timeline" required="">
+            <option value="" disabled="" selected="">Select...</option>
+            <option value="0-3 months">0–3 months</option>
+            <option value="3-6 months">3–6 months</option>
+            <option value="6-12 months">6–12 months</option>
+            <option value="Just exploring">Just exploring</option>
+          </select>
+        </div>
+      </div>
+      
+      
+      <div style="padding-top:4px;display:flex;align-items:center;gap:16px;">
+        <button type="submit" class="btn" id="modal-submit" style="padding:12px 32px;">Send Request</button>
+        
+      </div>
+      <div class="modal-error" id="modal-error">Something went wrong. Email <a href="#" style="color:var(--gold);" onclick="var e='trevor',d='devcomhomes.ca';window.location='mai'+'lto:'+e+'@'+d;return false;">trevor@devcomhomes.ca</a> directly.</div>
+    </form>
+  </div>
+</div>
+
+
+<nav>
+  <div class="nav-logo"><img src="/images/img-1.png" alt="DevCom Homes"></div>
+  <div class="nav-links">
+    <a onclick="go('home')" id="n-home" class="nav-active">Home</a>
+    <a onclick="go('services')" id="n-services" class="">What We Do</a>
+    <a onclick="go('projects')" id="n-projects">Projects</a>
+    <a onclick="go('financing')" id="n-financing">Financing</a>
+    <a onclick="go('why')" id="n-why">Why Real Estate</a>
+    <a onclick="go('adu')" id="n-adu">ADU Strategy</a>
+    <a onclick="go('lease')" id="n-lease" class="">For Lease</a>
+  </div>
+  
+  <button class="nav-hamburger" id="nav-hamburger" onclick="toggleMobileNav()" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button><button class="nav-cta btn" onclick="openModal()">Get Started</button>
+</nav>
+<div class="mobile-nav" id="mobile-nav">
+  <a onclick="go('home');closeMobileNav()" id="mn-home" class="nav-active">Home</a>
+  <a onclick="go('services');closeMobileNav()" id="mn-services" class="">What We Do</a>
+  <a onclick="go('projects');closeMobileNav()" id="mn-projects">Projects</a>
+  <a onclick="go('financing');closeMobileNav()" id="mn-financing">Financing</a>
+  <a onclick="go('why');closeMobileNav()" id="mn-why">Why Real Estate</a>
+  <a onclick="go('adu');closeMobileNav()" id="mn-adu">ADU Strategy</a>
+  <a onclick="go('lease');closeMobileNav()" id="mn-lease" class="">For Lease</a>
+  <div class="mn-cta"><button class="btn" style="width:100%;padding:12px;" onclick="openModal();closeMobileNav()">Get Started</button></div>
+</div>
+
+
+<!-- ── HOME ─────────────────────────────────────────── -->
+<div class="page active" id="p-home">
+
+  <section class="hero" style="position:relative;">
+  <img src="https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=1600&amp;auto=format&amp;fit=crop&amp;q=80" alt="Modern home" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0.12;z-index:0;">
+    <div class="hero-inner" style="position:relative;z-index:1;">
+      <div class="eyebrow">Southern Georgian Bay · Development · Construction · Financing</div>
+      <div style="display:inline-flex;flex-direction:column;align-items:center;margin-top:20px;">
+        <img class="hero-logo" src="/images/img-2.png" style="height:64px;width:auto;margin-bottom:-4px;" alt="DevCom Homes logo">
+        <div style="font-family:'Cormorant Garamond',serif;font-size:clamp(18px,2vw,26px);font-weight:400;letter-spacing:5px;text-transform:uppercase;color:var(--gold);margin-bottom:4px;">DevCom Homes</div>
+      </div>
+      <h1 style="margin-top:0;">Developing our<br><em class="text-gold">Communities.</em></h1>
+      <p class="hero-sub" style="max-width:560px;">We live here. We build here. We develop, finance, and deliver the rental housing Southern Georgian Bay needs because growing communities deserve builders with a genuine stake in the outcome.</p>
+      <div class="hero-btns">
+        <button class="btn" onclick="go('services')">How We Build</button>
+        <button class="btn btn-ghost" onclick="go('why')">Our Approach</button>
+      </div>
+      <div class="hero-stats">
+        
+        <div class="stat"><div class="stat-n">3-in-1</div><div class="stat-l">Development · Build · Finance</div></div>
+        <div class="stat"><div class="stat-n">100%</div><div class="stat-l">Accountable to Our Communities</div></div>
+        <div class="stat"><div class="stat-n">Local</div><div class="stat-l">Southern Georgian Bay</div></div>
+      </div>
+    </div>
+  </section>
+
+<section class="sec" style="background:var(--dark);padding:16px 0;">
+    <div class="wrap" style="max-width:1400px;padding:0 24px;">
+      <div class="mob-stack" style="display:grid;grid-template-columns:1fr 1fr;gap:36px;align-items:start;">
+
+        <div>
+          <div class="gold-line"></div>
+          <div class="eyebrow">Vision</div>
+          <h2 style="margin-bottom:10px;font-size:24px;">Where we're headed.</h2>
+          <p style="font-size:14px;line-height:1.8;">To be a driving force in addressing Southern Georgian Bay's growing housing demand by building smart, sustainable communities that balance growth, quality, and long-term livability for the people who call this region home.</p>
+        </div>
+
+        <div class="mission-col" style="border-left:1px solid var(--border-gold);padding-left:40px;">
+          <div class="gold-line"></div>
+          <div class="eyebrow">Mission</div>
+          <h2 style="margin-bottom:10px;font-size:24px;">How we operate.</h2>
+          <p style="font-size:14px;line-height:1.8;">DevCom Homes develops and builds quality rental and residential communities across Southern Georgian Bay, connecting every piece of the puzzle, from land strategy and financial solutions to final delivery. By managing the full process and working with the right partners, we execute efficiently, protect investments, and remain fully accountable to our clients and the communities we serve.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider"><section class="sec">
+    <div class="wrap" style="padding:0 16px;">
+      <div>
+        <div>
+          <div class="eyebrow">Why We're Different</div>
+          <h2 style="margin-bottom:16px;">We think like operators, not contractors.</h2>
+          <p style="margin-bottom:32px;font-size:15px;">Our vertical integration is not a marketing pitch. It is how we protect your budget, compress timelines, and maximize every project's return.</p>
+          <div class="diff-list">
+            <div class="diff-item">
+              <h4>No markups on markups</h4>
+              <p style="font-size:15px;margin-top:4px;">Because we control construction, you don't pay a GC's premium on top of a developer's fee. The margin stays in the project.</p>
+            </div>
+            <div class="diff-item">
+              <h4>We've done it with our own money</h4>
+              <p style="font-size:15px;margin-top:4px;">Every strategy we recommend is one we've used ourselves. That accountability changes everything.</p>
+            </div>
+            <div class="diff-item">
+              <h4>Finance-first thinking</h4>
+              <p style="font-size:15px;margin-top:4px;">We structure projects to work financially before a shovel hits the ground. Returns are the starting point, not an afterthought.</p>
+            </div>
+            <div class="diff-item">
+              <h4>You keep more equity</h4>
+              <p style="font-size:15px;margin-top:4px;">Smart financing means you put less in and keep more out. We show you how to use leverage intelligently.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  
+
+  <hr class="divider">
+
+  
+
+
+
+  
+
+  
+
+
+  <div class="cta-band">
+    <div class="cta-band-inner">      <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:24px;width:100%;">
+        <div>
+          <div class="eyebrow">Ready to Build?</div>
+          <h2>Let's talk about your project.</h2>
+          <p>Southern Georgian Bay is growing, and how we build matters. We take on every project with long-term livability in mind, because the homes and neighbourhoods we create today shape the community everyone shares tomorrow. Whether you want to build, invest, or both, we'll show you what's possible with the right strategy and the right team.</p>
+        </div>
+        <div class="cta-btns">
+          <button class="btn" onclick="go('financing')">Explore Financing</button>
+          <button class="btn btn-ghost" onclick="go('why')">The Investment Case</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <section class="sec" style="border-top:1px solid var(--border);">
+    <div class="wrap">
+      <div class="eyebrow" style="margin-bottom:16px;">Get to Know Us</div>
+      <h2 style="margin-bottom:32px;">The team behind the work.</h2>
+      <div class="mob-stack" style="display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);max-width:860px;zoom:0.82;margin:0 auto;">
+        <div style="background:var(--dark);">
+          <div style="height:300px;overflow:hidden;"><img loading="lazy" src="/images/img-3.jpg" alt="Trevor Hough" style="width:100%;height:100%;object-fit:cover;object-position:center 48%;display:block;"></div>
+          <div style="padding:24px 28px;">
+            <div style="font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:6px;">Development · Financing</div>
+            <h4 style="font-size:18px;margin-bottom:10px;">Trevor Hough</h4>
+            <p style="font-size:14px;color:rgba(255,255,255,0.62);line-height:1.7;">Trevor leads client relationships, land acquisition, and investor strategy. As a licensed Mortgage Agent (Level 2, FSRA #13120) through The Mortgage Coach, he brings financing into the project from day one so the numbers always hold together.</p>
+          </div>
+        </div>
+        <div style="background:var(--dark);">
+          <div style="height:300px;overflow:hidden;"><img loading="lazy" src="/images/img-4.jpg" alt="Matt Duits" style="width:100%;height:100%;object-fit:cover;object-position:15% 5%;display:block;"></div>
+          <div style="padding:24px 28px;">
+            <div style="font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:6px;">Operations · Field</div>
+            <h4 style="font-size:18px;margin-bottom:10px;">Matt Duits</h4>
+            <p style="font-size:14px;color:rgba(255,255,255,0.62);line-height:1.7;">Matt runs the business day to day, overseeing project management, field operations, scheduling, and trades. Every build stays on time and on budget because Matt owns the process from mobilization to handover.</p>
+          </div>
+        </div>
+        <div style="background:var(--dark);">
+          <div style="height:300px;overflow:hidden;"><img loading="lazy" src="/images/img-5.png" alt="Kaitlyn DuBeau" style="width:100%;height:100%;object-fit:cover;object-position:center 0%;display:block;"></div>
+          <div style="padding:24px 28px;">
+            <div style="font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:6px;">Business · Finance</div>
+            <h4 style="font-size:18px;margin-bottom:10px;">Kaitlyn DuBeau</h4>
+            <p style="font-size:14px;color:rgba(255,255,255,0.62);line-height:1.7;">Kaitlyn manages the business behind the business: bookkeeping, payroll, accounts payable and receivable, insurance, and WSIB compliance. The back end runs cleanly so the front end can focus on building.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<!-- ── WHY REAL ESTATE ───────────────────────────────── -->
+<div class="page" id="p-why">
+
+  <section class="page-hero">
+    <div class="wrap">
+      <div class="eyebrow">The Investment Case</div>
+      <h1 style="max-width:560px;">Real estate doesn't just grow — <em class="text-gold">it stacks.</em></h1>
+      <p style="max-width:520px;margin-top:16px;font-size:16px;">Other investments give you one return. Real estate gives you five, simultaneously. Here is exactly how they work, and why we structure every project to capture all of them.</p>
+    </div>
+  </section>
+
+  <div class="returns">
+    <div class="return-row">
+      <div class="return-num">01</div>
+      <div>
+        <div class="return-badge">Monthly Return</div>
+        <h3>Cash Flow</h3>
+        <p>Rental income minus expenses. A well-structured property generates positive cash flow from day one, before any appreciation or equity gain is factored in. We underwrite every project to cash flow positive at conservative rent estimates.</p>
+      </div>
+      <div>
+        <p style="font-size:15px;">We don't build speculation into the base case. If cash flow only works at best-case rents, the deal doesn't work.</p>
+        <div class="pull-quote" style="margin-top:16px;"><p>Most investors focus only on appreciation. We focus on cash flow first, because it pays you while you wait for everything else to compound.</p></div>
+      </div>
+    </div>
+    <div class="return-row">
+      <div class="return-num">02</div>
+      <div>
+        <div class="return-badge">Long-Term Return</div>
+        <h3>Appreciation</h3>
+        <p>Real estate has historically appreciated 4–6% annually in strong Canadian markets. On a leveraged asset, this return is amplified significantly. A 5% appreciation on a $1M property ($50K gain) equals a 25% return on a $200K down payment due to leverage.</p>
+      </div>
+      <div>
+        <p style="font-size:15px;">We focus on markets with strong fundamentals: supply constraints, population growth, employment diversity. Appreciation supported by data, not hope.</p>
+        <div class="pull-quote" style="margin-top:16px;"><p>A 5% annual gain on a leveraged property can translate to a 25–50% return on your actual invested capital.</p></div>
+      </div>
+    </div>
+    <div class="return-row">
+      <div class="return-num">03</div>
+      <div>
+        <div class="return-badge">Passive Return</div>
+        <h3>Mortgage Paydown</h3>
+        <p>Every month, your tenant's rent pays down your mortgage. You're building equity silently while someone else makes the payment. Over a 25-year amortization, this alone creates substantial wealth.</p>
+      </div>
+      <div>
+        <p style="font-size:15px;">On a typical 25-year amortization, mortgage payments build about 2–3% equity per year through principal paydown alone, before any appreciation is included.</p>
+        <div class="pull-quote" style="margin-top:16px;"><p>Mortgage paydown is the most underrated wealth builder in real estate. It works while you sleep.</p></div>
+      </div>
+    </div>
+    <div class="return-row">
+      <div class="return-num">04</div>
+      <div>
+        <div class="return-badge">Government Advantage</div>
+        <h3>Tax Advantages</h3>
+        <p>Canadian real estate investors access deductions most people never fully use: CCA, mortgage interest, maintenance expenses, professional fees, and more. When structured correctly, an investment property can offset income from other sources.</p>
+      </div>
+      <div>
+        <p style="font-size:15px;">We work with your accountant or refer you to one who understands real estate investing deeply. The tax code rewards real estate ownership in ways no other investment class matches.</p>
+        <div class="pull-quote" style="margin-top:16px;"><p>Most investors leave thousands on the table simply from not structuring their ownership correctly.</p></div>
+      </div>
+    </div>
+    <div class="return-row">
+      <div class="return-num">05</div>
+      <div>
+        <div class="return-badge">The Builder's Edge</div>
+        <h3>Forced Appreciation</h3>
+        <p>Unlike stocks, you can actively force the value of real estate up. Adding a unit, renovating, or changing the income profile all increase value on command. This is where builders have an edge the market cannot take away.</p>
+      </div>
+      <div>
+        <p style="font-size:15px;">For example, if it costs $200K to build and the added value is $250K, you have $50K of forced appreciation.</p>
+        <div class="pull-quote" style="margin-top:16px;"><p>Every project we build forces appreciation into the asset before the market has had a chance to price it in.</p></div>
+      </div>
+    </div>
+  </div>
+
+  <section class="sec" style="background:var(--dark);">
+    <div class="wrap">
+      <div class="eyebrow">Risk Management</div>
+      <h2 style="margin-bottom:8px;">Why all five matter.</h2>
+      <p style="max-width:520px;margin-bottom:32px;font-size:15px;">Each return stream is an independent mechanism. When one slows, the others continue. This is how real estate reduces risk while other investments concentrate it.</p>
+      <div class="risk-grid">
+        <div class="risk-card">
+          <h4>If the market is flat</h4>
+          <p style="font-size:15px;margin-top:6px;">You still have cash flow, mortgage paydown, and forced appreciation from development. The investment isn't depending on the market doing anything.</p>
+        </div>
+        <div class="risk-card">
+          <h4>If rates rise</h4>
+          <p style="font-size:15px;margin-top:6px;">We underwrite deals at stress-tested rates so rising costs are already in the model. Forced appreciation and strategic refinancing protect equity.</p>
+        </div>
+        <div class="risk-card">
+          <h4>If a tenant leaves</h4>
+          <p style="font-size:15px;margin-top:6px;">Appreciation, mortgage paydown, and tax benefits continue. Short-term vacancy is a cash flow event, not an existential one. Multi-unit design de-risks this further.</p>
+        </div>
+        <div class="risk-card">
+          <h4>If you need liquidity</h4>
+          <p style="font-size:15px;margin-top:6px;">Equity accessed through refinancing is tax-efficient and doesn't require a sale. A well-performing property can fund your next investment without selling your first.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="cta-band">
+    <div class="cta-band-inner">
+      <div>
+        <div class="eyebrow">Put the Strategy to Work</div>
+        <h2>Ready to build a portfolio that stacks returns?</h2>
+        <p>Let's walk through what a project would look like for you. Real numbers, not projections pulled from thin air.</p>
+      </div>
+      <div class="cta-btns">
+        <button class="btn" onclick="go('services')">Our Services</button>
+        <button class="btn btn-ghost" onclick="go('financing')">Explore Financing</button>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ── WHAT WE DO ─────────────────────────────────────── -->
+<div class="page" id="p-services">
+  <div style="height:300px;overflow:hidden;position:relative;border-bottom:1px solid var(--border);">
+    <img src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=1600&amp;auto=format&amp;fit=crop&amp;q=80" alt="Construction" style="width:100%;height:100%;object-fit:cover;opacity:0.35;display:block;">
+    <div style="position:absolute;inset:0;background:linear-gradient(to bottom,transparent 40%,var(--black));"></div>
+  </div>
+
+  <section class="page-hero">
+    <div class="wrap">
+      <div class="eyebrow">Our Services</div>
+      <h1>Three arms. <em class="text-gold">One machine.</em></h1>
+      <p style="max-width:520px;margin-top:16px;font-size:16px;">Development, construction, and financing are not separate services. They are a single integrated system, and that integration is the advantage.</p>
+    </div>
+  </section>
+
+  <div style="padding:16px 48px;">
+    <div class="int-diagram" style="max-width:1140px;margin:0 auto;">
+      <div class="int-item" onclick="flipCard(this)">
+          <div class="flip-front">
+            <span class="flip-hint">↺ click to learn more</span>
+            <div class="int-icon">◎</div>
+            <h3>Development</h3>
+            <p>Land, design, entitlements, long-term hold strategy</p>
+          </div>
+          <div class="flip-back" style="display:none">
+            <h3>Land with purpose</h3>
+            <p>We seek out underutilized land and transform it into housing that the region actually needs: thoughtfully designed, well-built, and held with a long-term view.</p>
+            <span class="flip-back-hint">↺ click to flip back</span>
+          </div>
+        </div>
+      <div class="int-item" onclick="flipCard(this)">
+          <div class="flip-front">
+            <span class="flip-hint">↺ click to learn more</span>
+            <div class="int-icon">◎</div>
+            <h3>Construction</h3>
+            <p>Ground-up builds, renovations, multi-unit projects</p>
+          </div>
+          <div class="flip-back" style="display:none">
+            <h3>Quality that stands for generations</h3>
+            <p>We build for clients the same way we build for ourselves: with a developer's eye, a builder's discipline, and a neighbour's sense of responsibility to the community.</p>
+            <span class="flip-back-hint">↺ click to flip back</span>
+          </div>
+        </div>
+      <div class="int-item" onclick="flipCard(this)">
+          <div class="flip-front">
+            <span class="flip-hint">↺ click to learn more</span>
+            <div class="int-icon">◎</div>
+            <h3>Financing</h3>
+            <p>Mortgage structuring, construction financing, qualification</p>
+          </div>
+          <div class="flip-back" style="display:none">
+            <h3>Making it possible for more people</h3>
+            <p>Trevor at The Mortgage Coach helps clients access financing structures they often don't know exist, so more people can participate in building and owning in the communities they love.</p>
+            <span class="flip-back-hint">↺ click to flip back</span>
+          </div>
+        </div>
+    </div>
+    <div class="int-caption" style="max-width:1140px;margin:0 auto;">Your financing informs your build · your build drives your returns · your returns fund your next project</div>
+  </div>
+
+  <div class="svc-block">
+    <div class="svc-inner">
+      <div>
+        <div class="svc-num">01</div>
+        <div class="eyebrow">Development</div>
+        <h2>We develop our own projects.</h2>
+        <p style="margin-top:12px;font-size:15px;">We identify undervalued land, design the project, manage entitlements, and hold the asset for long-term returns. This is how we operate as investors, not just builders.</p>
+        <ul class="svc-list">
+          <li>Land identification and acquisition analysis</li>
+          <li>Feasibility studies and proforma modeling</li>
+          <li>Design and municipal permitting</li>
+          <li>Construction management through delivery</li>
+          <li>Post-build hold, refinance, or sell strategy</li>
+          <li>Portfolio assembly for long-term wealth building</li>
+        </ul>
+        <button class="btn" style="margin-top:24px;" onclick="go('projects')">See Our Projects</button>
+      </div>
+      <div class="svc-box">
+        <div class="eyebrow">Why This Matters to You</div>
+        <h3>When we develop our own projects, you learn from real numbers.</h3>
+        <p style="font-size:15px;margin-top:10px;">Every strategy we recommend to clients, we've tested on our own balance sheet. What we share with you is earned from doing, not borrowed from textbooks.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="svc-block">
+    <div class="svc-inner">
+      <div>
+        <div class="svc-num">02</div>
+        <div class="eyebrow">Construction</div>
+        <h2>We build for clients — with a developer's eye.</h2>
+        <p style="margin-top:12px;font-size:15px;">A contractor builds what you tell them. A developer-builder asks what the project needs to perform. That distinction changes every decision.</p>
+        <ul class="svc-list">
+          <li>New residential construction (single and multi-family)</li>
+          <li>Secondary suites and garden suites</li>
+          <li>Full renovations and additions</li>
+          <li>Mixed-use development</li>
+          <li>Turnkey investment builds</li>
+          <li>Budget-to-completion project management</li>
+        </ul>
+        <button class="btn" style="margin-top:24px;" onclick="go('projects')">View Our Work</button>
+      </div>
+      <div class="svc-box">
+        <div class="eyebrow">Our Build Philosophy</div>
+        <h3>Budget discipline and quality are the same thing.</h3>
+        <p style="font-size:15px;margin-top:10px;">Overbuilt projects destroy returns. Underbuilt ones destroy value. We find the right specification for the market and hold the line. No surprise invoices, no scope creep.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="svc-block">
+    <div class="svc-inner">
+      <div>
+        <div class="svc-num">03</div>
+        <div class="eyebrow">Financing</div>
+        <h2>We structure deals to work financially.</h2>
+        <p style="margin-top:12px;font-size:15px;">We don't just refer you to a broker. We sit down at the table with you and Trevor at The Mortgage Coach to structure the project from a financing-first perspective. How you enter a deal determines how you exit.</p>
+        <ul class="svc-list">
+          <li>Construction mortgage structuring</li>
+          <li>Investment property financing</li>
+          <li>High-ratio financing (up to 95% loan-to-cost)</li>
+          <li>Refinancing and equity extraction strategies</li>
+          <li>Self-employed and non-traditional qualification</li>
+          <li>Mortgage advisory through The Mortgage Coach (Trevor Hough)</li>
+        </ul>
+        <button class="btn" style="margin-top:24px;" onclick="go('financing')">Explore Financing</button>
+      </div>
+      <div class="svc-box">
+        <div class="eyebrow">The Financing Advantage</div>
+        <h3>Most people don't know what they can qualify for.</h3>
+        <p style="font-size:15px;margin-top:10px;">The mortgage products available to builders and investors are fundamentally different from a standard purchase mortgage. We know which products apply and how to structure your situation.</p>
+        <div style="margin-top:20px;">
+          <div style="font-family:'Cormorant Garamond',serif;font-size:56px;font-weight:300;color:var(--gold);line-height:1;">95%</div>
+          <p style="font-size:15px;color:rgba(255,255,255,0.85);margin-top:6px;">Maximum financing on construction projects — up to 95% loan-to-cost</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cta-band">
+    <div class="cta-band-inner">
+      <div>
+        <div class="eyebrow">Start a Conversation</div>
+        <h2>Tell us about your project.</h2>
+        <p>Whether you have land, an idea, or just a goal, we'll tell you how the numbers could work and what the path looks like.</p>
+      </div>
+      <div class="cta-btns">
+        <button class="btn" onclick="go('financing')">Talk Financing</button>
+        <button class="btn btn-ghost" onclick="go('adu')">ADU Strategy</button>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ── PROJECTS ───────────────────────────────────────── -->
+<div class="page" id="p-projects">
+
+  <section class="page-hero">
+    <div class="wrap">
+      <div class="eyebrow">Our Work</div>
+      <h1>Projects that <em class="text-gold">perform.</em></h1>
+      <p style="max-width:480px;margin-top:16px;font-size:16px;">Every project on this page was built with returns in mind. Real assets, real numbers, real outcomes.</p>
+    </div>
+  </section>
+
+  <div class="filter-bar">
+    <button class="f-btn active" onclick="filterP('all',this)">All</button>
+    <button class="f-btn" onclick="filterP('current',this)">Current</button>
+    <button class="f-btn" onclick="filterP('complete',this)">Completed</button>
+  </div>
+
+  <div class="proj-full-grid" style="grid-template-columns:repeat(3,1fr);max-width:1140px;margin:0 auto;">
+    <div class="pfc" data-tag="complete">
+      <div class="pfc-img" style="overflow:hidden;padding:0;">
+        <span class="status-badge s-done" style="position:absolute;top:12px;left:12px;font-size:12px;letter-spacing:1px;text-transform:uppercase;padding:6px 14px;font-weight:700;box-shadow:0 2px 8px rgba(0,0,0,0.5);z-index:2;background:#ffffff;color:#0c0c0c;">Completed</span>
+        <img loading="lazy" src="/images/img-6.png" alt="Project Golfview" style="width:100%;height:100%;object-fit:cover;opacity:0.75;display:block;">
+      </div>
+      <div class="pfc-body"><h4>Project Golfview</h4>
+        <span style="display:inline-block;font-size:10px;letter-spacing:1.5px;text-transform:uppercase;padding:2px 8px;border:1px solid var(--gold);color:var(--gold);margin-top:5px;margin-bottom:2px;">DevCom Development</span><p style="font-size:15px;margin-top:8px;color:rgba(255,255,255,0.65);line-height:1.7;">An 8-unit residential building constructed with ICF (Insulated Concrete Forms), a highly energy-efficient building system that significantly reduces electricity costs compared to standard wood-frame construction. Heating and cooling are provided by high-efficiency heat pumps, resulting in overall energy performance approximately 50% better than current building code. This commitment to efficiency benefits our residents, the community, and the environment.</p></div>
+    </div>
+    <div class="pfc" data-tag="current">
+      <div class="pfc-img" style="overflow:hidden;padding:0;position:relative;">
+        <span class="status-badge s-current" style="position:absolute;top:12px;left:12px;font-size:12px;letter-spacing:1px;text-transform:uppercase;padding:6px 14px;font-weight:700;box-shadow:0 2px 8px rgba(0,0,0,0.5);z-index:2;background:#C9A84C;color:#0c0c0c;">Current Build</span>
+        <img loading="lazy" src="/images/img-7.png" alt="Project Hickory" style="width:100%;height:100%;object-fit:cover;opacity:0.75;display:block;">
+      </div>
+      <div class="pfc-body"><h4>Project Hickory</h4>
+        <span style="display:inline-block;font-size:10px;letter-spacing:1.5px;text-transform:uppercase;padding:2px 8px;border:1px solid rgba(255,255,255,0.25);color:rgba(255,255,255,0.55);margin-top:5px;margin-bottom:2px;">Built for Client</span><p style="font-size:15px;margin-top:8px;color:rgba(255,255,255,0.65);line-height:1.7;">Four side-by-side townhomes built as-of-right on an R2 lot.</p></div>
+    </div>
+    <div class="pfc" data-tag="current">
+      <div class="pfc-img" style="overflow:hidden;padding:0;position:relative;">
+        <span class="status-badge s-current" style="position:absolute;top:12px;left:12px;font-size:12px;letter-spacing:1px;text-transform:uppercase;padding:6px 14px;font-weight:700;box-shadow:0 2px 8px rgba(0,0,0,0.5);z-index:2;background:#C9A84C;color:#0c0c0c;">Under Development</span>
+        <img loading="lazy" src="/images/img-8.png" alt="Project Saunders" style="width:100%;height:100%;object-fit:cover;opacity:0.75;display:block;">
+      </div>
+      <div class="pfc-body"><h4>Project Saunders</h4>
+        <span style="display:inline-block;font-size:10px;letter-spacing:1.5px;text-transform:uppercase;padding:2px 8px;border:1px solid var(--gold);color:var(--gold);margin-top:5px;margin-bottom:2px;">DevCom Development</span><p style="font-size:15px;margin-top:8px;color:rgba(255,255,255,0.65);line-height:1.7;">An 8-unit residential building in one of Collingwood's most prominent neighbourhoods.</p></div>
+    </div>
+  </div>
+
+
+
+  <section style="padding:28px 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border);background:var(--dark);">
+    <div class="wrap mob-stack" style="display:grid;grid-template-columns:1fr auto;gap:32px;align-items:center;">
+      <div>
+        <div class="eyebrow">Available for Hire</div>
+        <h2 style="margin-bottom:12px;">We build for ourselves. We build for you.<br><em class="text-gold">The standard never changes.</em></h2>
+        <p style="max-width:640px;font-size:16px;line-height:1.85;">Whether it's our capital or yours on the line, we run every project the same way: full accountability, developer-level discipline, and a genuine stake in the outcome. If you need a team to develop, build, or finance a project in Southern Georgian Bay, we are available and ready to work.</p>
+      </div>
+      <div style="flex-shrink:0;">
+        <button class="btn" onclick="go('services')" style="white-space:nowrap;">Work With Us</button>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ── FINANCING ──────────────────────────────────────── -->
+<div class="page" id="p-financing">
+
+  <section class="page-hero">
+    <div class="wrap">
+      <div class="eyebrow">Financing Strategy</div>
+      <h1>You probably don't need<br>as much down <em class="text-gold">as you think.</em></h1>
+      <p style="max-width:560px;margin-top:16px;font-size:16px;">The mortgage products available for builders and investors are not what you see advertised. We work with financing structures most Canadians don't know exist, and we can help you access them.</p>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="wrap">
+      <div class="tmc-box">
+        <div class="tmc-inner">
+          <div>
+            <div class="eyebrow">Our Mortgage Partner</div>
+            <h2>The right financing starts with the right advisor.</h2>
+            <p style="font-size:16px;margin-top:12px;line-height:1.8;">We work closely with Trevor Hough of The Mortgage Coach, a specialist in construction financing, investment properties, and creative qualification strategies. Trevor understands the products that matter for what you're trying to build, and works alongside our team from day one so that your financing and your project are always aligned.</p>
+            <div style="margin-top:28px;padding:24px;border:1px solid var(--border-gold);background:var(--black);">
+              <img src="/images/img-9.png" alt="Trevor Hough — The Mortgage Coach Greater Simcoe" style="width:100%;max-width:340px;height:auto;display:block;margin-bottom:20px;">
+              <h4 style="font-size:16px;margin-bottom:4px;color:#fff;">Trevor Hough</h4>
+              <p style="font-size:15px;margin-bottom:2px;color:var(--muted);">Mortgage Agent Level 2</p>
+              <p style="font-size:15px;margin-bottom:2px;color:var(--muted);">The Mortgage Coach &nbsp;|&nbsp; FSRA #13120</p>
+              <p style="font-size:15px;margin-bottom:4px;color:var(--muted);">705-606-1048</p>
+              <a href="https://mortgagesbytrev.ca" target="_blank" rel="noopener noreferrer" style="font-size:15px;color:var(--gold);display:inline-block;margin-bottom:20px;letter-spacing:0.5px;">View Full Profile →</a>
+              <div style="display:flex;gap:10px;flex-wrap:wrap;">
+                <a href="https://app.scarlettnetwork.com/L1NK/home" target="_blank" class="btn">Apply Now</a>
+                <a href="https://calendar.google.com/calendar/u/0/appointments/AcZssZ1rO4ZqS-sMMDzffLkfhERKNlWwN7PgbA1Oz5U=" target="_blank" class="btn btn-ghost">Book a Call</a>
+                <a href="https://mortgagesbytrev.ca" target="_blank" rel="noopener noreferrer" class="btn btn-ghost">Financing Options →</a>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div class="eyebrow" style="margin-bottom:12px;">What Working with Trevor Means</div>
+            <ul class="svc-list">
+              <li>Access to a wide network of lenders, including specialty construction financing</li>
+              <li>Construction draw mortgage management throughout your build</li>
+              <li>Qualification strategies for self-employed and investor clients</li>
+              <li>Owner-occupied financing with as little as 5% down</li>
+              <li>Refinancing and equity release planning post-build</li>
+              <li>Side-by-side comparison of standard and non-traditional products</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <section class="sec" style="background:var(--dark);">
+    <div class="wrap">
+      <div class="eyebrow">How Building Helps You Qualify</div>
+      <h2 style="margin-bottom:8px;">Adding units doesn't hurt qualification. It helps it.</h2>
+      <p style="max-width:520px;font-size:15px;margin-bottom:32px;">Many people think adding a rental suite complicates financing. The truth is the opposite. Rental income can strengthen your file significantly when modeled correctly.</p>
+      <div class="steps">
+        <div class="step">
+          <div class="step-n">1</div>
+          <div>
+            <h4>Rental income is added to your file</h4>
+            <p style="font-size:15px;margin-top:4px;">When you have a rental unit, lenders will count a portion of that income toward your gross income for mortgage qualification purposes. This can meaningfully increase your borrowing power, often by more than most people expect.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-n">2</div>
+          <div>
+            <h4>Construction mortgages draw down in stages</h4>
+            <p style="font-size:15px;margin-top:4px;">Funds are advanced as milestones are hit. You're not paying interest on the full loan until near occupancy, which reduces carrying costs during the build.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-n">3</div>
+          <div>
+            <h4>Structured to maximize your leverage</h4>
+            <p style="font-size:15px;margin-top:4px;">Construction financing is structured around total project cost, with products that can finance up to 95% loan-to-cost — keeping less of your own capital tied up in any single deal.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-n">4</div>
+          <div>
+            <h4>Refinancing extracts equity without a sale</h4>
+            <p style="font-size:15px;margin-top:4px;">Once built and appraised, you refinance at the new value, extracting equity tax-efficiently while keeping the asset. That capital funds your next project.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div style="max-width:1140px;margin:0 auto;padding:10px 48px 20px;">
+
+    <div style="margin-bottom:2px;">
+      <div class="mob-stack" style="display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border);">
+        <div class="myth-box myth-false" style="background:rgba(200,60,60,0.04);">
+          <div class="myth-label" style="font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#e07070;margin-bottom:6px;">✕ Common Misconception</div>
+          <h3 style="font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:400;margin-bottom:6px;">"I need 20% down to buy a rental property."</h3>
+          <button class="myth-toggle" onclick="toggleMyth(this)">Read more ↓</button><div class="myth-body"><p style="font-size:15px;">Many people believe that owning a rental property requires a substantial down payment and is out of reach unless they have significant savings set aside.</p></div>
+        </div>
+        <div class="myth-box myth-true" style="background:rgba(201,168,76,0.03);">
+          <div class="myth-label" style="font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:6px;">✓ The Reality</div>
+          <h3 style="font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:400;margin-bottom:6px;">"Owner-occupied rental properties can be purchased with as little as 5% down."</h3>
+          <button class="myth-toggle" onclick="toggleMyth(this)">Read more ↓</button><div class="myth-body"><p style="font-size:15px;">If you live in one unit of your rental property, lenders treat it as an owner-occupied purchase, qualifying with as little as 5% down. There are also commercial properties you can buy with as little as 5% down. This lowers the barrier to entry and lets you start building equity and rental income sooner than most people expect.</p></div>
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-top:1px;">
+      <div class="mob-stack" style="display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border);">
+        <div class="myth-box myth-false" style="background:rgba(200,60,60,0.04);">
+          <div class="myth-label" style="font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#e07070;margin-bottom:6px;">✕ Common Misconception</div>
+          <h3 style="font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:400;margin-bottom:6px;">"Construction loans are impossible to get without a huge cash reserve."</h3>
+          <button class="myth-toggle" onclick="toggleMyth(this)">Read more ↓</button><div class="myth-body"><p style="font-size:15px;">Most people assume construction financing works like a standard purchase mortgage — requiring a large down payment and leaving little room to leverage the deal.</p></div>
+        </div>
+        <div class="myth-box myth-true" style="background:rgba(201,168,76,0.03);">
+          <div class="myth-label" style="font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:6px;">✓ The Reality</div>
+          <h3 style="font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:400;margin-bottom:6px;">"Select construction products can finance up to 95% loan to cost."</h3>
+          <button class="myth-toggle" onclick="toggleMyth(this)">Read more ↓</button><div class="myth-body"><p style="font-size:15px;">Construction financing can reach up to 95% loan-to-cost — meaning you keep significantly more of your own capital free to deploy elsewhere.</p></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+
+  <div class="cta-band">
+    <div class="cta-band-inner">
+      <div>
+        <div class="eyebrow">Let's Run the Numbers</div>
+        <h2 style="white-space:nowrap;font-size:clamp(16px,2.2vw,28px);">Find out what your project could actually cost you.</h2>
+        <p>We'll walk through a financing scenario. Real numbers, real products, no pressure.</p>
+      </div>
+      <div class="cta-btns">
+        <a href="https://calendar.google.com/calendar/u/0/appointments/AcZssZ1rO4ZqS-sMMDzffLkfhERKNlWwN7PgbA1Oz5U=" target="_blank" class="btn">Book a Free Consultation</a>
+      </div>
+    </div>
+  </div>
+
+
+</div>
+
+<!-- ── ADU ────────────────────────────────────────────── -->
+<div class="page" id="p-adu">
+
+  <section class="page-hero">
+    <div class="wrap">
+      <div class="eyebrow">ADU &amp; Investment Strategy</div>
+      <h1>The unit you add <em class="text-gold">changes everything.</em></h1>
+      <p style="max-width:520px;margin-top:16px;font-size:16px;">A secondary suite is not just a project. It is a financial instrument. When you understand what it does to your cash flow, qualification, equity, and tax position, the math becomes very hard to argue with.</p>
+    </div>
+  </section>
+
+  <section style="background:linear-gradient(90deg,#161616 0%,#0c0c0c 100%);border-top:1px solid var(--border-gold);border-bottom:1px solid var(--border-gold);padding:32px 48px;">
+    <div class="wrap" style="display:flex;justify-content:space-between;align-items:center;gap:32px;flex-wrap:wrap;">
+      <div>
+        <div class="eyebrow" style="color:var(--gold);margin-bottom:8px;">Planning Tool</div>
+        <h3 style="font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:500;">Check feasibility &amp; model returns on <em class="text-gold">YardSuite</em></h3>
+        <p style="color:var(--muted);font-size:15px;margin-top:6px;max-width:560px;">Our free property planning platform: zoning lookup, ROI calculator, and financing paths, all in one place.</p>
+        <a href="https://mortgagesbytrev.ca/blog/how-to-finance-adu-ontario-second-suite-garden-suite" target="_blank" rel="noopener noreferrer" style="font-size:15px;color:var(--gold);display:inline-block;margin-top:12px;letter-spacing:0.5px;">Read the ADU Financing Guide →</a>
+      </div>
+      <a href="DevCom-YardSuite-Website/yardsuite.html" target="_blank" rel="noopener" class="btn" style="white-space:nowrap;">Launch YardSuite →</a>
+    </div>
+  </section>
+
+  <section class="sec" style="border-bottom:1px solid var(--border);">
+    <div class="wrap">
+      <div class="eyebrow">What Is an ADU?</div>
+      <h2 style="margin-bottom:20px;">More ways to use the space you already own.</h2>
+      <p style="max-width:780px;font-size:16px;line-height:1.9;">An Accessory Dwelling Unit (ADU) is a secondary living space added to an existing residential property. They come in many forms: a finished basement suite with its own entrance, a self-contained apartment above a garage, a detached garden suite or laneway house in the backyard, or a purpose-built duplex where income is built in from the ground up. Each type has different cost profiles, zoning considerations, and income potential, but all share the same core benefit: they allow a single property to generate additional housing and additional value. We help homeowners and investors identify which option fits their lot, their goals, and their budget, then build it properly from start to finish.</p>
+    </div>
+  </section>
+
+  <section class="sec" style="background:var(--dark);">
+    <div class="wrap-sm">
+      <div class="eyebrow">Run Your Numbers</div>
+      <h2 style="margin-bottom:8px;">ADU cashflow calculator</h2>
+      <p style="font-size:15px;margin-bottom:28px;">Enter your figures to estimate monthly cashflow after mortgage and expenses.</p>
+      <div class="calc-box">
+        <div class="calc-row">
+          <div class="calc-item"><label>Monthly Rental Income ($)</label><input type="number" id="cc-income" value="2200" oninput="calcADU()"></div>
+          <div class="calc-item"><label>Build Cost ($)</label><input type="number" id="cc-cost" value="200000" oninput="calcADU()"></div>
+        </div>
+        <div class="calc-row">
+          <div class="calc-item"><label>Interest Rate (%)</label><input type="number" id="cc-rate" value="4" step="0.1" oninput="calcADU()"></div>
+          <div class="calc-item"><label>Amortization (years)</label><input type="number" id="cc-amort" value="25" oninput="calcADU()"></div>
+        </div>
+        <div class="calc-row">
+          <div class="calc-item" style="grid-column:1/-1;"><label>Increased Annual Expenses — not including mortgage ($)</label><input type="number" id="cc-exp" value="1000" oninput="calcADU()"></div>
+        </div>
+        <div class="calc-result" style="grid-template-columns:1fr 1fr;">
+          <div class="calc-r-item"><div class="rl">Est. Monthly Mortgage Payment</div><div class="rv" id="cc-mortgage">$1,056/mo</div></div>
+          <div class="calc-r-item"><div class="rl">Monthly Cashflow</div><div class="rv" id="cc-cashflow" style="color: var(--gold);">$1,061/mo</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="wrap">
+      <div class="eyebrow">The Full Picture</div>
+      <h2 style="margin-bottom:8px;">How one ADU unlocks your next move.</h2>
+      <p style="max-width:480px;font-size:15px;margin-bottom:32px;">The suite doesn't just pay rent. It creates a chain of financial events. When you know how to trigger each one, the impact compounds quickly.</p>
+      <div class="chain">
+        <div class="chain-step">
+          <div class="chain-n">1</div>
+          <div><h4>You build the suite</h4><p style="font-size:15px;margin-top:4px;">You've created new income and increased your property value simultaneously, without selling or relocating.</p></div>
+        </div>
+        <div class="chain-step">
+          <div class="chain-n">2</div>
+          <div><h4>Rental income improves your qualification</h4><p style="font-size:15px;margin-top:4px;">Adding verifiable rental income to your mortgage application can meaningfully boost what you qualify for, making your next move more accessible than you might expect.</p></div>
+        </div>
+        <div class="chain-step">
+          <div class="chain-n">3</div>
+          <div><h4>You refinance at the new value</h4><p style="font-size:15px;margin-top:4px;">Once built and appraised, you can refinance based on the property's new value, extracting equity tax-free. In many cases, this returns most or all of the original build cost, freeing up capital without requiring a sale.</p></div>
+        </div>
+        <div class="chain-step">
+          <div class="chain-n">4</div>
+          <div><h4>That capital buys the next asset</h4><p style="font-size:15px;margin-top:4px;">The extracted equity becomes the down payment on your next investment. You now own two income-producing properties. The cycle continues.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec-sm" style="border-top:1px solid var(--border);border-bottom:1px solid var(--border);">
+    <div class="wrap">
+      <div style="background:var(--dark);border-left:2px solid var(--gold);padding:28px 32px;max-width:860px;margin:0 auto;">
+        <div class="eyebrow" style="margin-bottom:10px;">A Note on Complexity</div>
+        <p style="font-size:16px;line-height:1.85;color:rgba(255,255,255,0.75);">The strategies outlined on this page can be powerful. They are not always straightforward, whether you are a first-time investor or an experienced one. Each situation involves zoning, financing, construction, and tax considerations that interact in ways that are easy to underestimate. It is important to work with the right people. DevCom Homes can support you through planning and construction. For the financing side, we work directly with <a href="https://mortgagesbytrev.ca" target="_blank" rel="noopener noreferrer" style="color:var(--gold);">Trevor Hough at The Mortgage Coach</a>, a specialist who understands exactly how these deals come together. We are happy to make that introduction.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="cta-band">
+    <div class="cta-band-inner">
+      <div>
+        <div class="eyebrow">Let's Plan It Out</div>
+        <h2>Find out if your property is a candidate.</h2>
+        <p>Not every lot, zoning, or situation is the same. We'll tell you what's possible on yours.</p>
+      </div>
+      <div class="cta-btns">
+        <a href="DevCom-YardSuite-Website/yardsuite.html#feasibility" target="_blank" rel="noopener" class="btn">Get a Free Assessment on YardSuite →</a>
+        <button class="btn btn-ghost" onclick="go('financing')">Explore Financing</button>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ── FOR LEASE ──────────────────────────────────────── -->
+<div class="page" id="p-lease">
+
+  <section style="position:relative;min-height:55vh;display:flex;align-items:center;border-bottom:1px solid var(--border);overflow:hidden;">
+    <img loading="lazy" src="/images/img-10.png" alt="2 Golfview Dr, Collingwood" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center center;opacity:0.13;z-index:0;">
+    <div style="position:absolute;inset:0;background:rgba(12,12,12,0.55);z-index:0;"></div>
+    <div class="wrap" style="position:relative;z-index:1;padding:56px 0 48px;">
+      <div class="eyebrow" style="margin-bottom:18px;">For Lease</div>
+      <h1 style="font-size:clamp(38px,5vw,64px);line-height:1.08;margin-bottom:32px;">2 &amp; 6 Golfview Dr<br>Collingwood</h1>
+      <div style="display:flex;flex-direction:column;gap:10px;">
+        <span style="font-size:13px;letter-spacing:1.5px;text-transform:uppercase;color:var(--gold);">Available July 1st</span>
+        <span style="font-size:13px;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,0.55);">Brand New 2026 Build</span>
+        <span style="font-size:13px;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,0.55);">Walking distance to downtown, schools &amp; bus routes</span>
+      </div>
+    </div>
+  </section>
+
+  <div class="lease-bar" style="background:var(--dark);border-bottom:1px solid var(--border);padding:18px 48px;">
+    <div style="max-width:1140px;margin:0 auto;display:flex;flex-wrap:wrap;align-items:center;justify-content:center;">
+      <span style="font-size:10px;letter-spacing:2.5px;text-transform:uppercase;color:rgba(255,255,255,0.6);padding:4px 16px;">New Build 2026</span>
+      <span style="color:var(--gold);font-size:14px;padding:0 2px;">·</span>
+      <span style="font-size:10px;letter-spacing:2.5px;text-transform:uppercase;color:rgba(255,255,255,0.6);padding:4px 16px;">Heat Pump + A/C</span>
+      <span style="color:var(--gold);font-size:14px;padding:0 2px;">·</span>
+      <span style="font-size:10px;letter-spacing:2.5px;text-transform:uppercase;color:rgba(255,255,255,0.6);padding:4px 16px;">In-Suite Laundry</span>
+      <span style="color:var(--gold);font-size:14px;padding:0 2px;">·</span>
+      <span style="font-size:10px;letter-spacing:2.5px;text-transform:uppercase;color:rgba(255,255,255,0.6);padding:4px 16px;">Internet Included</span>
+      <span style="color:var(--gold);font-size:14px;padding:0 2px;">·</span>
+      <span style="font-size:10px;letter-spacing:2.5px;text-transform:uppercase;color:rgba(255,255,255,0.6);padding:4px 16px;">Snow &amp; Lawn Care</span>
+      <span style="color:var(--gold);font-size:14px;padding:0 2px;">·</span>
+      <span style="font-size:10px;letter-spacing:2.5px;text-transform:uppercase;color:rgba(255,255,255,0.6);padding:4px 16px;">1 Parking Space</span>
+    </div>
+  </div>
+  <section style="border-bottom:1px solid var(--border);">
+    <div class="wrap lease-desc" style="padding-top:36px;padding-bottom:36px;max-width:860px;">
+      <p style="font-size:16px;line-height:1.9;color:rgba(255,255,255,0.72);">Be the first to live in a brand new (2026) suite offering bright, thoughtfully designed living space built with high-quality construction and 9-foot ceilings. Each unit features an open-concept layout with a spacious kitchen complete with quartz countertops and a fresh backsplash that flows seamlessly into the living and dining areas. In-suite laundry, a dishwasher, and your own controls for heating and A/C via an efficient heat pump system are all included, along with one dedicated parking space, high-speed internet, snow removal, and grass cutting. Located within walking distance to downtown Collingwood and close to schools and a nearby bus stop, these homes are perfect for anyone wanting to be right in the heart of the community. Modern, move-in ready, and finished to a high standard. This is comfortable, low-maintenance living at its best.</p>
+    </div>
+  </section>
+
+  <section style="padding:20px 0 32px;">
+  <div style="max-width:1320px;margin:0 auto;padding:0 20px;">
+    <div class="mob-stack" style="display:grid;grid-template-columns:1fr 1fr;column-gap:2px;background:rgba(201,168,76,0.35);"><div style="background:var(--dark);padding:12px 14px;border-bottom:1px solid var(--border);font-family:'DM Sans',sans-serif;font-size:13px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--gold);text-align:center;">2 Golfview Dr</div><div style="background:var(--black);padding:12px 14px;border-bottom:1px solid var(--border);font-family:'DM Sans',sans-serif;font-size:13px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--gold);text-align:center;">6 Golfview Dr</div><div class="lease-unit-card" style="background:var(--dark);display:flex;flex-direction:column;min-height:150px;border-bottom:1px solid rgba(255,255,255,0.08)"><div style="padding:6px 16px 5px;text-align:center;border-bottom:1px solid var(--border);">
+              <div style="font-family:'DM Sans',sans-serif;font-size:11px;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;color:var(--gold);margin-bottom:3px;">Unit 1</div>
+              <div style="font-family:'Cormorant Garamond',serif;font-size:22px;line-height:1;color:#fff;margin-bottom:2px;">$2,425</div>
+              <div style="font-size:13px;color:var(--muted);letter-spacing:0.3px;">per month + utilities</div>
+            <div style="display:flex;gap:12px;flex-wrap:wrap;justify-content:center;margin-bottom:0;">
+              <span style="font-size:13px;color:var(--muted);">2 Bed</span><span style="color:var(--dim);">·</span>
+              <span style="font-size:13px;color:var(--muted);">2 Bath</span><span style="color:var(--dim);">·</span>
+              <span style="font-size:13px;color:var(--muted);">~1,000 sq ft</span><span style="color:var(--dim);">·</span>
+              <span style="font-size:13px;color:var(--gold);">Main Level</span>
+            </div></div><div style="display:flex;flex:1;min-height:0;"><div class="lease-floorplan" style="flex:0 0 36%;overflow:hidden;background:var(--dark);cursor:zoom-in;" title="Click to view full floor plan">
+            <img loading="lazy" src="/images/img-11.png" alt="Unit 1 Main Floor floor plan" style="width:100%;height:100%;object-fit:contain;display:block;" onclick="openFloorplan(this.src,this.alt)">
+          </div><div style="flex:1;padding:6px 16px 6px 20px;display:flex;align-items:center;"><ul style="list-style-type:'– ';padding:0 0 20px;margin:0;margin-top:2px;">
+              <li style="font-size:13px;color:rgba(255,255,255,0.6);">Private patio</li>
+              <li style="font-size:13px;color:rgba(255,255,255,0.6);">9 ft ceilings · Bright open-concept layout</li>
+              <li style="font-size:13px;color:rgba(255,255,255,0.6);">Primary with walk-in closet + 3pc ensuite</li>
+              <li style="font-size:13px;color:rgba(255,255,255,0.6);">Bedrooms fit king-size beds</li>
+              <li style="font-size:13px;color:rgba(255,255,255,0.6);">In-suite laundry</li>
+              <li style="font-size:13px;color:rgba(255,255,255,0.6);">Brand new appliances + dishwasher</li>
+              <li style="font-size:13px;color:rgba(255,255,255,0.6);">Heat pump with A/C control</li>
+              <li style="font-size:13px;color:rgba(255,255,255,0.6);">High-speed internet included</li>
+              <li style="font-size:13px;color:rgba(255,255,255,0.6);">Large 6×9 outdoor storage unit</li>
+              <li style="font-size:13px;color:rgba(255,255,255,0.6);">Snow removal &amp; grass cutting included</li>
+              <li style="font-size:13px;color:rgba(255,255,255,0.6);">1 parking space</li>
+            </ul></div></div></div><div class="lease-unit-card" style="background:var(--black);display:flex;flex-direction:column;min-height:150px;border-bottom:1px solid rgba(255,255,255,0.08)"><div style="padding:6px 16px 5px;text-align:center;border-bottom:1px solid var(--border);">
+              <div style="font-family:'DM Sans',sans-serif;font-size:11px;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;color:var(--gold);margin-bottom:3px;">Unit 1</div>
+              <div style="font-family:'Cormorant Garamond',serif;font-size:22px;line-height:1;color:#fff;margin-bottom:2px;">$2,425</div>
+              <div style="font-size:13px;color:var(--muted);letter-spacing:0.3px;">per month + utilities</div>
+            <div style="display:flex;gap:12px;flex-wrap:wrap;justify-content:center;margin-bottom:0;">
+              <span style="font-size:13px;color:var(--muted);">2 Bed</span><span style="color:var(--dim);">·</span>
+              <span style="font-size:13px;color:var(--muted);">2 Bath</span><span style="color:var(--dim);">·</span>
+              <span style="font-size:13px;color:var(--muted);">~1,000 sq ft</span><span style="color:var(--dim);">·</span>
+              <span style="font-size:13px;color:var(--gold);">Main Level</span>
+            </div></div><div style="display:flex;flex:1;min-height:0;"><div class="lease-floorplan" style="flex:0 0 36%;overflow:hidden;background:var(--black);cursor:zoom-in;" title="Click to view full floor plan">
+            <img loading="lazy" src="/images/img-12.png" alt="Unit 1 Main Floor floor plan" style="width:100%;height:100%;object-fit:contain;display:block;" onclick="openFloorplan(this.src,this.alt)">
+          </div><div style="flex:1;padding:6px 16px 6px 20px;display:flex;align-items:center;"><ul style="list-style-type:'– ';padding:0 0 20px;margin:0;margin-top:2px;">
+              <li style="font-size:13px;color:rgba(255,255,255,0.6);">Private patio</li>
+              <li style="font-size:13px;color:rgba(255,255,255,0.6);">9 ft ceilings · Bright open-concept layout</li>
+              <li style="font-size:13px;color:rgba(255,255,255,0.6);">Primary with walk-in closet + 3pc ensuite</li>
+              <li style="font-size:13px;color:rgba(255,255,255,0.6);">Bedrooms fit king-size beds</li>
+              <li style="font-size:13px;color:rgba(255,255,255,0.6);">In-suite laundry</li>
+              <li style="font-size:13px;color:rgba(255,255,255,0.6);">Brand new appliances + dishwasher</li>
+              <li style="font-size:13px;color:rgba(255,255,255,0.6);">Heat pump with A/C control</li>
+              <li style="font-size:13px;color:rgba(255,255,255,0.6);">High-speed internet included</li>
+              <li style="font-size:13px;color:rgba(255,255,255,0.6);">Large 6×9 outdoor storage unit</li>
+              <li style="font-size:13px;color:rgba(255,255,255,0.6);">Snow removal &amp; grass cutting included</li>
+              <li style="font-size:13px;color:rgba(255,255,255,0.6);">1 parking space</li>
+            </ul></div></div></div><div class="lease-unit-card" style="background:var(--dark);display:flex;flex-direction:column;min-height:150px;border-bottom:1px solid rgba(255,255,255,0.08)"><div style="padding:6px 16px 5px;text-align:center;border-bottom:1px solid var(--border);">
+              <div style="display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:3px;"><div style="font-family:'DM Sans',sans-serif;font-size:11px;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;color:var(--gold);">Unit 4</div><span style="font-size:10px;letter-spacing:1.5px;text-transform:uppercase;background:rgba(201,168,76,0.15);color:var(--gold);padding:2px 8px;border:1px solid rgba(201,168,76,0.3);">Leased</span></div>
+              <div style="font-family:'Cormorant Garamond',serif;font-size:22px;line-height:1;color:rgba(255,255,255,0.35);margin-bottom:2px;text-decoration:line-through;">$2,375</div>
+              <div style="font-size:13px;color:var(--muted);letter-spacing:0.3px;">per month + utilities</div>
+            <div style="display:flex;gap:12px;flex-wrap:wrap;justify-content:center;margin-bottom:0;">
+              <span style="font-size:13px;color:var(--muted);">2 Bed</span><span style="color:var(--dim);">·</span>
+              <span style="font-size:13px;color:var(--muted);">2 Bath</span><span style="color:var(--dim);">·</span>
+              <span style="font-size:13px;color:var(--muted);">~1,000 sq ft</span><span style="color:var(--dim);">·</span>
+              <span style="font-size:13px;color:var(--gold);">Main Level</span>
+            </div></div><div style="display:flex;flex:1;min-height:0;"><div class="lease-floorplan" style="flex:0 0 36%;overflow:hidden;background:var(--dark);cursor:zoom-in;" title="Click to view full floor plan">
+            <img loading="lazy" src="/images/img-13.png" alt="Unit 4 Main Floor floor plan" style="width:100%;height:100%;object-fit:contain;display:block;" onclick="openFloorplan(this.src,this.alt)">
+          </div><div style="flex:1;padding:6px 16px 6px 20px;display:flex;align-items:center;"><ul style="list-style-type:'– ';padding:0 0 20px;margin:0;margin-top:2px;">
+              <li style="font-size:13px;color:rgba(255,255,255,0.6);">Large private patio</li>
+              <li style="font-size:13px;color:rgba(255,255,255,0.6);">9 ft ceilings · Bright open-concept layout</li>
+              <li style="font-size:13px;color:rgba(255,255,255,0.6);">Primary with walk-in closet + 3pc ensuite</li>
+              <li style="font-size:13px;color:rgba(255,255,255,0.6);">Bedrooms fit king-size beds</li>
+              <li style="font-size:13px;color:rgba(255,255,255,0.6);">In-suite laundry</li>
+              <li style="font-size:13px;color:rgba(255,255,255,0.6);">Brand new appliances + dishwasher</li>
+              <li style="font-size:13px;color:rgba(255,255,255,0.6);">Heat pump with A/C control</li>
+              <li style="font-size:13px;color:rgba(255,255,255,0.6);">High-speed internet included</li>
+              <li style="font-size:13px;color:rgba(255,255,255,0.6);">Snow removal &amp; grass cutting included</li>
+              <li style="font-size:13px;color:rgba(255,255,255,0.6);">1 parking space</li>
+            </ul></div></div></div><div class="lease-unit-card" style="background:var(--black);display:flex;flex-direction:column;min-height:150px;border-bottom:1px solid rgba(255,255,255,0.08)"><div style="padding:6px 16px 5px;text-align:center;border-bottom:1px solid var(--border);">
+              <div style="display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:3px;"><div style="font-family:'DM Sans',sans-serif;font-size:11px;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;color:var(--gold);margin-bottom:3px;">Unit 4</div></div>
+              <div style="font-family:'Cormorant Garamond',serif;font-size:22px;line-height:1;color:#fff;margin-bottom:2px;">$2,400</div>
+              <div style="font-size:13px;color:var(--muted);letter-spacing:0.3px;">per month + utilities</div>
+            <div style="display:flex;gap:12px;flex-wrap:wrap;justify-content:center;margin-bottom:0;">
+              <span style="font-size:13px;color:var(--muted);">2 Bed</span><span style="color:var(--dim);">·</span>
+              <span style="font-size:13px;color:var(--muted);">2 Bath</span><span style="color:var(--dim);">·</span>
+              <span style="font-size:13px;color:var(--muted);">~1,000 sq ft</span><span style="color:var(--dim);">·</span>
+              <span style="font-size:13px;color:var(--gold);">Main Level</span>
+            </div></div><div style="display:flex;flex:1;min-height:0;"><div class="lease-floorplan" style="flex:0 0 36%;overflow:hidden;background:var(--black);cursor:zoom-in;" title="Click to view full floor plan">
+            <img loading="lazy" src="/images/img-14.png" alt="Unit 4 Main Floor floor plan" style="width:100%;height:100%;object-fit:contain;display:block;" onclick="openFloorplan(this.src,this.alt)">
+          </div><div style="flex:1;padding:6px 16px 6px 20px;display:flex;align-items:center;"><ul style="list-style-type:'– ';padding:0 0 20px;margin:0;margin-top:2px;">
+              <li style="font-size:13px;color:rgba(255,255,255,0.6);">Large private patio</li>
+              <li style="font-size:13px;color:rgba(255,255,255,0.6);">9 ft ceilings · Bright open-concept layout</li>
+              <li style="font-size:13px;color:rgba(255,255,255,0.6);">Primary with walk-in closet + 3pc ensuite</li>
+              <li style="font-size:13px;color:rgba(255,255,255,0.6);">Bedrooms fit king-size beds</li>
+              <li style="font-size:13px;color:rgba(255,255,255,0.6);">In-suite laundry</li>
+              <li style="font-size:13px;color:rgba(255,255,255,0.6);">Brand new appliances + dishwasher</li>
+              <li style="font-size:13px;color:rgba(255,255,255,0.6);">Heat pump with A/C control</li>
+              <li style="font-size:13px;color:rgba(255,255,255,0.6);">High-speed internet included</li>
+              <li style="font-size:13px;color:rgba(255,255,255,0.6);">Large 6×9 outdoor storage unit</li>
+              <li style="font-size:13px;color:rgba(255,255,255,0.6);">Snow removal &amp; grass cutting included</li>
+              <li style="font-size:13px;color:rgba(255,255,255,0.6);">1 parking space</li>
+            </ul></div></div></div><div class="lease-unit-card" style="background:var(--dark);display:flex;flex-direction:column;min-height:150px;border-bottom:1px solid rgba(255,255,255,0.08)"><div style="padding:6px 16px 5px;text-align:center;border-bottom:1px solid var(--border);">
+              <div style="display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:3px;"><div style="font-family:'DM Sans',sans-serif;font-size:11px;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;color:var(--gold);">Unit 2</div><span style="font-size:10px;letter-spacing:1.5px;text-transform:uppercase;background:rgba(201,168,76,0.15);color:var(--gold);padding:2px 8px;border:1px solid rgba(201,168,76,0.3);">Leased</span></div>
+              <div style="font-family:'Cormorant Garamond',serif;font-size:22px;line-height:1;color:rgba(255,255,255,0.35);margin-bottom:2px;text-decoration:line-through;">$1,950</div>
+              <div style="font-size:13px;color:var(--muted);letter-spacing:0.3px;">per month + utilities</div>
+            <div style="display:flex;gap:12px;flex-wrap:wrap;justify-content:center;margin-bottom:0;">
+              <span style="font-size:13px;color:var(--muted);">1 Bed</span><span style="color:var(--dim);">·</span>
+              <span style="font-size:13px;color:var(--muted);">1 Bath</span><span style="color:var(--dim);">·</span>
+              <span style="font-size:13px;color:var(--muted);">~500 sq ft</span><span style="color:var(--dim);">·</span>
+              <span style="font-size:13px;color:var(--gold);">Lower Level</span>
+            </div></div><div style="display:flex;flex:1;min-height:0;"><div class="lease-floorplan" style="flex:0 0 36%;overflow:hidden;background:var(--dark);cursor:zoom-in;" title="Click to view full floor plan">
+            <img loading="lazy" src="/images/img-15.jpg" alt="Unit 2 Lower Level floor plan" style="width:100%;height:100%;object-fit:contain;display:block;" onclick="openFloorplan(this.src,this.alt)">
+          </div><div style="flex:1;padding:6px 16px 6px 20px;display:flex;align-items:center;"><ul style="list-style-type:'– ';padding:0 0 20px;margin:0;margin-top:2px;">
+              <li style="font-size:13px;color:rgba(255,255,255,0.6);">Open-concept kitchen, living &amp; dining</li>
+              <li style="font-size:13px;color:rgba(255,255,255,0.6);">Bedroom fits a king-size bed</li>
+              <li style="font-size:13px;color:rgba(255,255,255,0.6);">In-suite laundry</li>
+              <li style="font-size:13px;color:rgba(255,255,255,0.6);">Brand new appliances + dishwasher</li>
+              <li style="font-size:13px;color:rgba(255,255,255,0.6);">9 ft ceilings · Heat pump with A/C control</li>
+              <li style="font-size:13px;color:rgba(255,255,255,0.6);">High-speed internet included</li>
+              <li style="font-size:13px;color:rgba(255,255,255,0.6);">Large 6×9 outdoor storage unit</li>
+              <li style="font-size:13px;color:rgba(255,255,255,0.6);">Snow removal &amp; grass cutting included</li>
+              <li style="font-size:13px;color:rgba(255,255,255,0.6);">1 parking space</li>
+            </ul></div></div></div><div class="lease-unit-card" style="background:var(--black);display:flex;flex-direction:column;min-height:150px;border-bottom:1px solid rgba(255,255,255,0.08)"><div style="padding:6px 16px 5px;text-align:center;border-bottom:1px solid var(--border);">
+              <div style="display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:3px;"><div style="font-family:'DM Sans',sans-serif;font-size:11px;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;color:var(--gold);">Unit 2</div><span style="font-size:10px;letter-spacing:1.5px;text-transform:uppercase;background:rgba(201,168,76,0.15);color:var(--gold);padding:2px 8px;border:1px solid rgba(201,168,76,0.3);">Leased</span></div>
+              <div style="font-family:'Cormorant Garamond',serif;font-size:22px;line-height:1;color:rgba(255,255,255,0.35);margin-bottom:2px;text-decoration:line-through;">$1,950</div>
+              <div style="font-size:13px;color:var(--muted);letter-spacing:0.3px;">per month + utilities</div>
+            <div style="display:flex;gap:12px;flex-wrap:wrap;justify-content:center;margin-bottom:0;">
+              <span style="font-size:13px;color:var(--muted);">1 Bed</span><span style="color:var(--dim);">·</span>
+              <span style="font-size:13px;color:var(--muted);">1 Bath</span><span style="color:var(--dim);">·</span>
+              <span style="font-size:13px;color:var(--muted);">~500 sq ft</span><span style="color:var(--dim);">·</span>
+              <span style="font-size:13px;color:var(--gold);">Lower Level</span>
+            </div></div><div style="display:flex;flex:1;min-height:0;"><div class="lease-floorplan" style="flex:0 0 36%;overflow:hidden;background:var(--black);cursor:zoom-in;" title="Click to view full floor plan">
+            <img loading="lazy" src="/images/img-16.png" alt="Unit 2 Lower Level floor plan" style="width:100%;height:100%;object-fit:contain;display:block;" onclick="openFloorplan(this.src,this.alt)">
+          </div><div style="flex:1;padding:6px 16px 6px 20px;display:flex;align-items:center;"><ul style="list-style-type:'– ';padding:0 0 20px;margin:0;margin-top:2px;">
+              <li style="font-size:13px;color:rgba(255,255,255,0.6);">Open-concept kitchen, living &amp; dining</li>
+              <li style="font-size:13px;color:rgba(255,255,255,0.6);">Bedroom fits a king-size bed</li>
+              <li style="font-size:13px;color:rgba(255,255,255,0.6);">In-suite laundry</li>
+              <li style="font-size:13px;color:rgba(255,255,255,0.6);">Brand new appliances + dishwasher</li>
+              <li style="font-size:13px;color:rgba(255,255,255,0.6);">9 ft ceilings · Heat pump with A/C control</li>
+              <li style="font-size:13px;color:rgba(255,255,255,0.6);">High-speed internet included</li>
+              <li style="font-size:13px;color:rgba(255,255,255,0.6);">Large 6×9 outdoor storage unit</li>
+              <li style="font-size:13px;color:rgba(255,255,255,0.6);">Snow removal &amp; grass cutting included</li>
+              <li style="font-size:13px;color:rgba(255,255,255,0.6);">1 parking space</li>
+            </ul></div></div></div><div class="lease-unit-card" style="background:var(--black);display:flex;flex-direction:column;min-height:150px;border-bottom:1px solid rgba(255,255,255,0.08)"><div style="padding:6px 16px 5px;text-align:center;border-bottom:1px solid var(--border);">
+              <div style="display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:3px;"><div style="font-family:'DM Sans',sans-serif;font-size:11px;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;color:var(--gold);">Unit 3</div><span style="font-size:10px;letter-spacing:1.5px;text-transform:uppercase;background:rgba(201,168,76,0.15);color:var(--gold);padding:2px 8px;border:1px solid rgba(201,168,76,0.3);">Leased</span></div>
+              <div style="font-family:'Cormorant Garamond',serif;font-size:22px;line-height:1;color:rgba(255,255,255,0.35);margin-bottom:2px;text-decoration:line-through;">$1,875</div>
+              <div style="font-size:13px;color:var(--muted);letter-spacing:0.3px;">per month + utilities</div>
+            <div style="display:flex;gap:12px;flex-wrap:wrap;justify-content:center;margin-bottom:0;">
+              <span style="font-size:13px;color:var(--muted);">1 Bed</span><span style="color:var(--dim);">·</span>
+              <span style="font-size:13px;color:var(--muted);">1 Bath</span><span style="color:var(--dim);">·</span>
+              <span style="font-size:13px;color:var(--muted);">~500 sq ft</span><span style="color:var(--dim);">·</span>
+              <span style="font-size:13px;color:var(--gold);">Lower Level</span>
+            </div></div><div style="display:flex;flex:1;min-height:0;"><div class="lease-floorplan" style="flex:0 0 36%;overflow:hidden;background:var(--black);cursor:zoom-in;max-height:175px;align-self:center;" title="Click to view full floor plan">
+            <img loading="lazy" src="/images/img-17.jpg" alt="Unit 3 Lower Level floor plan" style="width:100%;height:100%;object-fit:cover;object-position:center 85%;display:block;" onclick="openFloorplan(this.src,this.alt)">
+          </div><div style="flex:1;padding:6px 16px 6px 20px;display:flex;align-items:center;"><ul style="list-style-type:'– ';padding:0 0 20px;margin:0;margin-top:2px;">
+              <li style="font-size:13px;color:rgba(255,255,255,0.6);">Open-concept kitchen, living &amp; dining</li>
+              <li style="font-size:13px;color:rgba(255,255,255,0.6);">Bedroom fits a king-size bed</li>
+              <li style="font-size:13px;color:rgba(255,255,255,0.6);">In-suite laundry</li>
+              <li style="font-size:13px;color:rgba(255,255,255,0.6);">Brand new appliances + dishwasher</li>
+              <li style="font-size:13px;color:rgba(255,255,255,0.6);">9 ft ceilings · Heat pump with A/C control</li>
+              <li style="font-size:13px;color:rgba(255,255,255,0.6);">High-speed internet included</li>
+              <li style="font-size:13px;color:rgba(255,255,255,0.6);">Snow removal &amp; grass cutting included</li>
+              <li style="font-size:13px;color:rgba(255,255,255,0.6);">1 parking space</li>
+            </ul></div></div></div><div class="lease-unit-card" style="background:var(--dark);display:flex;flex-direction:column;min-height:150px;border-bottom:1px solid rgba(255,255,255,0.08)"><div style="padding:6px 16px 5px;text-align:center;border-bottom:1px solid var(--border);">
+              <div style="display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:3px;"><div style="font-family:'DM Sans',sans-serif;font-size:11px;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;color:var(--gold);">Unit 3</div><span style="font-size:10px;letter-spacing:1.5px;text-transform:uppercase;background:rgba(201,168,76,0.15);color:var(--gold);padding:2px 8px;border:1px solid rgba(201,168,76,0.3);">Leased</span></div>
+              <div style="font-family:'Cormorant Garamond',serif;font-size:22px;line-height:1;color:rgba(255,255,255,0.35);margin-bottom:2px;text-decoration:line-through;">$1,875</div>
+              <div style="font-size:13px;color:var(--muted);letter-spacing:0.3px;">per month + utilities</div>
+            <div style="display:flex;gap:12px;flex-wrap:wrap;justify-content:center;margin-bottom:0;">
+              <span style="font-size:13px;color:var(--muted);">1 Bed</span><span style="color:var(--dim);">·</span>
+              <span style="font-size:13px;color:var(--muted);">1 Bath</span><span style="color:var(--dim);">·</span>
+              <span style="font-size:13px;color:var(--muted);">~500 sq ft</span><span style="color:var(--dim);">·</span>
+              <span style="font-size:13px;color:var(--gold);">Lower Level</span>
+            </div></div><div style="display:flex;flex:1;min-height:0;"><div class="lease-floorplan" style="flex:0 0 36%;overflow:hidden;background:var(--dark);cursor:zoom-in;" title="Click to view full floor plan">
+            <img loading="lazy" src="/images/img-18.png" alt="Unit 3 Lower Level floor plan" style="width:100%;height:100%;object-fit:contain;display:block;" onclick="openFloorplan(this.src,this.alt)">
+          </div><div style="flex:1;padding:6px 16px 6px 20px;display:flex;align-items:center;"><ul style="list-style-type:'– ';padding:0 0 20px;margin:0;margin-top:2px;">
+              <li style="font-size:13px;color:rgba(255,255,255,0.6);">Open-concept kitchen, living &amp; dining</li>
+              <li style="font-size:13px;color:rgba(255,255,255,0.6);">Bedroom fits a king-size bed</li>
+              <li style="font-size:13px;color:rgba(255,255,255,0.6);">In-suite laundry</li>
+              <li style="font-size:13px;color:rgba(255,255,255,0.6);">Brand new appliances + dishwasher</li>
+              <li style="font-size:13px;color:rgba(255,255,255,0.6);">9 ft ceilings · Heat pump with A/C control</li>
+              <li style="font-size:13px;color:rgba(255,255,255,0.6);">High-speed internet included</li>
+              <li style="font-size:13px;color:rgba(255,255,255,0.6);">Snow removal &amp; grass cutting included</li>
+              <li style="font-size:13px;color:rgba(255,255,255,0.6);">1 parking space</li>
+            </ul></div></div></div></div>
+  </div>
+</section>
+
+  <div class="cta-band">
+    <div class="cta-band-inner">
+      <div>
+        <h2 style="font-size:28px;">Book a showing</h2>
+        <p>To inquire or schedule a viewing, reach out today.</p>
+      </div>
+      <div class="cta-btns">
+        <a class="btn" href="mailto:info@devcomhomes.ca?subject=Rental%20Inquiry%20%E2%80%94%20Golfview%20Dr" style="text-decoration:none;">Contact Us</a>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ── SITEMAP ─────────────────────────────────────────── -->
+<div id="p-privacy" class="page">
+  <div class="wrap" style="max-width:780px;padding-top:80px;padding-bottom:100px;">
+    <button onclick="go('home')" style="background:none;border:none;color:var(--muted);font-size:13px;cursor:pointer;padding:0;margin-bottom:40px;letter-spacing:1px;text-transform:uppercase;">← Back to Home</button>
+    <h1 style="margin-bottom:8px;">Privacy Policy</h1>
+    <p style="color:var(--muted);font-size:13px;margin-bottom:56px;">Last updated: April 2026</p>
+    <div class="privacy-body">
+      <section>
+        <h2>1. Who we are</h2>
+        <p>DevCom Homes is an Ontario corporation. We develop, build, and finance quality rental and residential communities across Southern Georgian Bay.</p>
+      </section>
+      <section>
+        <h2>2. What we collect</h2>
+        <p>When you submit our consultation form, we collect your name, email address, phone number, project type, and timeline. We do not collect financial account data, government ID, or payment information through this website.</p>
+      </section>
+      <section>
+        <h2>3. How we use it</h2>
+        <p>Your information is used solely to respond to your consultation request and, where applicable, to connect you with our in-house mortgage partner. We do not sell, rent, or share your personal information with third parties for marketing purposes.</p>
+      </section>
+      <section>
+        <h2>4. Financing referrals</h2>
+        <p>If you express interest in financing, your contact details may be shared with Trevor Hough of The Mortgage Coach (FSRA Licence #13120) solely to facilitate that introduction. No information is shared without your explicit request.</p>
+      </section>
+      <section>
+        <h2>5. Your rights under PIPEDA</h2>
+        <p>Under Canada's Personal Information Protection and Electronic Documents Act (PIPEDA), you may request access to, correction of, or deletion of your personal information at any time. Email us at info@devcomhomes.ca to exercise these rights.</p>
+      </section>
+      <section>
+        <h2>6. Cookies &amp; tracking</h2>
+        <p>This site uses browser local storage only to remember your cookie consent preference. We do not currently use analytics cookies or advertising trackers. If analytics are added in the future, this policy will be updated and fresh consent requested.</p>
+      </section>
+      <section>
+        <h2>7. Contact</h2>
+        <p>Privacy questions: info@devcomhomes.ca &nbsp;·&nbsp; 705-242-7323</p>
+      </section>
+    </div>
+  </div>
+</div>
+<footer>
+  <div class="footer-inner">
+    <div>
+      <div class="footer-logo"><img loading="lazy" src="/images/img-19.png" alt="DevCom Homes"></div>
+      <p class="footer-tagline">Development. Construction. Financing. One team. Aligned incentives.</p>
+    </div>
+    <div class="footer-col">
+      <h5>Company</h5>
+      <ul>
+        <li onclick="go('home')">Home</li>
+        <li onclick="go('why')">Why Real Estate</li>
+        <li onclick="go('services')">What We Do</li>
+        <li onclick="go('projects')">Projects</li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>Services</h5>
+      <ul>
+        <li onclick="go('services')">Development</li>
+        <li onclick="go('services')">Construction</li>
+        <li onclick="go('financing')">Financing / Mortgage</li>
+        <li onclick="go('adu')">ADU Strategy</li>
+        <li onclick="go('lease')">For Lease</li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>Contact</h5>
+      <ul>
+        <li><span style="cursor:pointer;color:inherit;" onclick="var e='info',d='devcomhomes.ca';window.location='mai'+'lto:'+e+'@'+d;">info@devcomhomes.ca</span></li>
+        <li>705-242-7323</li>
+        <li>Collingwood, Ontario</li>
+        <li style="color:var(--gold);" onclick="openModal()">Book a Consultation</li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom" style="display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:16px;">
+    <p style="margin:0;font-size:12px;color:rgba(255,255,255,0.45);">©2026 DevCom Homes. All rights reserved. &nbsp;<a onclick="go('privacy')" style="color:rgba(255,255,255,0.45);cursor:pointer;text-decoration:underline;">Privacy Policy</a></p>
+    <div style="text-align:right;">
+      <p style="margin:0 0 4px;font-size:12px;color:rgba(255,255,255,0.45);">Mortgage services provided through The Mortgage Coach (Trevor Hough, Mortgage Agent Level 2, FSRA #13120).</p>
+      <p style="margin:0;font-size:12px;color:rgba(255,255,255,0.45);">$5M Commercial General Liability &nbsp;·&nbsp; HCRA&nbsp;#&nbsp;B63879 &nbsp;·&nbsp; WSIB coverage maintained — clearance certificate available on request</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+function showPage(id){
+  var t = document.getElementById("p-"+id);
+  if(!t){ id = "home"; t = document.getElementById("p-home"); }
+  document.querySelectorAll(".page").forEach(function(p){ p.classList.remove("active"); });
+  if(t){ t.classList.add("active"); window.scrollTo({top:0,behavior:"instant"}); closeMobileNav(); syncMobileNav(id); }
+  document.querySelectorAll(".nav-links a[id^='n-']").forEach(function(a){ a.classList.remove("nav-active"); });
+  var nl = document.getElementById("n-"+id);
+  if(nl){ nl.classList.add("nav-active"); }
+}
+function go(id){
+  showPage(id);
+  history.pushState({page:id}, "", "#"+id);
+}
+window.addEventListener("popstate", function(){
+  var h = window.location.hash.replace("#","");
+  showPage(h || "home");
+});
+window.addEventListener("DOMContentLoaded", function(){
+  var h = window.location.hash.replace("#","");
+  if(h) showPage(h);
+});
+function filterP(tag,btn){
+  document.querySelectorAll(".f-btn").forEach(function(b){ b.classList.remove("active"); });
+  btn.classList.add("active");
+  document.querySelectorAll(".pfc").forEach(function(c){
+    c.style.display=(tag==="all"||c.dataset.tag.includes(tag))?"block":"none";
+  });
+}
+function calcADU(){
+  var income = parseFloat(document.getElementById("cc-income").value)||0;
+  var cost   = parseFloat(document.getElementById("cc-cost").value)||0;
+  var rate   = parseFloat(document.getElementById("cc-rate").value)||0;
+  var amort  = parseFloat(document.getElementById("cc-amort").value)||0;
+  var annExp = parseFloat(document.getElementById("cc-exp").value)||0;
+  var monthlyRate = (rate/100)/12;
+  var n = amort*12;
+  var mortgage = 0;
+  if(cost>0 && monthlyRate>0 && n>0){
+    mortgage = cost*(monthlyRate*Math.pow(1+monthlyRate,n))/(Math.pow(1+monthlyRate,n)-1);
+  } else if(cost>0 && n>0){
+    mortgage = cost/n;
+  }
+  var monthlyExp = annExp/12;
+  var cashflow = income - mortgage - monthlyExp;
+  function fmt(n){ return (n<0?"-$":"$")+Math.abs(Math.round(n)).toLocaleString(); }
+  document.getElementById("cc-mortgage").textContent = fmt(mortgage)+"/mo";
+  var cfEl = document.getElementById("cc-cashflow");
+  cfEl.textContent = fmt(cashflow)+"/mo";
+  cfEl.style.color = cashflow>=0 ? "var(--gold)" : "#e07070";
+}
+window.addEventListener("load", function(){
+  if(document.getElementById("cc-income")){ calcADU(); }
+});
+
+function openFloorplan(src, alt) {
+  var lb = document.getElementById('fp-lightbox');
+  document.getElementById('fp-img').src = src;
+  document.getElementById('fp-img').alt = alt;
+  lb.style.display = 'flex';
+  document.body.style.overflow = 'hidden';
+}
+function closeFloorplan() {
+  document.getElementById('fp-lightbox').style.display = 'none';
+  document.body.style.overflow = '';
+}
+document.addEventListener('keydown', function(e){ if(e.key==='Escape') closeFloorplan(); });
+
+
+// Modal open/close
+function openModal(){
+  document.getElementById("modal-overlay").classList.add("open");
+  document.body.style.overflow="hidden";
+  history.pushState({modal:true},"","#contact");
+}
+function closeModal(){
+  document.getElementById("modal-overlay").classList.remove("open");
+  document.body.style.overflow="";
+  if(window.location.hash==="#contact"){history.back();}
+}
+function handleOverlayClick(e){
+  if(e.target===document.getElementById("modal-overlay")) closeModal();
+}
+document.addEventListener("keydown",function(e){if(e.key==="Escape") closeModal();});
+// Handle back button closing modal
+window.addEventListener("popstate",function(){
+  var overlay=document.getElementById("modal-overlay");
+  if(overlay && overlay.classList.contains("open")) closeModal();
+});
+
+// Modal form AJAX submit
+var mForm=document.getElementById("modal-form");
+if(mForm){
+  mForm.addEventListener("submit",function(e){
+    e.preventDefault();
+    var btn=document.getElementById("modal-submit");
+    btn.textContent="Sending..."; btn.disabled=true;
+    var fd=new FormData(mForm);fd.append("form-name","consultation");fetch("/",{method:"POST",body:fd})
+    .then(function(r){
+      if(r.ok){
+        document.getElementById("modal-success").style.display="block";
+        mForm.style.display="none";
+      } else {
+        btn.textContent="Send Request"; btn.disabled=false;
+        document.getElementById("modal-error").style.display="block";
+      }
+    }).catch(function(){
+      btn.textContent="Send Request"; btn.disabled=false;
+      document.getElementById("modal-error").style.display="block";
+    });
+  });
+}
+
+
+
+// Hamburger menu
+function toggleMobileNav(){
+  var mn = document.getElementById("mobile-nav");
+  var hb = document.getElementById("nav-hamburger");
+  mn.classList.toggle("open");
+  hb.setAttribute("aria-expanded", mn.classList.contains("open"));
+}
+function toggleMyth(btn){var body=btn.nextElementSibling;var open=body.style.display==='block';body.style.display=open?'none':'block';btn.textContent=open?'Read more ↓':'Read less ↑';}
+function closeMobileNav(){
+  var mn = document.getElementById("mobile-nav");
+  var hb = document.getElementById("nav-hamburger");
+  if(mn){ mn.classList.remove("open"); }
+  if(hb){ hb.setAttribute("aria-expanded","false"); }
+}
+// Sync mobile nav active state on navigation
+function syncMobileNav(id){
+  document.querySelectorAll(".mobile-nav a[id^='mn-']").forEach(function(a){ a.classList.remove("nav-active"); });
+  var mnl = document.getElementById("mn-"+id);
+  if(mnl){ mnl.classList.add("nav-active"); }
+}
+
+// Cookie consent
+(function(){
+  if(!localStorage.getItem('dc_consent')){
+    var b = document.getElementById('cookie-banner');
+    if(b){ b.classList.add('visible'); }
+  }
+})();
+function acceptCookies(){
+  localStorage.setItem('dc_consent','1');
+  var b = document.getElementById('cookie-banner');
+  if(b){ b.classList.remove('visible'); }
+}
+
+// Card flip
+function flipCard(el){
+  el.classList.add('flipping');
+  setTimeout(function(){
+    el.classList.toggle('flipped');
+    el.classList.remove('flipping');
+    var front = el.querySelector('.flip-front');
+    var back  = el.querySelector('.flip-back');
+    if(el.classList.contains('flipped')){
+      if(front) front.style.display='none';
+      if(back)  back.style.display='block';
+    } else {
+      if(front) front.style.display='block';
+      if(back)  back.style.display='none';
+    }
+  },200);
+}
+</script>
+<div id="fp-lightbox" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.93);z-index:9999;align-items:center;justify-content:center;cursor:zoom-out;" onclick="closeFloorplan()"><img id="fp-img" src="" alt="" style="max-width:90vw;max-height:90vh;object-fit:contain;display:block;box-shadow:0 4px 60px rgba(0,0,0,0.9);"></div>
+
+</body></html>

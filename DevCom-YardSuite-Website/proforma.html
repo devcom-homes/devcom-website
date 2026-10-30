@@ -1,0 +1,463 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ADU Financing Proforma | YardSuite</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet" />
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: { dark:'#0c0c0c', card:'#161616', gold:'#C9A84C', 'gold-light':'#e8d5a3' },
+          fontFamily: { sans:['Inter','sans-serif'], display:['Playfair Display','serif'] },
+        },
+      },
+    };
+  </script>
+  <style>
+    body { background:#0c0c0c; }
+    input[type="number"] { -moz-appearance:textfield; }
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button { -webkit-appearance:none; margin:0; }
+    .result-card { background:linear-gradient(135deg,#0c0c0c 0%,#1a1a1a 100%); border:1px solid rgba(201,168,76,0.15); }
+    .input-field { background:#0c0c0c; border:1px solid rgba(255,255,255,0.1); transition:border-color 0.2s; }
+    .input-field:focus { border-color:#C9A84C; outline:none; box-shadow:0 0 0 2px rgba(201,168,76,0.15); }
+    .nav-btn { transition:all 0.2s; cursor:pointer; user-select:none; }
+    .nav-bar::-webkit-scrollbar { display:none; }
+    .nav-bar { -ms-overflow-style:none; scrollbar-width:none; }
+    .sub-tab { transition:all 0.15s; cursor:pointer; }
+  </style>
+</head>
+<body class="font-sans text-white min-h-screen">
+
+  <!-- Header -->
+  <header class="border-b border-white/5">
+    <div class="max-w-5xl mx-auto px-4 py-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+      <div>
+        <a href="yardsuite.html" class="text-white/40 text-xs uppercase tracking-widest hover:text-gold transition-colors">&larr; Back to YardSuite</a>
+        <h1 class="font-display text-2xl sm:text-3xl font-bold mt-1">ADU Financing Proforma</h1>
+        <p class="text-white/40 text-sm mt-1">Plan, calculate &amp; compare &mdash; TMC Greater Simcoe &times; YardSuite</p>
+      </div>
+    </div>
+  </header>
+
+  <!-- Nav tabs -->
+  <div class="border-b border-white/5 sticky top-0 bg-dark z-30">
+    <div class="max-w-5xl mx-auto px-4">
+      <div id="nav-bar" class="nav-bar flex gap-1 overflow-x-auto py-3">
+        <button onclick="goPage('home')" id="nav-home" class="nav-btn px-5 py-2.5 rounded-lg text-sm font-semibold bg-gold text-black">Home</button>
+        <button onclick="goPage('roi')" id="nav-roi" class="nav-btn px-5 py-2.5 rounded-lg text-sm font-semibold bg-[#222] text-white/70">ROI Calculator</button>
+        <button onclick="goPage('finance')" id="nav-finance" class="nav-btn px-5 py-2.5 rounded-lg text-sm font-semibold bg-[#222] text-white/70">Financing Options</button>
+      </div>
+    </div>
+  </div>
+
+  <main class="max-w-5xl mx-auto px-4 py-8">
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- HOME PAGE                                   -->
+    <!-- ═══════════════════════════════════════════ -->
+    <section id="page-home">
+      <div class="bg-card rounded-2xl border border-white/5 p-8 md:p-10 mb-8">
+        <h2 class="font-display text-3xl md:text-4xl font-bold mb-4">How Does ADU Financing Work?</h2>
+        <p class="text-white/60 text-base leading-relaxed mb-8 max-w-3xl">Most homeowners can fund an ADU build using equity they already have — they just don't know which route fits their situation. This tool helps you understand the return on your investment and compare the most common financing paths before speaking with a broker.</p>
+
+        <!-- Quick-launch cards -->
+        <div class="grid sm:grid-cols-2 gap-4 mb-10">
+          <button onclick="goPage('roi')" class="text-left bg-[#111] border border-white/5 rounded-xl p-6 hover:border-gold/40 transition-colors group">
+            <div class="flex items-center gap-3 mb-3">
+              <span class="flex items-center justify-center w-10 h-10 rounded-xl bg-gold/20 text-gold text-lg">📊</span>
+              <h3 class="font-semibold text-lg text-white group-hover:text-gold transition-colors">ROI Calculator</h3>
+            </div>
+            <p class="text-white/40 text-sm leading-relaxed">See what your ADU could earn — monthly cash flow, annual return, and payback period based on your build cost and expected rent.</p>
+            <div class="mt-4 text-gold text-xs font-semibold uppercase tracking-wider">Calculate ROI →</div>
+          </button>
+          <button onclick="goPage('finance')" class="text-left bg-[#111] border border-white/5 rounded-xl p-6 hover:border-gold/40 transition-colors group">
+            <div class="flex items-center gap-3 mb-3">
+              <span class="flex items-center justify-center w-10 h-10 rounded-xl bg-gold/20 text-gold text-lg">🏦</span>
+              <h3 class="font-semibold text-lg text-white group-hover:text-gold transition-colors">Financing Options</h3>
+            </div>
+            <p class="text-white/40 text-sm leading-relaxed">Compare four financing routes — insured refi, standard refi, purchase + improvements, and traditional refi with cash on hand.</p>
+            <div class="mt-4 text-gold text-xs font-semibold uppercase tracking-wider">Compare scenarios →</div>
+          </button>
+        </div>
+
+        <!-- How it works -->
+        <div class="border-t border-white/5 pt-8">
+          <h3 class="font-semibold text-lg text-white mb-5">How to use this tool</h3>
+          <div class="grid sm:grid-cols-3 gap-6">
+            <div class="flex gap-3">
+              <span class="flex-shrink-0 w-8 h-8 rounded-full bg-gold/20 text-gold text-sm font-bold flex items-center justify-center mt-0.5">1</span>
+              <div>
+                <p class="text-white/80 text-sm font-medium mb-1">Check your ROI</p>
+                <p class="text-white/40 text-xs leading-relaxed">Enter your build cost and expected rent to see if the numbers make sense before you go further.</p>
+              </div>
+            </div>
+            <div class="flex gap-3">
+              <span class="flex-shrink-0 w-8 h-8 rounded-full bg-gold/20 text-gold text-sm font-bold flex items-center justify-center mt-0.5">2</span>
+              <div>
+                <p class="text-white/80 text-sm font-medium mb-1">Compare financing</p>
+                <p class="text-white/40 text-xs leading-relaxed">Pick the scenario that matches your situation and plug in your real numbers. Results update as you type.</p>
+              </div>
+            </div>
+            <div class="flex gap-3">
+              <span class="flex-shrink-0 w-8 h-8 rounded-full bg-gold/20 text-gold text-sm font-bold flex items-center justify-center mt-0.5">3</span>
+              <div>
+                <p class="text-white/80 text-sm font-medium mb-1">Talk to TMC</p>
+                <p class="text-white/40 text-xs leading-relaxed">Bring your numbers to TMC Greater Simcoe. They'll verify qualification, rates, and walk you through next steps.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Key terms -->
+        <div class="border-t border-white/5 pt-8 mt-8">
+          <h3 class="font-semibold text-lg text-white mb-4">Key terms</h3>
+          <div class="grid sm:grid-cols-2 gap-x-8 gap-y-3 text-sm">
+            <div><strong class="text-white/80">LTV</strong> <span class="text-white/40">— Loan-to-Value ratio. The mortgage as a percentage of property value.</span></div>
+            <div><strong class="text-white/80">As-Complete Value</strong> <span class="text-white/40">— What the property will be worth after the ADU is built, verified by appraiser.</span></div>
+            <div><strong class="text-white/80">CMHC Premium</strong> <span class="text-white/40">— Mortgage insurance required when LTV exceeds 80%. Added to the loan.</span></div>
+            <div><strong class="text-white/80">Equity Available</strong> <span class="text-white/40">— Cash you can access by refinancing, after paying off your existing mortgage.</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Preferred Builder -->
+      <div class="bg-card rounded-2xl border border-gold/20 p-8 md:p-10">
+        <div class="flex flex-col md:flex-row items-start md:items-center gap-6">
+          <img src="devcom-logo.png" alt="DevCom Homes" class="h-20 md:h-24 object-contain" onerror="this.style.display='none'" />
+          <div class="flex-1">
+            <div class="text-gold text-xs font-semibold uppercase tracking-widest mb-2">Preferred Builder</div>
+            <h3 class="font-display text-2xl font-bold mb-2">DevCom Homes</h3>
+            <p class="text-white/50 text-sm leading-relaxed mb-4">Southern Georgian Bay's trusted development, construction, and financing partner. DevCom handles the full ADU build — from permits and foundation to final inspection — so you get a turnkey garden suite without managing contractors yourself.</p>
+            <div class="flex flex-wrap gap-3">
+              <a href="index.html" target="_blank" class="inline-block bg-gold text-black font-semibold text-sm px-5 py-2.5 rounded-lg hover:bg-yellow-400 transition-colors">Visit DevCom Homes →</a>
+              <a href="yardsuite.html#feasibility" target="_blank" class="inline-block border border-gold/40 text-gold font-semibold text-sm px-5 py-2.5 rounded-lg hover:bg-gold/10 transition-colors">Check My Property</a>
+            </div>
+          </div>
+        </div>
+        <div class="grid grid-cols-3 gap-4 mt-8 pt-6 border-t border-white/5">
+          <div class="text-center">
+            <div class="text-gold font-display text-2xl font-bold">12+</div>
+            <div class="text-white/40 text-xs mt-1">Years in Region</div>
+          </div>
+          <div class="text-center">
+            <div class="text-gold font-display text-2xl font-bold">3-in-1</div>
+            <div class="text-white/40 text-xs mt-1">Develop · Build · Finance</div>
+          </div>
+          <div class="text-center">
+            <div class="text-gold font-display text-2xl font-bold">100%</div>
+            <div class="text-white/40 text-xs mt-1">Turnkey Delivery</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- ROI CALCULATOR                              -->
+    <!-- ═══════════════════════════════════════════ -->
+    <section id="page-roi" class="hidden">
+      <div class="grid lg:grid-cols-2 gap-6">
+        <!-- Inputs -->
+        <div class="bg-card rounded-2xl p-6 border border-white/5">
+          <h2 class="font-display text-xl font-semibold mb-1">ROI Calculator</h2>
+          <p class="text-white/40 text-xs mb-6">See what your ADU earns you</p>
+
+          <div class="space-y-4">
+            <div>
+              <label class="text-white/60 text-xs font-medium uppercase tracking-wider mb-1.5 block">Total ADU Build Cost</label>
+              <div class="relative">
+                <span class="absolute left-3 top-1/2 -translate-y-1/2 text-white/30 text-sm">$</span>
+                <input type="number" id="roi-build" value="175000" oninput="calcROI()" class="input-field w-full rounded-lg px-3 pl-7 py-2.5 text-white text-sm" />
+              </div>
+            </div>
+            <div>
+              <label class="text-white/60 text-xs font-medium uppercase tracking-wider mb-1.5 block">Expected Monthly Rent</label>
+              <div class="relative">
+                <span class="absolute left-3 top-1/2 -translate-y-1/2 text-white/30 text-sm">$</span>
+                <input type="number" id="roi-rent" value="2000" oninput="calcROI()" class="input-field w-full rounded-lg px-3 pl-7 py-2.5 text-white text-sm" />
+              </div>
+            </div>
+            <div>
+              <label class="text-white/60 text-xs font-medium uppercase tracking-wider mb-1.5 block">Property Tax Increase (per year)</label>
+              <div class="relative">
+                <span class="absolute left-3 top-1/2 -translate-y-1/2 text-white/30 text-sm">$</span>
+                <input type="number" id="roi-proptax" value="800" oninput="calcROI()" class="input-field w-full rounded-lg px-3 pl-7 py-2.5 text-white text-sm" />
+              </div>
+              <p class="text-white/30 text-xs mt-1">Estimated annual increase from ADU reassessment</p>
+            </div>
+            <div>
+              <label class="text-white/60 text-xs font-medium uppercase tracking-wider mb-1.5 block">Insurance Increase (per year)</label>
+              <div class="relative">
+                <span class="absolute left-3 top-1/2 -translate-y-1/2 text-white/30 text-sm">$</span>
+                <input type="number" id="roi-insurance" value="200" oninput="calcROI()" class="input-field w-full rounded-lg px-3 pl-7 py-2.5 text-white text-sm" />
+              </div>
+              <p class="text-white/30 text-xs mt-1">Additional premium on your existing policy for the ADU</p>
+            </div>
+            <div>
+              <label class="text-white/60 text-xs font-medium uppercase tracking-wider mb-1.5 block">Property Value Increase Multiplier</label>
+              <div class="flex items-center gap-3">
+                <input type="range" id="roi-multiplier" min="1.0" max="1.2" step="0.05" value="1.1" oninput="document.getElementById('roi-multiplier-val').textContent = (+this.value).toFixed(2) + 'x'; calcROI()" class="flex-1"/>
+                <span id="roi-multiplier-val" class="text-gold text-sm font-bold w-14 text-right">1.10x</span>
+              </div>
+              <p class="text-white/30 text-xs mt-1">Typical range: 1.0&ndash;1.2&times; build cost. Final figure depends on a registered appraiser's opinion of value.</p>
+            </div>
+          </div>
+        </div>
+        <!-- Results -->
+        <div class="result-card rounded-2xl p-6">
+          <h3 class="text-gold text-xs font-semibold uppercase tracking-widest mb-5">Your Returns</h3>
+          <div class="space-y-3" id="results-roi"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- FINANCING OPTIONS                           -->
+    <!-- ═══════════════════════════════════════════ -->
+    <section id="page-finance" class="hidden">
+      <!-- Sub-tabs for scenarios -->
+      <div class="flex flex-wrap gap-2 mb-6">
+        <button onclick="switchScenario('b')" id="stab-b" class="sub-tab px-4 py-2 rounded-lg text-xs font-semibold bg-gold text-black">A · Standard Refi</button>
+        <button onclick="switchScenario('a')" id="stab-a" class="sub-tab px-4 py-2 rounded-lg text-xs font-semibold bg-[#1a1a1a] text-white/50">B · Insured Refi</button>
+        <button onclick="switchScenario('c')" id="stab-c" class="sub-tab px-4 py-2 rounded-lg text-xs font-semibold bg-[#1a1a1a] text-white/50">C · Purchase + Improve</button>
+      </div>
+
+      <!-- Scenario A (display: B · Insured Refi) -->
+      <div id="scn-a" class="scn-panel hidden">
+        <div class="grid lg:grid-cols-2 gap-6">
+          <div class="bg-card rounded-2xl p-6 border border-white/5">
+            <div class="flex items-center gap-3 mb-1">
+              <span class="flex items-center justify-center w-8 h-8 rounded-lg bg-gold/20 text-gold text-sm font-bold">B</span>
+              <h2 class="font-display text-lg font-semibold">Insured Refinance</h2>
+            </div>
+            <p class="text-white/40 text-xs mb-5 ml-11">90% As-Complete LTV</p>
+            <p class="text-white/50 text-sm mb-6 leading-relaxed">Best for homeowners with an already insured mortgage who want to borrow against the value the ADU will add. A re-insured refi can partially offset the premium you've already paid.</p>
+            <div class="space-y-4">
+              <div><label class="text-white/60 text-xs font-medium uppercase tracking-wider mb-1.5 block">Current Home Value</label><div class="relative"><span class="absolute left-3 top-1/2 -translate-y-1/2 text-white/30 text-sm">$</span><input type="number" id="a-home-value" value="650000" oninput="calcA()" class="input-field w-full rounded-lg px-3 pl-7 py-2.5 text-white text-sm" /></div></div>
+              <div><label class="text-white/60 text-xs font-medium uppercase tracking-wider mb-1.5 block">Estimated As-Complete Value</label><div class="relative"><span class="absolute left-3 top-1/2 -translate-y-1/2 text-white/30 text-sm">$</span><input type="number" id="a-as-complete" value="825000" oninput="calcA()" class="input-field w-full rounded-lg px-3 pl-7 py-2.5 text-white text-sm" /></div></div>
+              <div><label class="text-white/60 text-xs font-medium uppercase tracking-wider mb-1.5 block">Current Mortgage Balance</label><div class="relative"><span class="absolute left-3 top-1/2 -translate-y-1/2 text-white/30 text-sm">$</span><input type="number" id="a-mortgage" value="420000" oninput="calcA()" class="input-field w-full rounded-lg px-3 pl-7 py-2.5 text-white text-sm" /></div></div>
+              <div><label class="text-white/60 text-xs font-medium uppercase tracking-wider mb-1.5 block">ADU Build Cost</label><div class="relative"><span class="absolute left-3 top-1/2 -translate-y-1/2 text-white/30 text-sm">$</span><input type="number" id="a-build-cost" value="175000" oninput="calcA()" class="input-field w-full rounded-lg px-3 pl-7 py-2.5 text-white text-sm" /></div></div>
+            </div>
+          </div>
+          <div class="result-card rounded-2xl p-6"><h3 class="text-gold text-xs font-semibold uppercase tracking-widest mb-5">Results</h3><div class="space-y-3" id="results-a"></div></div>
+        </div>
+      </div>
+
+      <!-- Scenario B (display: A · Standard Refi — default visible) -->
+      <div id="scn-b" class="scn-panel">
+        <div class="grid lg:grid-cols-2 gap-6">
+          <div class="bg-card rounded-2xl p-6 border border-white/5">
+            <div class="flex items-center gap-3 mb-1">
+              <span class="flex items-center justify-center w-8 h-8 rounded-lg bg-gold/20 text-gold text-sm font-bold">A</span>
+              <h2 class="font-display text-lg font-semibold">Standard Refinance</h2>
+            </div>
+            <p class="text-white/40 text-xs mb-5 ml-11">80% Current Value LTV</p>
+            <p class="text-white/50 text-sm mb-6 leading-relaxed">The conventional route. No mortgage insurance, no premium &mdash; but capped at 80% LTV on the current value (before the ADU is built).</p>
+            <div class="space-y-4">
+              <div><label class="text-white/60 text-xs font-medium uppercase tracking-wider mb-1.5 block">Current Home Value</label><div class="relative"><span class="absolute left-3 top-1/2 -translate-y-1/2 text-white/30 text-sm">$</span><input type="number" id="b-home-value" value="650000" oninput="calcB()" class="input-field w-full rounded-lg px-3 pl-7 py-2.5 text-white text-sm" /></div></div>
+              <div><label class="text-white/60 text-xs font-medium uppercase tracking-wider mb-1.5 block">Current Mortgage Balance</label><div class="relative"><span class="absolute left-3 top-1/2 -translate-y-1/2 text-white/30 text-sm">$</span><input type="number" id="b-mortgage" value="390000" oninput="calcB()" class="input-field w-full rounded-lg px-3 pl-7 py-2.5 text-white text-sm" /></div></div>
+              <div><label class="text-white/60 text-xs font-medium uppercase tracking-wider mb-1.5 block">ADU Build Cost</label><div class="relative"><span class="absolute left-3 top-1/2 -translate-y-1/2 text-white/30 text-sm">$</span><input type="number" id="b-build-cost" value="175000" oninput="calcB()" class="input-field w-full rounded-lg px-3 pl-7 py-2.5 text-white text-sm" /></div></div>
+            </div>
+          </div>
+          <div class="result-card rounded-2xl p-6"><h3 class="text-gold text-xs font-semibold uppercase tracking-widest mb-5">Results</h3><div class="space-y-3" id="results-b"></div></div>
+        </div>
+      </div>
+
+      <!-- Scenario C -->
+      <div id="scn-c" class="scn-panel hidden">
+        <div class="grid lg:grid-cols-2 gap-6">
+          <div class="bg-card rounded-2xl p-6 border border-white/5">
+            <div class="flex items-center gap-3 mb-1">
+              <span class="flex items-center justify-center w-8 h-8 rounded-lg bg-gold/20 text-gold text-sm font-bold">C</span>
+              <h2 class="font-display text-lg font-semibold">Purchase + Improvements</h2>
+            </div>
+            <p class="text-white/40 text-xs mb-5 ml-11">90% As-Complete LTV</p>
+            <p class="text-white/50 text-sm mb-6 leading-relaxed">Buying a home and adding a suite inside the existing structure (basement, in-law, etc.). Detached garden suites don't qualify, but interior ADUs do.</p>
+            <div class="space-y-4">
+              <div><label class="text-white/60 text-xs font-medium uppercase tracking-wider mb-1.5 block">Purchase Price</label><div class="relative"><span class="absolute left-3 top-1/2 -translate-y-1/2 text-white/30 text-sm">$</span><input type="number" id="c-purchase" value="550000" oninput="calcC()" class="input-field w-full rounded-lg px-3 pl-7 py-2.5 text-white text-sm" /></div></div>
+              <div><label class="text-white/60 text-xs font-medium uppercase tracking-wider mb-1.5 block">Estimated As-Complete Value</label><div class="relative"><span class="absolute left-3 top-1/2 -translate-y-1/2 text-white/30 text-sm">$</span><input type="number" id="c-as-complete" value="720000" oninput="calcC()" class="input-field w-full rounded-lg px-3 pl-7 py-2.5 text-white text-sm" /></div></div>
+              <div><label class="text-white/60 text-xs font-medium uppercase tracking-wider mb-1.5 block">ADU (Interior Suite) Build Cost</label><div class="relative"><span class="absolute left-3 top-1/2 -translate-y-1/2 text-white/30 text-sm">$</span><input type="number" id="c-build-cost" value="90000" oninput="calcC()" class="input-field w-full rounded-lg px-3 pl-7 py-2.5 text-white text-sm" /></div></div>
+            </div>
+          </div>
+          <div class="result-card rounded-2xl p-6"><h3 class="text-gold text-xs font-semibold uppercase tracking-widest mb-5">Results</h3><div class="space-y-3" id="results-c"></div></div>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- Disclaimer (always visible) -->
+    <div class="mt-12 border-t border-white/5 pt-8">
+      <p class="text-white/30 text-xs leading-relaxed max-w-3xl">
+        <strong class="text-gold/60">Disclaimer:</strong> All values shown are estimates for planning purposes only. As-complete values must be verified by an approved, licensed residential appraiser upon completion. Insurance premiums vary by lender and LTV tier. Qualification depends on income, credit, and debt servicing ratios. Speak with TMC Greater Simcoe for your actual scenario.
+      </p>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="border-t border-white/5 mt-8">
+    <div class="max-w-5xl mx-auto px-4 py-6 flex flex-col sm:flex-row items-center justify-between gap-3">
+      <div class="flex items-center gap-4 text-xs text-white/30">
+        <a href="yardsuite.html" class="hover:text-gold transition-colors">YardSuite</a>
+        <span class="text-white/10">|</span>
+        <a href="index.html" class="hover:text-gold transition-colors">DevCom Homes</a>
+        <span class="text-white/10">|</span>
+        <a href="terms.html" class="hover:text-gold transition-colors">Terms</a>
+        <span class="text-white/10">|</span>
+        <a href="privacy.html" class="hover:text-gold transition-colors">Privacy</a>
+      </div>
+      <p class="text-white/20 text-xs">Powered by <span class="text-gold/60">YardSuite</span></p>
+    </div>
+  </footer>
+
+  <script>
+    /* ─── Helpers ─── */
+    function fmt(n) { return '$' + Math.round(n).toLocaleString('en-CA'); }
+    function val(id) { const v = parseFloat(document.getElementById(id).value); return isNaN(v) ? 0 : v; }
+    function cmhcPremium(loan, value) {
+      if (value <= 0) return 0;
+      const ltv = (loan / value) * 100;
+      let rate = 0;
+      if (ltv <= 65) rate = 0.60;
+      else if (ltv <= 75) rate = 1.70;
+      else if (ltv <= 80) rate = 2.40;
+      else if (ltv <= 85) rate = 2.80;
+      else if (ltv <= 90) rate = 3.10;
+      else if (ltv <= 95) rate = 4.00;
+      else rate = 4.50;
+      return loan * (rate / 100);
+    }
+    function row(label, value, opts = {}) {
+      const { gold, large, verdict } = opts;
+      let vc = 'text-white text-sm';
+      if (gold) vc = 'text-gold font-semibold text-base';
+      if (large) vc = 'text-gold font-bold text-xl';
+      if (verdict === 'positive') vc = 'text-emerald-400 font-semibold text-base';
+      if (verdict === 'negative') vc = 'text-red-400 font-semibold text-base';
+      return `<div class="flex items-center justify-between py-2 border-b border-white/5 last:border-0"><span class="text-white/50 text-sm">${label}</span><span class="${vc}">${value}</span></div>`;
+    }
+    function verdictBlock(text, type) {
+      const bg = type === 'positive' ? 'bg-emerald-500/10 border-emerald-500/20 text-emerald-400'
+                : type === 'warning' ? 'bg-amber-500/10 border-amber-500/20 text-amber-400'
+                : 'bg-red-500/10 border-red-500/20 text-red-400';
+      return `<div class="mt-4 p-3 rounded-lg border ${bg} text-xs leading-relaxed">${text}</div>`;
+    }
+
+    /* ─── Page Navigation (Home / ROI / Finance) ─── */
+    const PAGES = ['home','roi','finance'];
+    function goPage(id) {
+      PAGES.forEach(p => {
+        document.getElementById('page-' + p).classList.toggle('hidden', p !== id);
+        const btn = document.getElementById('nav-' + p);
+        btn.className = 'nav-btn px-5 py-2.5 rounded-lg text-sm font-semibold ' + (p === id ? 'bg-gold text-black' : 'bg-[#222] text-white/70');
+      });
+      window.scrollTo({ top: 0, behavior: 'instant' });
+    }
+
+    /* ─── Scenario Sub-tabs (within Finance page) ─── */
+    const SCNS = ['a','b','c','d'];
+    function switchScenario(id) {
+      SCNS.forEach(s => {
+        document.getElementById('scn-' + s).classList.toggle('hidden', s !== id);
+        const btn = document.getElementById('stab-' + s);
+        btn.className = 'sub-tab px-4 py-2 rounded-lg text-xs font-semibold ' + (s === id ? 'bg-gold text-black' : 'bg-[#1a1a1a] text-white/50');
+      });
+    }
+
+    /* ─── ROI Calculator ─── */
+    function calcROI() {
+      const build = val('roi-build');
+      const rent = val('roi-rent');
+      const propTax = val('roi-proptax');
+      const insurance = val('roi-insurance');
+      const multiplier = val('roi-multiplier') || 1.1;
+      const appreciation = build * (multiplier - 1);
+
+      const expenses = (propTax + insurance) / 12;
+      const monthlyNet = rent - expenses;
+      const annualNet = monthlyNet * 12;
+      const cashROI = build > 0 ? (annualNet / build) * 100 : 0;
+      const payback = annualNet > 0 ? build / annualNet : 0;
+      const totalROI = build > 0 ? ((annualNet + appreciation) / build) * 100 : 0;
+
+      let html = '';
+      html += row('Monthly Rent', fmt(rent) + '/mo');
+      html += row('&minus; Property Tax Increase', fmt(propTax / 12) + '/mo');
+      html += row('&minus; Insurance Increase', fmt(insurance / 12) + '/mo');
+      html += '<div class="border-t border-white/10 my-3"></div>';
+      html += row('Monthly Net Cash Flow', fmt(monthlyNet) + '/mo', { verdict: monthlyNet >= 0 ? 'positive' : 'negative' });
+      html += row('Annual Net Income', fmt(annualNet) + '/yr', { gold: true });
+      html += '<div class="border-t border-white/10 my-3"></div>';
+      html += row('Cash-on-Cash ROI', cashROI.toFixed(1) + '%', { gold: true });
+      html += row('Payback Period', payback > 0 ? payback.toFixed(1) + ' years' : '—');
+      html += '<div class="border-t border-white/10 my-3"></div>';
+      html += row('Property Value Increase', fmt(appreciation));
+      html += row('Total First-Year Return', fmt(annualNet + appreciation), { large: true });
+      html += row('Total ROI (income + equity)', totalROI.toFixed(1) + '%', { verdict: totalROI >= 10 ? 'positive' : totalROI >= 0 ? 'positive' : 'negative' });
+
+      if (monthlyNet > 0) {
+        html += verdictBlock('Your ADU pays for itself in <strong>' + payback.toFixed(1) + ' years</strong> from rental income alone — plus ' + fmt(appreciation) + ' in immediate equity.', 'positive');
+      } else if (monthlyNet === 0) {
+        html += verdictBlock('Breaks even on monthly cash flow. The real return comes from the ' + fmt(appreciation) + ' property value increase.', 'warning');
+      } else {
+        html += verdictBlock('Negative monthly cash flow. Consider raising rent, reducing expenses, or re-evaluating the build cost.', 'negative');
+      }
+
+      document.getElementById('results-roi').innerHTML = html;
+    }
+
+    /* ─── Scenario A ─── */
+    function calcA() {
+      const asComplete = val('a-as-complete'), mortgage = val('a-mortgage'), buildCost = val('a-build-cost');
+      const maxLoan = asComplete * 0.90, equity = maxLoan - mortgage, surplus = equity - buildCost;
+      const newPrem = cmhcPremium(maxLoan, asComplete);
+      let h = '';
+      h += row('Max Loan @ 90% As-Complete', fmt(maxLoan), { gold:true });
+      h += row('&minus; Current Mortgage', fmt(mortgage));
+      h += row('Equity Available to Pull', fmt(equity), { gold:true });
+      h += row('&minus; Build Cost', fmt(buildCost));
+      h += row('Shortfall / Surplus', fmt(Math.abs(surplus)) + (surplus >= 0 ? ' surplus' : ' shortfall'), { verdict: surplus >= 0 ? 'positive' : 'negative' });
+      h += '<div class="border-t border-white/10 my-3"></div>';
+      h += row('New Insurance Premium (estimated)', fmt(newPrem));
+      h += '<p class="text-white/40 text-xs italic mt-2 leading-relaxed">If you already paid mortgage insurance on your current loan, your premium can be reduced. The exact credit is calculated at the time of submission by your lender and CMHC.</p>';
+      document.getElementById('results-a').innerHTML = h;
+    }
+
+    /* ─── Scenario B ─── */
+    function calcB() {
+      const homeVal = val('b-home-value'), mortgage = val('b-mortgage'), buildCost = val('b-build-cost');
+      const maxLoan = homeVal * 0.80, equity = maxLoan - mortgage, surplus = equity - buildCost;
+      let h = '';
+      h += row('Max Loan @ 80% Current Value', fmt(maxLoan), { gold:true });
+      h += row('&minus; Current Mortgage', fmt(mortgage));
+      h += row('Equity Available', fmt(equity), { gold:true });
+      h += row('&minus; Build Cost', fmt(buildCost));
+      h += row('Shortfall / Surplus', fmt(Math.abs(surplus)) + (surplus >= 0 ? ' surplus' : ' shortfall'), { verdict: surplus >= 0 ? 'positive' : 'negative' });
+      if (mortgage > homeVal) h += verdictBlock('Mortgage exceeds home value. Refinancing not viable at this time.', 'negative');
+      else if (surplus < 0) h += verdictBlock('Shortfall of ' + fmt(Math.abs(surplus)) + '. Consider Scenario B (Insured Refi at 90% As-Complete) to access more.', 'warning');
+      else h += verdictBlock('Covers the build with ' + fmt(surplus) + ' to spare. No insurance premium needed.', 'positive');
+      document.getElementById('results-b').innerHTML = h;
+    }
+
+    /* ─── Scenario C ─── */
+    function calcC() {
+      const purchase = val('c-purchase'), asComplete = val('c-as-complete'), buildCost = val('c-build-cost');
+      const total = purchase + buildCost, maxLoan = asComplete * 0.90, down = total - maxLoan;
+      const prem = cmhcPremium(maxLoan, asComplete), startMtg = maxLoan + prem;
+      let h = '';
+      h += row('Total Project Cost', fmt(total));
+      h += row('Max Loan @ 90% As-Complete', fmt(maxLoan), { gold:true });
+      h += row('Required Down Payment', fmt(Math.max(down, 0)), { verdict: down > 0 ? 'negative' : 'positive' });
+      h += row('Insurance Premium (CMHC)', fmt(prem));
+      h += '<div class="border-t border-white/10 my-3"></div>';
+      h += row('Starting Mortgage (loan + premium)', fmt(startMtg), { large:true });
+      document.getElementById('results-c').innerHTML = h;
+    }
+
+    /* ─── Init ─── */
+    calcROI(); calcA(); calcB(); calcC();
+  </script>
+</body>
+</html>
