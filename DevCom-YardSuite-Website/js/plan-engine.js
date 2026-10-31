@@ -1,0 +1,172 @@
+/* YardSuite plan engine: turns a suite type + layout + chosen size into a full plan
+   (same data format as js/floorplans.js), by stretching the base layouts along
+   "stretch lines" that run through living space, mirroring for side-by-side pairs,
+   and stacking for over/under units. */
+(function () {
+  'use strict';
+  const B = window.YS_PLANS;
+  const clone = (o) => JSON.parse(JSON.stringify(o));
+  const ftIn = (f) => { const ft = Math.floor(f + 1e-6), i = Math.round((f - ft) * 12); return i === 12 ? (ft + 1) + "'-0\"" : ft + "'-" + i + '"'; };
+
+  // Where each base layout stretches (feet). Lines pass through living space, never baths or stairs.
+  const STRETCH = { studio: { sx: [14], sy: [11.5] }, onebed: { sx: [5, 22], sy: [15] }, twobed: { sx: [6, 26], sy: [20] }, loft: { sx: [14], sy: [21.5] } };
+  const GROW = { w: 16, d: 12 }; // how much bigger than the base a layout can get
+
+  const TYPES = {
+    single: { label: 'One storey', units: 1, storeys: 1, blurb: 'One suite on one level', layouts: ['studio', 'onebed', 'twobed'] },
+    loft: { label: 'Two storey', units: 1, storeys: 2, blurb: 'One suite, living down, bedrooms up', layouts: ['loft'] },
+    side: { label: 'Two units, side by side', units: 2, storeys: 1, blurb: 'Two suites sharing one wall', layouts: ['studio', 'onebed'] },
+    stacked: { label: 'Two units, stacked', units: 2, storeys: 2, blurb: 'One suite up, one down, outside stair', layouts: ['onebed', 'studio'] }
+  };
+  const LAYOUT_LABEL = { studio: 'Studio', onebed: 'One bedroom', twobed: 'Two bedroom', loft: 'Two bedroom loft' };
+
+  function stretchFloor(f, base, W, D) {
+    const s = STRETCH[base.key], dW = W - base.W, dD = D - base.D;
+    const mk = (lines, d) => (v) => lines.reduce((acc, l) => acc + (v > l + 1e-6 ? d / lines.length : 0), v);
+    const tx = mk(s.sx, dW), ty = mk(s.sy, dD);
+    const spanX = (x, w) => s.sx.some(l => x < l && x + w > l), spanY = (y, h) => s.sy.some(l => y < l && y + h > l);
+    const n = clone(f);
+    n.walls = n.walls.map(w => { const r = [tx(w[0]), ty(w[1]), tx(w[2]), ty(w[3])]; if (w[4]) r.push(w[4]); return r; });
+    n.rooms = n.rooms.map(r => {
+      const x2 = tx(r.x + r.w), y2 = ty(r.y + r.h), nx = tx(r.x), ny = ty(r.y);
+      const o = Object.assign({}, r, { x: nx, y: ny, w: x2 - nx, h: y2 - ny });
+      o.lx = spanX(r.x, r.w) ? nx + (r.lx - r.x) * (o.w / r.w) : tx(r.lx);
+      o.ly = spanY(r.y, r.h) ? ny + (r.ly - r.y) * (o.h / r.h) : ty(r.ly);
+      if (o.dimText) o.dimText = ftIn(o.w) + ' x ' + ftIn(o.h);
+      return o;
+    });
+    const along = (o) => (o.wall === 'N' || o.wall === 'S' || o.side === 'N' || o.side === 'S' || o.h !== undefined) ? 'x' : 'y';
+    n.doors = n.doors.map(d => {
+      const o = Object.assign({}, d);
+      if (along(d) === 'x') o.at = tx(d.at); else o.at = ty(d.at);
+      if (d.h !== undefined) o.h = ty(d.h); if (d.v !== undefined) o.v = tx(d.v);
+      return o;
+    });
+    n.windows = n.windows.map(w => { const o = Object.assign({}, w); if (along(w) === 'x') o.at = tx(w.at); else o.at = ty(w.at); return o; });
+    const stretchy = { counter: 1, closet: 1, rod: 1 };
+    n.fixtures = n.fixtures.map(fx => {
+      const o = Object.assign({}, fx);
+      if (fx.x !== undefined) {
+        if (stretchy[fx.t] && spanX(fx.x, fx.w)) { o.x = tx(fx.x); o.w = tx(fx.x + fx.w) - o.x; } else o.x = fx.x + (tx(fx.x + fx.w / 2) - (fx.x + fx.w / 2));
+        if (stretchy[fx.t] && spanY(fx.y, fx.h)) { o.y = ty(fx.y); o.h = ty(fx.y + fx.h) - o.y; } else o.y = fx.y + (ty(fx.y + fx.h / 2) - (fx.y + fx.h / 2));
+      } else {
+        o.cx = tx(fx.cx);
+        if (fx.cy !== undefined) o.cy = ty(fx.cy); else o.y = ty(fx.y);
+      }
+      return o;
+    });
+    // add a window in long new stretches of blank wall
+    const clear = (side, a, b) => n.windows.concat(n.doors.filter(d => d.wall)).every(o => { const sd = o.side || o.wall; return sd !== side || o.at + o.len < a - 0.5 || o.at > b + 0.5; });
+    s.sx.forEach(l => { const g = dW / s.sx.length; if (g >= 6) ['N', 'S'].forEach(side => { const a = tx(l) + g / 2 - 2 - g; const at = l + g / 2 - 2 + (tx(l) - l); if (clear(side, at, at + 4)) n.windows.push({ side, at, len: 4 }); }); });
+    s.sy.forEach(l => { const g = dD / s.sy.length; if (g >= 6) ['E', 'W'].forEach(side => { const at = l + g / 2 - 2 + (ty(l) - l); if (clear(side, at, at + 4)) n.windows.push({ side, at, len: 4 }); }); });
+    return n;
+  }
+
+  function stretch(baseKey, W, D) {
+    const base = B[baseKey];
+    const p = clone(base);
+    p.W = W; p.D = D;
+    p.floors = base.floors.map(f => stretchFloor(f, base, W, D));
+    return p;
+  }
+
+  function mirrorFloor(f, W) {
+    const n = clone(f);
+    const mx = (x) => 2 * W - x;
+    n.walls = n.walls.map(w => { const r = [mx(w[0]), w[1], mx(w[2]), w[3]]; if (w[4]) r.push(w[4]); return r; });
+    n.rooms = n.rooms.map(r => Object.assign({}, r, { x: mx(r.x + r.w), lx: mx(r.lx), anchor: r.anchor === 'end' ? 'start' : r.anchor === 'start' ? 'end' : r.anchor }));
+    n.doors = n.doors.map(d => {
+      const o = Object.assign({}, d);
+      if (d.wall === 'N' || d.wall === 'S' || d.h !== undefined) { o.at = mx(d.at + d.len); o.hingeEnd = !d.hingeEnd; }
+      if (d.wall === 'W') o.wall = 'E'; else if (d.wall === 'E') o.wall = 'W';
+      if (d.v !== undefined) { o.v = mx(d.v); o.swing = -(d.swing || 1); }
+      return o;
+    });
+    n.windows = n.windows.map(w => { const o = Object.assign({}, w); if (w.side === 'N' || w.side === 'S') o.at = mx(w.at + w.len); else o.side = w.side === 'W' ? 'E' : 'W'; return o; });
+    const flip = { E: 'W', W: 'E' };
+    n.fixtures = n.fixtures.map(fx => {
+      const o = Object.assign({}, fx);
+      if (fx.x !== undefined) o.x = mx(fx.x + fx.w);
+      if (fx.cx !== undefined) o.cx = mx(fx.cx);
+      if (fx.head && flip[fx.head]) o.head = flip[fx.head];
+      if (fx.facing && flip[fx.facing]) o.facing = flip[fx.facing];
+      if (fx.dir && flip[fx.dir]) o.dir = flip[fx.dir];
+      return o;
+    });
+    return n;
+  }
+
+  function sideBySide(baseKey, W, D) {
+    const unit = stretch(baseKey, W, D);
+    const p = clone(unit);
+    p.W = W * 2;
+    p.floors = unit.floors.map(f => {
+      const a = clone(f);
+      a.windows = a.windows.filter(w => w.side !== 'E');           // party wall has no windows
+      const b = mirrorFloor(a, W);
+      const tag = (rooms, u) => rooms.map(r => Object.assign({}, r, { name: r.small ? r.name : r.name }));
+      const merged = {
+        label: 'Main floor',
+        walls: a.walls.concat(b.walls, [[W, 0, W, D, 'party']]),
+        doors: a.doors.concat(b.doors),
+        windows: a.windows.concat(b.windows),
+        rooms: tag(a.rooms, 'A').concat(tag(b.rooms, 'B')),
+        fixtures: a.fixtures.concat(b.fixtures),
+        unitLabels: [{ x: W / 2, text: 'UNIT A' }, { x: W * 1.5, text: 'UNIT B' }]
+      };
+      return merged;
+    });
+    return p;
+  }
+
+  function stacked(baseKey, W, D) {
+    const unit = stretch(baseKey, W, D);
+    const p = clone(unit);
+    p.storeys = 2;
+    const lower = clone(unit.floors[0]);
+    lower.label = 'Lower unit';
+    // keep the east wall clear under the outside stair landing
+    lower.windows = lower.windows.filter(w => !(w.side === 'E' && w.at + w.len > D - 9));
+    const upper = clone(unit.floors[0]);
+    upper.label = 'Upper unit';
+    const entry = upper.doors.find(d => d.entry);
+    upper.doors = upper.doors.filter(d => !d.entry);
+    upper.doors.push({ wall: 'E', at: D - 6, len: 3, swing: -1, entry: true, upper: true });
+    upper.windows = upper.windows.filter(w => !(w.side === 'E' && w.at + w.len > D - 9));
+    if (entry) upper.windows.push({ side: 'S', at: entry.at, len: entry.len });
+    p.floors = [lower, upper];
+    p.extStair = { side: 'E', topAt: D - 6.5, width: 3.5 };
+    return p;
+  }
+
+  function build(typeKey, layoutKey, W, D) {
+    const t = TYPES[typeKey];
+    let p;
+    if (typeKey === 'side') p = sideBySide(layoutKey, W, D);
+    else if (typeKey === 'stacked') p = stacked(layoutKey, W, D);
+    else p = stretch(layoutKey, W, D);
+    p.type = typeKey; p.layout = layoutKey; p.units = t.units; p.storeys = t.storeys;
+    p.key = typeKey === 'loft' ? 'two-storey' : typeKey === 'single' ? layoutKey : typeKey + '-' + layoutKey;
+    p.name = typeKey === 'single' ? LAYOUT_LABEL[layoutKey] : typeKey === 'loft' ? 'Two-storey loft' : typeKey === 'side' ? '2 x ' + LAYOUT_LABEL[layoutKey].toLowerCase() + ', side by side' : '2 x ' + LAYOUT_LABEL[layoutKey].toLowerCase() + ', stacked';
+    const unitBeds = B[layoutKey].beds;
+    p.beds = unitBeds * t.units; p.baths = B[layoutKey].baths * t.units;
+    p.tagline = t.blurb;
+    return p;
+  }
+
+  function sizeRange(typeKey, layoutKey) {
+    const b = B[layoutKey];
+    return { minW: b.W, maxW: b.W + GROW.w, minD: b.D, maxD: b.D + GROW.d, step: 2 };
+  }
+  // footprint in sq ft, finished floor area in sq ft
+  function footprint(p) { return p.W * p.D; }
+  function floorArea(p) { return p.W * p.D * p.storeys; }
+  // approximate height to the peak, in metres, for the chosen roof
+  function heightM(p, look) {
+    const span = Math.min(p.W, p.D);
+    const roofFt = look.roof === 'gable' ? (span / 2) * look.pitch : look.roof === 'shed' ? p.D * look.pitch : 1.1;
+    return (0.9 + p.storeys * 9 + roofFt) * 0.3048;
+  }
+
+  window.YS_ENGINE = { TYPES, LAYOUT_LABEL, build, sizeRange, footprint, floorArea, heightM };
+})();

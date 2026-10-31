@@ -244,8 +244,8 @@
 
     // interior walls
     (f.walls || []).forEach(w => {
-      const guard = w[4] === 'guard';
-      out.push(`<line x1="${X(w[0])}" y1="${Y(w[1])}" x2="${X(w[2])}" y2="${Y(w[3])}" stroke="${ink}" stroke-width="${L(guard ? 0.22 : TI)}" stroke-linecap="square"${guard ? ' stroke-dasharray="0"' : ''}/>`);
+      const guard = w[4] === 'guard', party = w[4] === 'party';
+      out.push(`<line x1="${X(w[0])}" y1="${Y(w[1])}" x2="${X(w[2])}" y2="${Y(w[3])}" stroke="${ink}" stroke-width="${L(guard ? 0.22 : party ? TE * 1.3 : TI)}" stroke-linecap="square"/>`);
     });
 
     // openings
@@ -292,19 +292,25 @@
         out.push(`<polyline points="${pts.join(' ')}" fill="none" stroke="${ink}" stroke-width="1.1"/>`);
         return;
       }
-      const hx = d.at, len = d.len;
+      const len = d.len, hx = d.hingeEnd ? d.at + len : d.at, far = d.hingeEnd ? d.at : d.at + len;
       if (wl.horiz) {
         const leafEndY = wl.c + s * len;
+        const sweep = (s > 0) !== !!d.hingeEnd ? 0 : 1;
         out.push(`<line x1="${X(hx)}" y1="${Y(wl.c)}" x2="${X(hx)}" y2="${Y(leafEndY)}" stroke="${ink}" stroke-width="1.6"/>`);
-        out.push(`<path d="M${X(hx)} ${Y(leafEndY)} A${L(len)} ${L(len)} 0 0 ${s > 0 ? 0 : 1} ${X(hx + len)} ${Y(wl.c)}" fill="none" stroke="${soft}" stroke-width="0.9" stroke-dasharray="3 2"/>`);
+        out.push(`<path d="M${X(hx)} ${Y(leafEndY)} A${L(len)} ${L(len)} 0 0 ${sweep} ${X(far)} ${Y(wl.c)}" fill="none" stroke="${soft}" stroke-width="0.9" stroke-dasharray="3 2"/>`);
       } else {
         const leafEndX = wl.c + s * len;
         out.push(`<line x1="${X(wl.c)}" y1="${Y(hx)}" x2="${X(leafEndX)}" y2="${Y(hx)}" stroke="${ink}" stroke-width="1.6"/>`);
         out.push(`<path d="M${X(leafEndX)} ${Y(hx)} A${L(len)} ${L(len)} 0 0 ${s > 0 ? 1 : 0} ${X(wl.c)} ${Y(hx + len)}" fill="none" stroke="${soft}" stroke-width="0.9" stroke-dasharray="3 2"/>`);
       }
       if (d.entry) {
-        const ax = wl.horiz ? hx + len / 2 : wl.c, ay = wl.horiz ? (wl.c > D / 2 ? D + 1.4 : -1.4) : hx + len / 2;
-        out.push(`<text x="${X(ax)}" y="${Y(ay) }" font-size="10" font-weight="700" fill="${gold}" text-anchor="middle" letter-spacing="1.5">ENTRY</text>`);
+        const lbl = d.upper ? 'ENTRY (OUTSIDE STAIR)' : 'ENTRY';
+        if (wl.horiz) {
+          out.push(`<text x="${X(d.at + len / 2)}" y="${Y(wl.c > D / 2 ? D + 1.4 : -1.4)}" font-size="10" font-weight="700" fill="${gold}" text-anchor="middle" letter-spacing="1.5">${lbl}</text>`);
+        } else {
+          const ex = wl.c > W / 2 ? W + 1.1 : -0.9;
+          out.push(`<text transform="translate(${X(ex)} ${Y(d.at + len / 2)}) rotate(-90)" font-size="9" font-weight="700" fill="${gold}" text-anchor="middle" letter-spacing="1.2">${lbl}</text>`);
+        }
       }
     });
 
@@ -434,6 +440,8 @@
       out.push(`<text x="${X(r.lx)}" y="${Y(r.ly)}" font-size="${fs}" font-weight="700" fill="${ink}" text-anchor="${anchor}" letter-spacing="0.8" paint-order="stroke" stroke="#fff" stroke-width="3">${esc(name)}</text>`);
       if (dim) out.push(`<text x="${X(r.lx)}" y="${(parseFloat(Y(r.ly)) + 13).toFixed(1)}" font-size="9.5" fill="${soft}" text-anchor="${anchor}" paint-order="stroke" stroke="#fff" stroke-width="3">${esc(dim)}</text>`);
     });
+
+    (f.unitLabels || []).forEach(u => out.push(`<text x="${X(u.x)}" y="${pad - 9}" font-size="10" font-weight="800" fill="${gold}" text-anchor="middle" letter-spacing="2">${esc(u.text)}</text>`));
 
     // overall dimensions
     const dimH = (y, a, b, txt) => {

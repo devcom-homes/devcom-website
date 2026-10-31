@@ -14,6 +14,8 @@
   <link rel="stylesheet" href="yardsuite.css"/>
   <script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.169.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.169.0/examples/jsm/"}}</script>
   <script src="js/floorplans.js" defer></script>
+  <script src="js/plan-engine.js" defer></script>
+  <script src="js/aru-rules.js" defer></script>
   <script src="js/backyard.js" defer></script>
   <script src="js/design-studio.js" defer></script>
   <style>
@@ -819,15 +821,68 @@
     <div class="text-center mb-10">
       <div class="inline-block bg-gold/20 text-gold font-semibold text-sm px-4 py-2 rounded-full mb-4">Design Studio</div>
       <h2 class="font-display text-4xl md:text-5xl font-bold text-forest">See It In Your Backyard</h2>
-      <p class="text-gray-500 mt-4 max-w-2xl mx-auto">Pick a layout, choose a look, then drop it on your lot or onto a photo of your own backyard. Every view is drawn to scale from the same plan.</p>
+      <p class="text-gray-500 mt-4 max-w-2xl mx-auto">Start with your address. We check what your town allows, then you pick a suite type, layout and size, choose a look, and see it on your lot or on a photo of your own backyard.</p>
     </div>
 
-    <!-- 1. Layout -->
-    <div class="flex items-center gap-3 mb-3"><span class="ys-step">1</span><h3 class="font-bold text-forest text-lg">Choose a layout</h3></div>
-    <div id="plan-picker" class="grid grid-cols-2 lg:grid-cols-4 gap-3 mb-8" role="radiogroup" aria-label="Suite layout"></div>
+    <!-- 1. Lot and rules -->
+    <div class="flex items-center gap-3 mb-3"><span class="ys-step">1</span><h3 class="font-bold text-forest text-lg">Your lot and what your town allows</h3></div>
+    <div class="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] gap-5 mb-8">
+      <div class="bg-white rounded-2xl border border-gray-100 p-5 space-y-4">
+        <form id="addr-form" class="flex gap-2">
+          <label for="ys-address" class="sr-only">Property address</label>
+          <input id="ys-address" type="text" autocomplete="street-address" placeholder="Your address, e.g. 100 Hume St, Collingwood" class="flex-1 min-w-0 rounded-xl px-3 py-2.5 text-sm border border-gray-200"/>
+          <button type="submit" class="bg-gold text-black font-bold px-4 rounded-xl text-sm whitespace-nowrap">Check my lot</button>
+        </form>
+        <p id="addr-msg" class="text-xs text-white/60 -mt-2"></p>
+        <div class="grid grid-cols-2 gap-3">
+          <div class="col-span-2"><label for="ys-town" class="ys-label block">Town</label>
+            <select id="ys-town" class="w-full rounded-xl px-3 py-2.5 text-sm border border-gray-200"></select></div>
+          <div><label for="ys-frontage" class="ys-label block">Lot frontage (ft)</label><input id="ys-frontage" type="number" inputmode="decimal" min="0" placeholder="e.g. 50" class="w-full rounded-xl px-3 py-2.5 text-sm border border-gray-200"/></div>
+          <div><label for="ys-depth" class="ys-label block">Lot depth (ft)</label><input id="ys-depth" type="number" inputmode="decimal" min="0" placeholder="e.g. 165" class="w-full rounded-xl px-3 py-2.5 text-sm border border-gray-200"/></div>
+          <div class="col-span-2 text-xs text-white/60 -mt-1" id="ys-lotarea"></div>
+          <div><label for="ys-house" class="ys-label block">Your house is</label>
+            <select id="ys-house" class="w-full rounded-xl px-3 py-2.5 text-sm border border-gray-200">
+              <option value="5.5">1 storey</option><option value="7">1.5 storeys</option><option value="8.5" selected>2 storeys</option><option value="11">3 storeys</option>
+            </select></div>
+          <div><label for="ys-housegfa" class="ys-label block">House size (sq ft)</label><input id="ys-housegfa" type="number" inputmode="decimal" min="0" placeholder="e.g. 1,800" class="w-full rounded-xl px-3 py-2.5 text-sm border border-gray-200"/></div>
+          <div><label for="ys-existing" class="ys-label block">Shed / garage (sq ft)</label><input id="ys-existing" type="number" inputmode="decimal" min="0" placeholder="0" class="w-full rounded-xl px-3 py-2.5 text-sm border border-gray-200"/></div>
+          <div><label for="ys-arus" class="ys-label block">Extra units now</label>
+            <select id="ys-arus" class="w-full rounded-xl px-3 py-2.5 text-sm border border-gray-200"><option value="0">None</option><option value="1">1 (e.g. basement apt)</option><option value="2">2</option></select></div>
+        </div>
+      </div>
+      <div class="bg-white rounded-2xl border border-gray-100 p-5" aria-live="polite">
+        <div class="ys-label">What <span id="rules-town">your town</span> allows</div>
+        <ul id="rules-list" class="text-sm text-white/85 space-y-2"></ul>
+        <div id="rules-cap" class="mt-4 rounded-xl bg-gold/10 border border-gold/30 p-3 text-sm text-white hidden"></div>
+        <p id="rules-src" class="text-[11px] text-white/45 mt-3 leading-relaxed"></p>
+      </div>
+    </div>
+
+    <!-- 2. Type -->
+    <div class="flex items-center gap-3 mb-3"><span class="ys-step">2</span><h3 class="font-bold text-forest text-lg">Choose a suite type</h3></div>
+    <div id="type-picker" class="grid grid-cols-2 lg:grid-cols-4 gap-3 mb-8" role="radiogroup" aria-label="Suite type"></div>
+
+    <!-- 3. Layout and size -->
+    <div class="flex items-center gap-3 mb-3"><span class="ys-step">3</span><h3 class="font-bold text-forest text-lg">Pick a layout and size</h3></div>
+    <div class="bg-white rounded-2xl border border-gray-100 p-5 mb-8 grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] gap-5">
+      <div class="space-y-4">
+        <div><div class="ys-label">Layout</div><div id="layout-picker" class="flex flex-wrap gap-2"></div></div>
+        <div><label for="sz-w" class="ys-label block">Width <span id="sz-w-val" class="text-white/60 font-normal normal-case tracking-normal"></span></label><input id="sz-w" type="range" step="2" class="w-full"/></div>
+        <div><label for="sz-d" class="ys-label block">Depth <span id="sz-d-val" class="text-white/60 font-normal normal-case tracking-normal"></span></label><input id="sz-d" type="range" step="2" class="w-full"/></div>
+      </div>
+      <div>
+        <div class="grid grid-cols-2 gap-2 text-sm">
+          <div class="rounded-xl bg-black/30 p-3"><div class="text-white/55 text-xs">Footprint</div><div id="m-foot" class="font-bold text-white"></div></div>
+          <div class="rounded-xl bg-black/30 p-3"><div class="text-white/55 text-xs">Finished floor area</div><div id="m-area" class="font-bold text-white"></div></div>
+          <div class="rounded-xl bg-black/30 p-3"><div class="text-white/55 text-xs">Height to peak (approx.)</div><div id="m-height" class="font-bold text-white"></div></div>
+          <div class="rounded-xl bg-black/30 p-3"><div class="text-white/55 text-xs">Rough build cost</div><div id="m-cost" class="font-bold text-gold"></div></div>
+        </div>
+        <div id="fit-status" class="mt-3 rounded-xl p-3 text-sm"></div>
+      </div>
+    </div>
 
     <!-- 2. Studio -->
-    <div class="flex items-center gap-3 mb-3"><span class="ys-step">2</span><h3 class="font-bold text-forest text-lg">Look at it every way</h3></div>
+    <div class="flex items-center gap-3 mb-3"><span class="ys-step">4</span><h3 class="font-bold text-forest text-lg">See it every way</h3></div>
     <div class="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_340px] gap-5">
       <div class="min-w-0">
         <div class="grid grid-cols-4 md:flex gap-1.5 mb-3" role="tablist" aria-label="Views">
@@ -851,14 +906,10 @@
             <div id="plan-svg" class="flex-1 min-h-0 px-2 pb-2"></div>
           </div>
           <div id="stage-lot" class="hidden absolute inset-0 flex flex-col">
-            <form id="lot-form" class="flex gap-2 p-2 bg-[#141414] border-b border-white/10">
-              <label for="lot-address" class="sr-only">Property address</label>
-              <input id="lot-address" type="text" autocomplete="street-address" placeholder="Your address, e.g. 100 Hume St, Collingwood" class="flex-1 min-w-0 rounded-lg px-3 py-2 text-sm"/>
-              <button type="submit" class="bg-gold text-black font-bold px-4 rounded-lg text-sm whitespace-nowrap">Show my lot</button>
-            </form>
+
             <div class="relative flex-1">
               <div id="lot-map" class="absolute inset-0"></div>
-              <div id="lot-empty" class="absolute inset-0 flex items-center justify-center text-center p-6 bg-[#111] text-white/70 text-sm">Enter your address to see your property from above with the suite drawn to scale.</div>
+              <div id="lot-empty" class="absolute inset-0 flex items-center justify-center text-center p-6 bg-[#111] text-white/70 text-sm">Enter your address in step 1 to see your property from above with the suite drawn to scale.</div>
               <div id="lot-msg" class="hidden absolute left-2 right-2 top-2 z-[500] text-xs bg-black/80 text-white rounded-lg px-3 py-2"></div>
             </div>
           </div>

@@ -200,7 +200,22 @@ function buildSuite(plan, look) {
         const handle = box(0.08, 0.9, 0.14, new THREE.MeshStandardMaterial({ color: 0x222222, metalness: 0.8, roughness: 0.3 })); handle.position.set(cx + w * 0.32, cy, -TE * 0.5 + 0.15); fr.add(handle);
         const light = box(0.4, 0.7, 0.3, trimMat); light.position.set(o.b + 0.9, 6.3, 0.15); fr.add(light);
         const bulb = new THREE.Mesh(new THREE.BoxGeometry(0.26, 0.4, 0.05), new THREE.MeshStandardMaterial({ color: 0xffe3a8, emissive: 0xffc36a, emissiveIntensity: 0.6 })); bulb.position.set(o.b + 0.9, 6.3, 0.31); fr.add(bulb);
-        if (o.entry) {
+        if (o.entry && o.v1 > 0.5) {
+          // upper unit: landing and an outside stair running along the wall
+          const lw = Math.max(5.5, w + 2), ld = 4.5, top = o.v1;
+          const land = box(lw, 0.35, ld, deckMat); land.position.set(cx, top - 0.18, ld / 2); fr.add(land);
+          const rise = top + BASE, n = Math.ceil(rise / 0.62), r = rise / n, run = 0.85, sw = 3.4;
+          const startU = cx - lw / 2;
+          for (let i = 1; i <= n; i++) {
+            const st = box(run + 0.05, 0.16, sw, deckMat);
+            st.position.set(startU - i * run + run / 2, top - i * r - 0.08, ld - sw / 2); fr.add(st);
+          }
+          const len = n * run, ang = Math.atan2(rise, len);
+          [ld - sw, ld].forEach(zz => { const s2 = box(Math.hypot(len, rise), 0.7, 0.18, trimMat); s2.position.set(startU - len / 2, top - rise / 2 - 0.2, zz); s2.rotation.z = ang; fr.add(s2); });
+          const rail = box(Math.hypot(len, rise), 0.12, 0.12, trimMat); rail.position.set(startU - len / 2, top - rise / 2 + 3, ld); rail.rotation.z = ang; fr.add(rail);
+          [[cx - lw / 2, ld], [cx + lw / 2, ld], [cx + lw / 2, 0.3]].forEach(([u, zz]) => { const pst = box(0.3, 3.2 + top + BASE, 0.3, trimMat); pst.position.set(u, (top + 3.2 - BASE) / 2 - BASE / 2 + 0.2, zz); fr.add(pst); });
+          const lr = box(lw, 0.12, 0.12, trimMat); lr.position.set(cx, top + 3, ld); fr.add(lr);
+        } else if (o.entry) {
           // deck and step at the entry
           const dw = Math.max(8, w + 5), dd = 5.5;
           const deck = box(dw, 0.3, dd, deckMat); deck.position.set(cx, -0.15, dd / 2); fr.add(deck);

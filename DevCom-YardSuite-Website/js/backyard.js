@@ -69,6 +69,7 @@
       cs.forEach(k => { for (let i = 0; i < ring.length - 1; i++) best = Math.min(best, segDist(k, ring[i], ring[i + 1])); });
       out.closestM = isFinite(best) ? best : null;
     }
+    state.last = out;
     if (state.onChange) state.onChange(out);
   }
 
@@ -136,6 +137,14 @@
     streetViewUrl() { const p = state.street || state.centre; return p ? `https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=${p.lat.toFixed(6)},${p.lng.toFixed(6)}` : null; },
     mapsUrl() { const p = state.centre; return p ? `https://www.google.com/maps/@?api=1&map_action=map&center=${p.lat.toFixed(6)},${p.lng.toFixed(6)}&zoom=20&basemap=satellite` : null; },
     hasLocation() { return !!state.centre; },
+    parcelAreaSqft() {
+      if (!state.parcel) return null;
+      const o = { lat: state.parcel[0][1], lng: state.parcel[0][0] };
+      const pts = state.parcel.map(([lng, lat]) => toLocal(lat, lng, o));
+      let a = 0; for (let i = 0; i < pts.length - 1; i++) a += pts[i].e * pts[i + 1].n - pts[i + 1].e * pts[i].n;
+      return Math.round(Math.abs(a / 2) * 10.7639);
+    },
+    lastReport() { return state.last || { fits: null, closestM: null }; },
     async locate(addr) {
       const geo = await geocode(/ontario|,\s*on\b/i.test(addr) ? addr : addr + ', Ontario');
       if (!geo) return { ok: false, reason: 'notfound' };
