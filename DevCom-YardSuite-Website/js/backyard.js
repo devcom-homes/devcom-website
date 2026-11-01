@@ -81,6 +81,7 @@
       out.houseM = isFinite(near) ? near : null; out.overlap = overlap;
       if (overlap) out.fits = false;
     }
+    if (state.street && state.centre) { const ep = entryPoint(), st = toLocal(state.street.lat, state.street.lng, state.centre); out.streetM = Math.hypot(ep.e - st.e, ep.n - st.n); }
     state.last = out;
     if (state.onChange) state.onChange(out);
   }

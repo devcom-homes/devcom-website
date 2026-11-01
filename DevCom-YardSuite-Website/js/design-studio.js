@@ -25,7 +25,7 @@
   const saved = store.get() || {};
   const S = {
     town: saved.town || 'collingwood',
-    lot: Object.assign({ frontage: null, depth: null, gisSqft: null, houseHeightM: 8.5, houseGfaSqft: null, existingSqft: 0, existingArus: 0 }, saved.lot || {}),
+    lot: Object.assign({ frontage: null, depth: null, gisSqft: null, houseHeightM: 8.5, houseGfaSqft: null, existingSqft: 0, existingArus: 0, serviced: 'unsure', nearWater: 'unsure' }, saved.lot || {}),
     type: saved.type || 'single', layout: saved.layout || 'onebed', W: saved.W || null, D: saved.D || null,
     preset: LOOKS[saved.preset] ? saved.preset : 'farmhouse',
     look: Object.assign({}, LOOKS[LOOKS[saved.preset] ? saved.preset : 'farmhouse'], saved.look || {}),
@@ -38,7 +38,7 @@
     if (S.lot.frontage > 0 && S.lot.depth > 0) return S.lot.frontage * S.lot.depth;
     return null;
   }
-  function lotInput() { return { lotSqft: lotSqft(), houseHeightM: +S.lot.houseHeightM || null, houseGfaSqft: +S.lot.houseGfaSqft || null, existingSqft: +S.lot.existingSqft || 0, existingArus: +S.lot.existingArus || 0 }; }
+  function lotInput() { return { lotSqft: lotSqft(), houseHeightM: +S.lot.houseHeightM || null, houseGfaSqft: +S.lot.houseGfaSqft || null, existingSqft: +S.lot.existingSqft || 0, existingArus: +S.lot.existingArus || 0, serviced: S.lot.serviced, nearWater: S.lot.nearWater }; }
   function colourName() { if (S.look.siding === 'cedar') return 'Natural cedar'; const c = COLOURS.find(x => x[1] === S.look.color); return c ? c[0] : ''; }
 
   // ---------- step 1: lot + rules ----------
@@ -55,7 +55,7 @@
     else if (S.town !== 'other') L.push(li('<b>No size cap</b> on the suite itself'));
     if (r.coverage) L.push(li(r.coverage.note));
     if (r.maxDimM) L.push(li(`No side longer than <b>${r.maxDimM} m</b>`));
-    L.push(li('Setbacks: ' + r.setbacks.text));
+    L.push(li('Setbacks: ' + r.setbacks.text + ((S.lot.serviced === 'yes' && S.lot.nearWater === 'no') ? '. On your lot Ontario lets you build within 90% of these.' : '')));
     L.push(li('Parking: ' + r.parking));
     r.extra.forEach(x => L.push(li(x)));
     $('rules-list').innerHTML = L.join('');
@@ -79,6 +79,7 @@
     $('ys-frontage').value = S.lot.frontage || ''; $('ys-depth').value = S.lot.depth || '';
     $('ys-house').value = String(S.lot.houseHeightM || 8.5); $('ys-housegfa').value = S.lot.houseGfaSqft || '';
     $('ys-existing').value = S.lot.existingSqft || ''; $('ys-arus').value = String(S.lot.existingArus || 0);
+    $('ys-serviced').value = S.lot.serviced || 'unsure'; $('ys-water').value = S.lot.nearWater || 'unsure';
     $('ys-address').value = S.address || '';
   }
   function wireLot() {
@@ -89,6 +90,8 @@
     $('ys-housegfa').addEventListener('input', () => { S.lot.houseGfaSqft = num('ys-housegfa'); update(); });
     $('ys-existing').addEventListener('input', () => { S.lot.existingSqft = num('ys-existing') || 0; update(); });
     $('ys-arus').addEventListener('change', e => { S.lot.existingArus = +e.target.value; update(); });
+    $('ys-serviced').addEventListener('change', e => { S.lot.serviced = e.target.value; update(); });
+    $('ys-water').addEventListener('change', e => { S.lot.nearWater = e.target.value; update(); });
     $('addr-form').addEventListener('submit', e => { e.preventDefault(); locate(); });
   }
 

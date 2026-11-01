@@ -5,7 +5,7 @@
   'use strict';
   const M2 = 10.7639;
 
-  const PROVINCIAL = 'Ontario Reg. 462/24 (Nov 2024): on serviced urban lots a town cannot cap total lot coverage below 45%, set a minimum lot size for ARUs, or require more than 4 m between buildings. Where a town rule is stricter, the Province may override it; confirm with the Town.';
+  const PROVINCIAL = 'Provincial rules on serviced town lots: O. Reg. 462/24 (Nov 2024) stops towns capping total lot coverage below 45%, setting a minimum lot size for ARUs, or requiring more than 4 m between buildings. O. Reg. 257/25 (Nov 2025) treats a building within 90% of a required setback as compliant, except within 120 m of Georgian Bay, a lake, river valley or wetland, within 300 m of a rail line, or in the Greenbelt. One suite in a backyard building is exempt from development charges. Confirm with the Town.';
 
   const RULES = {
     collingwood: {
@@ -30,25 +30,25 @@
       maxDimM: null,
       setbacks: { side: null, rear: 1.2, extSide: null, front: null, text: '1.2 m rear; other yards the same as the house in your zone' },
       parking: '1 space per suite',
-      extra: ['Suite floor area up to 100 m² or half of the house, whichever is greater.', 'Height 5 m (8 m if the suite sits over a garage).', 'No detached suites on Niagara Escarpment Plan lots.', 'Not allowed on a lot used for short-term rentals.'],
+      extra: ['Suite floor area up to 100 m² or half of the house, whichever is greater.', 'Up to 2 bedrooms per suite.', 'The suite building must be within 50 m of the house.', 'Height 5 m (8 m if the suite sits over a garage).', 'No detached suites on Niagara Escarpment Plan lots.', 'Not allowed on a lot used for short-term rentals.'],
       sources: [{ t: 'The Blue Mountains, Additional Residential Units Guide (2024)', u: 'https://thebluemountains.ca/sites/default/files/2024-08/Additional%20Residential%20Units%20Guide.pdf' }, { t: 'Notice of Decision, By-law 2024-31', u: 'https://www.thebluemountains.ca/sites/default/files/2024-04/Notice%20of%20Decision%20-%20P3354%20Additional%20Residential%20Unit%20%28ARU%29%20Zoning%20By-law%20Amendment.pdf' }],
       contact: 'Planning, 519-599-3131 ext. 263'
     },
     wasaga: {
-      name: 'Wasaga Beach', asOf: 'Zoning By-law 2003-60 (June 2025 consolidation); new by-law in draft', confidence: 'low',
+      name: 'Wasaga Beach', asOf: 'Zoning By-law 2003-60 (June 2025 consolidation); new by-law still in draft as of Oct 2026', confidence: 'low',
       unitsPerBuilding: 1, maxArus: 2, maxUnitsLot: 3,
       heightM: 5, heightLesserOfHouse: false, flatHeightM: 3.5, maxStoreys: 1,
-      gfaM2: null, gfaPctHouse: 45, gfaRule: 'pct',
-      coverage: { capM2: 65, scope: 'accessory', note: 'All detached accessory buildings together up to 65 m² (about 700 sq ft).' },
+      gfaM2: null, gfaPctHouse: null, gfaRule: null,
+      coverage: { capM2: 65, scope: 'accessory', note: 'All detached accessory buildings together up to 65 m² (about 700 sq ft), and no more than 2 of them.' },
       maxDimM: 9,
-      setbacks: { side: 0.9, rear: 0.9, extSide: null, front: null, text: '0.9 m side and rear, behind the front of the house, 1.2 m from other buildings' },
+      setbacks: { side: 0.9, rear: 0.9, extSide: null, front: null, text: '0.9 m side and rear for buildings up to 3.7 m tall (taller ones likely need the zone\'s full yards), behind the front of the house, 1.2 m from other buildings' },
       parking: '1 extra space for the suite',
-      extra: ['The Town\'s by-law has not been updated for detached suites; Provincial rules allow one on serviced lots. A new zoning by-law is in draft and may change these numbers.', 'One storey, 5 m to the peak (3.5 m flat roof), no side longer than 9 m.', 'No short-term rental of the suite.'],
+      extra: ['The Town\'s by-law has not been updated for detached suites; Provincial rules allow one on serviced lots. A new zoning by-law is in draft and may change these numbers.', 'One storey, 5 m to the peak (3.5 m flat roof), no side longer than 9 m.', 'Needs full Town water and sewer; not on hazard lands or private streets.', 'No short-term rental of the suite.'],
       sources: [{ t: 'Wasaga Beach Zoning By-law 2003-60, 2025 consolidation', u: 'https://www.wasagabeach.com/media/lcrkd0rm/zoning-by-law-2003-60-2025-office-consolidation.pdf' }, { t: 'Engage Wasaga, new zoning by-law', u: 'https://engagewasaga.ca/zoning-bylaw-update' }],
       contact: 'Planning, 705-429-3844 ext. 2283'
     },
     meaford: {
-      name: 'Meaford', asOf: 'By-law 2024-24 amending Zoning By-law 60-2009', confidence: 'medium',
+      name: 'Meaford', asOf: 'By-law 2024-24 amending Zoning By-law 60-2009 (s.4.2)', confidence: 'high',
       unitsPerBuilding: 1, maxArus: 2, maxUnitsLot: 3,
       heightM: 5.5, heightLesserOfHouse: false, flatHeightM: null, maxStoreys: null,
       gfaM2: null, gfaPctHouse: 90, gfaRule: 'pct',
@@ -56,7 +56,7 @@
       maxDimM: null,
       setbacks: { side: null, rear: 4, extSide: null, front: null, text: '4 m rear; side yards the same as the house; not in front of the house' },
       parking: 'Up to 1 space per suite',
-      extra: ['Suite up to 90% of the house\'s floor area.', 'Urban zones 5.5 m tall; rural zones 6 m.', 'Rural lots need 0.8 ha unless on Town services.'],
+      extra: ['Suite up to 90% of the house\'s floor area.', 'Urban zones 5.5 m tall; rural zones 6 m, within 50 m of the house.', 'An existing shed or garage over the height or coverage limit can still be converted.', 'Rural lots need 0.8 ha unless on Town services.'],
       sources: [{ t: 'Meaford, Notice of Passing, By-law 2024-24 (ARUs)', u: 'https://www.meaford.ca/en/business-development/resources/Documents/Zoning-Updates/Notice-of-Passing-ZBA-2024-24-ARU-Update.pdf' }],
       contact: 'planning@meaford.ca, 519-538-1060 ext. 1127'
     },
@@ -65,11 +65,11 @@
       unitsPerBuilding: 1, maxArus: 2, maxUnitsLot: 3,
       heightM: 4.5, heightLesserOfHouse: false, flatHeightM: null, maxStoreys: null,
       gfaM2: 111, gfaPctHouse: null, gfaRule: 'cap',
-      coverage: null,
+      coverage: { capM2: 64, scope: 'accessory', note: 'Backyard buildings in town zones are capped at about 52 to 64 m² (560 to 690 sq ft) depending on zone; whether that cap applies to a suite is unconfirmed, so we check against it to be safe.' },
       maxDimM: null,
-      setbacks: { side: 1.2, rear: 1.2, extSide: null, front: null, text: '1.2 m side and rear, behind the front of the house' },
+      setbacks: { side: 1.2, rear: 1.2, extSide: null, front: null, text: '1.2 m side and rear (1.8 m on Residential Estate lots), behind the front of the house' },
       parking: '1 space per suite',
-      extra: ['Suite living space up to 111 m² (about 1,195 sq ft).', 'Height 4.5 m in Stayner, Creemore and New Lowell residential zones (6 m to 8 m in rural zones).', 'Accessory building size caps of 52 to 100 m² by zone may also apply; the Township confirms.', 'A new zoning by-law in draft would drop the size cap and allow 2 suites per lot in towns.'],
+      extra: ['Suite living space up to 111 m² (about 1,195 sq ft).', 'Height 4.5 m in Stayner, Creemore and New Lowell residential zones (6 m to 8 m in rural zones).', 'A new zoning by-law in draft would drop the size cap and allow 2 suites per lot in towns.'],
       sources: [{ t: 'Clearview Zoning By-law 06-54, April 2025 consolidation', u: 'https://www.clearview.ca/sites/default/files/2025-12/Consolidated_Copy_of_Zoning_By-law_06-54_April%202025.pdf' }, { t: 'Clearview Zoning By-law Review', u: 'https://www.clearview.ca/ZBLReview' }],
       contact: 'plan@clearview.ca, 705-428-6230'
     },
@@ -146,10 +146,13 @@
     if (r.maxDimM) { const longest = Math.max(design.W, design.D) * 0.3048; add(longest <= r.maxDimM + 0.01, 'Longest side', `${longest.toFixed(1)} m vs ${r.maxDimM} m allowed`); }
     // setbacks from the lot map
     if (lotFit && lotFit.fits !== null) {
-      const need = Math.min(...[r.setbacks.side, r.setbacks.rear].filter(v => v != null).concat([99]));
+      let need = Math.min(...[r.setbacks.side, r.setbacks.rear].filter(v => v != null).concat([99]));
+      const relief = lot.serviced === 'yes' && lot.nearWater === 'no';
+      if (relief && need < 99) need = Math.round(need * 0.9 * 100) / 100;
       if (lotFit.overlap) add(false, 'Placement', 'it overlaps a building on your lot; move it on the map');
       else if (!lotFit.fits) add(false, 'Setbacks', 'part of the suite is outside your lot line on the map');
-      else if (need < 99) add(lotFit.closestM >= need - 0.01, 'Setbacks', `closest lot line ${lotFit.closestM.toFixed(1)} m vs ${need} m minimum (side/rear)`);
+      else if (need < 99) add(lotFit.closestM >= need - 0.01, 'Setbacks', `closest lot line ${lotFit.closestM.toFixed(2)} m vs ${need} m minimum (side/rear)${(lot.serviced === 'yes' && lot.nearWater === 'no') ? ', with Ontario\'s 90% setback rule' : ''}${lotFit.closestM < 1.2 ? '. Under 1.2 m the Building Code limits windows on that wall' : ''}`);
+      if (lotFit.streetM != null && lotFit.streetM > 45) add(null, 'Fire access', `the suite door is about ${Math.round(lotFit.streetM)} m from the street; over 45 m usually needs extra fire protection`);
     }
     const fails = items.filter(i => i.ok === false);
     const status = fails.length === 0 ? 'fits' : fails.some(f => f.kind === 'rezoning') ? 'rezoning' : 'variance';
