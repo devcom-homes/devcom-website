@@ -17,6 +17,7 @@
   <script src="js/plan-engine.js" defer></script>
   <script src="js/aru-rules.js" defer></script>
   <script src="js/backyard.js" defer></script>
+  <script src="js/plan-pdf.js" defer></script>
   <script src="js/design-studio.js" defer></script>
   <style>
     html { scroll-behavior: smooth; }
@@ -255,7 +256,7 @@
 
     <h1 class="font-display text-5xl md:text-7xl font-bold text-white leading-tight mb-6 max-w-5xl mx-auto">
       Your Backyard Could Be<br/>
-      <span class="text-gold">Earning You $2,000/mo</span>
+      <span class="text-gold">Earning Rental Income</span>
     </h1>
 
     <p class="text-lg md:text-xl text-white/70 max-w-2xl mx-auto mb-10 leading-relaxed">
@@ -330,8 +331,8 @@
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
               </svg>
             </div>
-            <div class="font-semibold text-forest text-sm">Reduced dev charges</div>
-            <div class="text-gray-500 text-xs mt-1">Bill 23 eliminated many fees</div>
+            <div class="font-semibold text-forest text-sm">No development charges</div>
+            <div class="text-gray-500 text-xs mt-1">Ontario exempts most added suites</div>
           </div>
           <div class="bg-white rounded-xl p-4 border border-gray-100">
             <div class="w-10 h-10 bg-leaf/10 rounded-lg flex items-center justify-center mb-3">
@@ -340,7 +341,7 @@
               </svg>
             </div>
             <div class="font-semibold text-forest text-sm">Property value boost</div>
-            <div class="text-gray-500 text-xs mt-1">Avg. 15 to 25% equity increase</div>
+            <div class="text-gray-500 text-xs mt-1">A second home on your lot</div>
           </div>
           <div class="bg-white rounded-xl p-4 border border-gray-100">
             <div class="w-10 h-10 bg-leaf/10 rounded-lg flex items-center justify-center mb-3">
@@ -377,14 +378,14 @@
             <div class="bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl p-4">
               <div class="text-xs text-white/60 mb-1">Estimated Annual Income</div>
               <div class="text-3xl font-bold text-gold font-display">$24,000</div>
-              <div class="text-xs text-leaf mt-1">Based on 600 sqft garden suite</div>
+              <div class="text-xs text-leaf mt-1">Example at $2,000/mo rent</div>
             </div>
           </div>
         </div>
         <div class="absolute -top-6 -right-6 bg-white rounded-2xl shadow-xl p-4 border border-gray-100">
-          <div class="text-xs text-gray-500 mb-1">Simcoe County Vacancy Rate</div>
-          <div class="text-2xl font-bold text-forest">1.4%</div>
-          <div class="text-xs text-leaf font-semibold">Near-zero vacancy</div>
+          <div class="text-xs text-gray-500 mb-1">Collingwood now allows</div>
+          <div class="text-2xl font-bold text-forest">4 homes</div>
+          <div class="text-xs text-leaf font-semibold">per residential lot</div>
         </div>
       </div>
     </div>
@@ -967,7 +968,8 @@
             <button id="btn-save" class="chip">Save image</button>
             <button id="btn-roi" class="chip">Run the numbers</button>
           </div>
-          <button id="btn-quote" class="w-full mt-2 bg-gold text-black font-bold py-3 rounded-xl text-sm hover:bg-yellow-400">Get a quote on this design</button>
+          <button id="btn-plan" class="w-full mt-2 bg-gold text-black font-bold py-3 rounded-xl text-sm hover:bg-yellow-400">Get my plan (free PDF)</button>
+          <button id="btn-quote" class="w-full mt-2 chip">Book a free consult on this design</button>
         </div>
       </aside>
     </div>
@@ -1318,7 +1320,7 @@
         <p class="text-gray-600 leading-relaxed mb-6">
           Building a garden suite is a major investment, and the right financing structure makes all the difference.
           TMC Greater Simcoe specializes in helping Simcoe County homeowners unlock the equity in their existing
-          property to fund their ADU build, often with zero out-of-pocket cost at closing.
+          property to fund their ADU build, often with little or nothing out of pocket when there's enough equity.
         </p>
         <div class="space-y-4 mb-8">
           <div class="flex items-start gap-3">
@@ -1366,7 +1368,7 @@
             </div>
           </div>
         </div>
-        <a href="#" onclick="goTab('home'); setTimeout(()=>document.getElementById('waitlist')?.scrollIntoView({behavior:'smooth'}),100); return false;" class="inline-block bg-forest text-white font-bold px-8 py-3.5 rounded-xl hover:bg-grove transition-colors">
+        <a href="#" onclick="window._ysFinancing='yes'; goTab('home'); setTimeout(()=>document.getElementById('waitlist')?.scrollIntoView({behavior:'smooth'}),100); return false;" class="inline-block bg-forest text-white font-bold px-8 py-3.5 rounded-xl hover:bg-grove transition-colors">
           Speak with TMC Greater Simcoe
         </a>
       </div>
@@ -1379,25 +1381,23 @@
           </div>
           <div class="grid grid-cols-2 gap-4">
             <div class="bg-cream rounded-xl p-4 text-center">
-              <div class="text-2xl font-bold text-forest font-display">15+</div>
-              <div class="text-xs text-gray-500 mt-1">Years in Simcoe County</div>
+              <div class="text-base font-bold text-forest">Broker + builder</div>
+              <div class="text-xs text-gray-500 mt-1">One team for the money and the build</div>
             </div>
             <div class="bg-cream rounded-xl p-4 text-center">
-              <div class="text-2xl font-bold text-forest font-display">$200M+</div>
-              <div class="text-xs text-gray-500 mt-1">Mortgages Arranged</div>
+              <div class="text-base font-bold text-forest">HELOC and refinance</div>
+              <div class="text-xs text-gray-500 mt-1">Unlock the equity you already have</div>
             </div>
             <div class="bg-cream rounded-xl p-4 text-center">
-              <div class="text-2xl font-bold text-forest font-display">50+</div>
-              <div class="text-xs text-gray-500 mt-1">Lender Partners</div>
+              <div class="text-base font-bold text-forest">Construction financing</div>
+              <div class="text-xs text-gray-500 mt-1">Draws matched to the build</div>
             </div>
             <div class="bg-cream rounded-xl p-4 text-center">
-              <div class="text-2xl font-bold text-forest font-display">4.9★</div>
-              <div class="text-xs text-gray-500 mt-1">Client Rating</div>
+              <div class="text-base font-bold text-forest">Local</div>
+              <div class="text-xs text-gray-500 mt-1">Based in Collingwood</div>
             </div>
           </div>
-          <div class="mt-6 p-4 bg-leaf/5 border border-leaf/20 rounded-xl">
-            <p class="text-sm text-gray-600 italic leading-relaxed">"We work exclusively with homeowners looking to build ADUs. We understand the product, the numbers, and how to get deals done in Simcoe County."</p>
-            <div class="mt-3 text-xs font-semibold text-forest">,  TMC Greater Simcoe Team</div>
+
           </div>
         </div>
       </div>
@@ -1640,50 +1640,7 @@
   </div>
 </section>
 
-<!-- Testimonials -->
-<section class="py-24 bg-white">
-  <div class="max-w-6xl mx-auto px-6">
-    <div class="text-center mb-12 fade-in">
-      <div class="inline-block bg-leaf/10 text-leaf font-semibold text-sm px-4 py-2 rounded-full mb-4">What Homeowners Say</div>
-      <h2 class="font-display text-4xl md:text-5xl font-bold text-forest">Simcoe Homeowners, Simcoe Stories</h2>
-    </div>
-    <div class="grid md:grid-cols-3 gap-6 fade-in">
-      <div class="bg-cream rounded-2xl p-6 border border-gray-100">
-        <div class="text-gold text-xl mb-3">★★★★★</div>
-        <p class="text-gray-700 text-sm leading-relaxed mb-5">"I had a vague dream of renting out my backyard. YardSuite gave me clarity in 10 minutes, I knew the numbers, the rules, and who to call."</p>
-        <div class="flex items-center gap-3 border-t border-gray-200 pt-4">
-          <div class="w-10 h-10 rounded-full bg-leaf/20 flex items-center justify-center text-leaf font-bold">S</div>
-          <div>
-            <div class="font-semibold text-forest text-sm">Sarah M.</div>
-            <div class="text-xs text-gray-500">Barrie, ON</div>
-          </div>
-        </div>
-      </div>
-      <div class="bg-cream rounded-2xl p-6 border border-gray-100">
-        <div class="text-gold text-xl mb-3">★★★★★</div>
-        <p class="text-gray-700 text-sm leading-relaxed mb-5">"The ROI calculator convinced my wife. We're breaking ground in May, DevCom handled the whole permit process."</p>
-        <div class="flex items-center gap-3 border-t border-gray-200 pt-4">
-          <div class="w-10 h-10 rounded-full bg-leaf/20 flex items-center justify-center text-leaf font-bold">D</div>
-          <div>
-            <div class="font-semibold text-forest text-sm">Derek L.</div>
-            <div class="text-xs text-gray-500">Innisfil, ON</div>
-          </div>
-        </div>
-      </div>
-      <div class="bg-cream rounded-2xl p-6 border border-gray-100">
-        <div class="text-gold text-xl mb-3">★★★★★</div>
-        <p class="text-gray-700 text-sm leading-relaxed mb-5">"TMC structured our financing so we didn't pay a dollar out of pocket. Our suite is now bringing in $2,100/month."</p>
-        <div class="flex items-center gap-3 border-t border-gray-200 pt-4">
-          <div class="w-10 h-10 rounded-full bg-leaf/20 flex items-center justify-center text-leaf font-bold">A</div>
-          <div>
-            <div class="font-semibold text-forest text-sm">Amanda R.</div>
-            <div class="text-xs text-gray-500">Orillia, ON</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
+
 
 </div><!-- /tab-builder -->
 
@@ -1714,11 +1671,11 @@
             </svg>
             (705) 242-7323
           </a>
-          <a href="mailto:hello@yardsuite.ca" class="flex items-center gap-2 text-white/70 hover:text-white transition-colors text-sm mt-2">
+          <a href="mailto:info@devcomhomes.ca" class="flex items-center gap-2 text-white/70 hover:text-white transition-colors text-sm mt-2">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
             </svg>
-            hello@yardsuite.ca
+            info@devcomhomes.ca
           </a>
         </div>
       </div>
@@ -1741,7 +1698,7 @@
     </div>
     <div class="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
       <div class="text-white/30 text-xs flex flex-wrap items-center gap-3">
-        <span>© 2026 YardSuite Inc., Simcoe County, Ontario, Canada</span>
+        <span>© 2026 YardSuite · DevCom Homes, Collingwood, Ontario</span>
         <a href="privacy.html" class="hover:text-white/60">Privacy</a>
         <a href="terms.html" class="hover:text-white/60">Terms</a>
       </div>
@@ -1763,6 +1720,22 @@
 <!-- ============================================================
      EXIT-INTENT MODAL
 ============================================================ -->
+<div id="plan-modal" class="hidden fixed inset-0 z-[70] bg-black/70 flex items-center justify-center px-4" role="dialog" aria-modal="true" aria-labelledby="plan-modal-title">
+  <div class="bg-white rounded-3xl max-w-md w-full p-7 relative shadow-2xl">
+    <button type="button" id="plan-close" aria-label="Close" class="absolute top-4 right-4 w-8 h-8 rounded-full bg-black hover:bg-gray-800 flex items-center justify-center text-white">&times;</button>
+    <h3 id="plan-modal-title" class="font-display text-2xl font-bold text-forest mb-1">Get your plan</h3>
+    <p class="text-sm text-gray-600 mb-5">A PDF with your design, floor plan, what your town allows, a rough cost range and your financing options. Final pricing comes at your free consult.</p>
+    <form id="plan-form" class="space-y-3">
+      <div><label for="pl-first" class="sr-only">First name</label><input id="pl-first" required autocomplete="given-name" placeholder="First name" class="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm"/></div>
+      <div><label for="pl-email" class="sr-only">Email</label><input id="pl-email" type="email" required autocomplete="email" placeholder="Email" class="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm"/></div>
+      <div><label for="pl-phone" class="sr-only">Phone (optional)</label><input id="pl-phone" type="tel" autocomplete="tel" placeholder="Phone (optional)" class="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm"/></div>
+      <label class="flex items-center gap-2 text-sm text-white/80"><input id="pl-fin" type="checkbox" class="w-4 h-4"/> I'd like help with financing too</label>
+      <button type="submit" class="w-full bg-gold text-black font-bold py-3 rounded-xl text-sm hover:bg-yellow-400">Download my plan</button>
+      <p id="pl-msg" class="text-xs text-gray-500" aria-live="polite"></p>
+      <p class="text-[11px] text-gray-400">We'll use your details to follow up about your project. No spam. See our <a href="privacy.html" class="underline">privacy policy</a>.</p>
+    </form>
+  </div>
+</div>
 <div id="exit-modal" class="hidden fixed inset-0 z-[60] bg-black/60 flex items-center justify-center px-4">
   <div class="bg-white rounded-3xl max-w-md w-full p-8 relative shadow-2xl">
     <button onclick="closeExitModal()" class="absolute top-4 right-4 w-8 h-8 rounded-full bg-black hover:bg-gray-800 flex items-center justify-center text-white">&times;</button>
@@ -2125,7 +2098,7 @@
       coords,
       driveMin,
       inArea,
-      builder: inArea ? DEVCOM_BASE : (partner || { name: 'Preferred Partner (pending)', tagline: 'YardSuite will match you with a vetted local builder', contact: 'hello@yardsuite.ca', phone: '(705) 242-7323' }),
+      builder: inArea ? DEVCOM_BASE : (partner || { name: 'Preferred Partner (pending)', tagline: 'YardSuite will match you with a vetted local builder', contact: 'info@devcomhomes.ca', phone: '(705) 242-7323' }),
       isPartner: !inArea,
     };
   }
@@ -2322,7 +2295,7 @@
           const driveMin = haversineMin(DEVCOM_BASE.lat, DEVCOM_BASE.lng, geoCoords.lat, geoCoords.lng);
           const inArea = driveMin <= DEVCOM_BASE.radiusMin;
           const partner = inArea ? null : findPartner(addr.toLowerCase());
-          return { coords: geoCoords, driveMin, inArea, builder: inArea ? DEVCOM_BASE : (partner || { name: 'Preferred Partner (pending)', tagline: 'YardSuite will match you with a vetted local builder', contact: 'hello@yardsuite.ca', phone: '(705) 242-7323' }), isPartner: !inArea };
+          return { coords: geoCoords, driveMin, inArea, builder: inArea ? DEVCOM_BASE : (partner || { name: 'Preferred Partner (pending)', tagline: 'YardSuite will match you with a vetted local builder', contact: 'info@devcomhomes.ca', phone: '(705) 242-7323' }), isPartner: !inArea };
         })()
       : determineServiceArea(addr);
     window._lastServiceArea = svc;
@@ -2437,7 +2410,7 @@
       status = 'caution';
       iconText = '⚠️';
       titleText = 'Possible: Lot Size May Be Limiting';
-      bodyText = 'Lots under 4,000 sqft may qualify for smaller garden suites (under 500 sqft) depending on your municipality. Ontario requires minimum rear setbacks of 7.5m in most zones.';
+      bodyText = 'Lots under 4,000 sqft may qualify for smaller garden suites (under 500 sqft) depending on your municipality. Setbacks vary by town; use the Design Studio to check yours.';
     } else {
       status = 'green';
       iconText = '✅';
@@ -2486,7 +2459,7 @@
       </div>
       <div class="bg-white rounded-xl p-3 text-center border border-gray-100">
         <div class="text-xs text-gray-500">Dev Charges</div>
-        <div class="font-bold text-forest mt-1">${['barrie','orillia'].includes(muni) ? 'Reduced' : 'Waived/Low'}</div>
+        <div class="font-bold text-forest mt-1">Exempt for most suites</div>
       </div>
       <div class="bg-white rounded-xl p-3 text-center border border-gray-100">
         <div class="text-xs text-gray-500">Est. Monthly Rent</div>
@@ -2512,11 +2485,18 @@
 
   // ── Lead capture (Netlify Forms) ──────────────────────
   // Leads post to Netlify Forms (see the hidden form definitions at the end of <body>).
+  // Google Sheet + thank-you email (Apps Script web app on the DevCom account, see /_tools/yardsuite-leads.gs).
+  // Leave empty until it's deployed; Netlify Forms still catches every lead.
+  const LEAD_HOOK = '';
   function postLead(formName, data) {
-    const body = new URLSearchParams(Object.assign({ 'form-name': formName, 'bot-field': '' }, data)).toString();
+    const extras = (window.YSStudio && window.YSStudio.leadExtras) ? window.YSStudio.leadExtras() : {};
+    const all = Object.assign({ 'form-name': formName, 'bot-field': '' }, extras, data);
+    const body = new URLSearchParams(all).toString();
+    if (LEAD_HOOK) { try { fetch(LEAD_HOOK, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, body }); } catch (x) { /* backup only */ } }
     return fetch('/', { method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, body })
       .then(r => { if (!r.ok) throw new Error('HTTP ' + r.status); return true; });
   }
+  window.postLead = postLead;
   function busy(btn, on, label) { if (!btn) return; if (on) { btn.dataset.label = btn.textContent; btn.textContent = label || 'Sending…'; btn.disabled = true; } else { btn.textContent = btn.dataset.label || btn.textContent; btn.disabled = false; } }
 
   function submitWaitlist(e) {
@@ -2628,13 +2608,16 @@
 </script>
 <!-- Netlify Forms definitions (detected at deploy; the visible forms post to these names) -->
 <form name="yardsuite-waitlist" data-netlify="true" netlify-honeypot="bot-field" hidden>
-  <input name="bot-field"/><input name="firstName"/><input name="lastName"/><input name="email"/><input name="phone"/><input name="address"/><input name="lotSize"/><input name="timeline"/><input name="goal"/><input name="source"/><input name="design"/><input name="serviceArea"/><input name="calculator"/>
+  <input name="bot-field"/><input name="firstName"/><input name="lastName"/><input name="email"/><input name="phone"/><input name="address"/><input name="lotSize"/><input name="timeline"/><input name="goal"/><input name="source"/><input name="design"/><input name="serviceArea"/><input name="calculator"/><input name="town"/><input name="fit"/><input name="costRange"/><input name="financing"/>
 </form>
 <form name="yardsuite-builder-intro" data-netlify="true" netlify-honeypot="bot-field" hidden>
-  <input name="bot-field"/><input name="firstName"/><input name="lastName"/><input name="email"/><input name="phone"/><textarea name="project"></textarea>
+  <input name="bot-field"/><input name="firstName"/><input name="lastName"/><input name="email"/><input name="phone"/><textarea name="project"></textarea><input name="town"/><input name="design"/><input name="fit"/><input name="costRange"/><input name="financing"/>
 </form>
 <form name="yardsuite-report-request" data-netlify="true" netlify-honeypot="bot-field" hidden>
-  <input name="bot-field"/><input name="email"/><input name="address"/>
+  <input name="bot-field"/><input name="email"/><input name="address"/><input name="town"/><input name="design"/><input name="fit"/><input name="costRange"/><input name="financing"/>
+</form>
+<form name="yardsuite-plan" data-netlify="true" netlify-honeypot="bot-field" hidden>
+  <input name="bot-field"/><input name="firstName"/><input name="email"/><input name="phone"/><input name="address"/><input name="town"/><input name="design"/><input name="fit"/><input name="costRange"/><input name="financing"/>
 </form>
 </body>
 </html>

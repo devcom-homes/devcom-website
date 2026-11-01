@@ -9,7 +9,7 @@
   const ESRI_KEY = '';
   const TILE_URL = 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}' + (ESRI_KEY ? '?token=' + ESRI_KEY : '');
 
-  const state = { map: null, centre: null, rot: 0, plan: null, poly: null, handle: null, parcel: null, parcelLayer: null, street: null, onChange: null };
+  const state = { setbacks: null, buildings: [], zoneLayer: null, bldLayer: null, map: null, centre: null, rot: 0, plan: null, poly: null, handle: null, parcel: null, parcelLayer: null, street: null, onChange: null };
 
   function toLocal(lat, lng, o) { // metres east/north of origin o
     return { e: (lng - o.lng) * 111320 * Math.cos(o.lat * Math.PI / 180), n: (lat - o.lat) * 110540 };
@@ -69,6 +69,18 @@
       cs.forEach(k => { for (let i = 0; i < ring.length - 1; i++) best = Math.min(best, segDist(k, ring[i], ring[i + 1])); });
       out.closestM = isFinite(best) ? best : null;
     }
+    if (state.buildings.length && state.centre) {
+      const o = state.centre, cs = corners();
+      let near = Infinity, overlap = false;
+      state.buildings.forEach(b => {
+        const ring = b.map(([lat, lng]) => toLocal(lat, lng, o));
+        if (cs.some(k => inside(k, ring)) || ring.some(k => inside(k, cs.concat([cs[0]])))) overlap = true;
+        cs.forEach(k => { for (let i = 0; i < ring.length - 1; i++) near = Math.min(near, segDist(k, ring[i], ring[i + 1])); });
+        ring.forEach(k => { for (let i = 0; i < 4; i++) near = Math.min(near, segDist(k, cs[i], cs[(i + 1) % 4])); });
+      });
+      out.houseM = isFinite(near) ? near : null; out.overlap = overlap;
+      if (overlap) out.fits = false;
+    }
     state.last = out;
     if (state.onChange) state.onChange(out);
   }
@@ -127,9 +139,58 @@
     state.rot = Math.round(Math.atan2(-g.e / len, -g.n / len) * 180 / Math.PI);
   }
 
+  // Inset the lot by the setbacks (front edge = the one nearest the street point).
+  function drawZone() {
+    if (state.zoneLayer) { state.map.removeLayer(state.zoneLayer); state.zoneLayer = null; }
+    if (!state.parcel || !state.setbacks || !state.street) return;
+    const sb = state.setbacks, o = state.street;
+    let pts = state.parcel.map(([lng, lat]) => toLocal(lat, lng, o));
+    if (pts.length > 1 && Math.hypot(pts[0].e - pts[pts.length - 1].e, pts[0].n - pts[pts.length - 1].n) < 0.01) pts = pts.slice(0, -1);
+    if (pts.length < 3) return;
+    let area = 0; for (let i = 0; i < pts.length; i++) { const a = pts[i], b = pts[(i + 1) % pts.length]; area += a.e * b.n - b.e * a.n; }
+    const ccw = area > 0, n = pts.length;
+    let frontIdx = 0, fd = Infinity;
+    for (let i = 0; i < n; i++) { const d = segDist({ e: 0, n: 0 }, pts[i], pts[(i + 1) % n]); if (d < fd) { fd = d; frontIdx = i; } }
+    const lines = [];
+    for (let i = 0; i < n; i++) {
+      const a = pts[i], b = pts[(i + 1) % n], dx = b.e - a.e, dn = b.n - a.n, L = Math.hypot(dx, dn) || 1;
+      const nx = ccw ? -dn / L : dn / L, nn = ccw ? dx / L : -dx / L; // inward normal
+      const d = i === frontIdx ? (sb.front || sb.side || 0) : Math.max(sb.side || 0, sb.rear || 0);
+      lines.push({ p: { e: a.e + nx * d, n: a.n + nn * d }, v: { e: dx, n: dn } });
+    }
+    const out = [];
+    for (let i = 0; i < n; i++) {
+      const l1 = lines[(i - 1 + n) % n], l2 = lines[i], den = l1.v.e * l2.v.n - l1.v.n * l2.v.e;
+      if (Math.abs(den) < 1e-9) { out.push(l2.p); continue; }
+      const t = ((l2.p.e - l1.p.e) * l2.v.n - (l2.p.n - l1.p.n) * l2.v.e) / den;
+      out.push({ e: l1.p.e + l1.v.e * t, n: l1.p.n + l1.v.n * t });
+    }
+    state.zoneLayer = L.polygon(out.map(k => toLatLng(k.e, k.n, o)), { color: '#4ade80', weight: 1.5, dashArray: '4 4', fillColor: '#4ade80', fillOpacity: 0.08, interactive: false }).addTo(state.map);
+    if (state.poly) state.poly.bringToFront();
+  }
+  async function fetchBuildings(geo) {
+    state.buildings = [];
+    if (state.bldLayer) { state.map.removeLayer(state.bldLayer); state.bldLayer = null; }
+    try {
+      const q = `[out:json][timeout:10];way["building"](around:70,${geo.lat},${geo.lng});out geom;`;
+      const r = await fetch('https://overpass-api.de/api/interpreter?data=' + encodeURIComponent(q));
+      const d = await r.json();
+      let ways = (d.elements || []).filter(w => w.geometry && w.geometry.length > 3).map(w => w.geometry.map(g => [g.lat, g.lon]));
+      if (state.parcel) {
+        const o = { lat: geo.lat, lng: geo.lng }, ring = state.parcel.map(([lng, lat]) => toLocal(lat, lng, o));
+        ways = ways.filter(w => w.some(([lat, lng]) => inside(toLocal(lat, lng, o), ring)));
+      }
+      state.buildings = ways;
+      if (ways.length) state.bldLayer = L.layerGroup(ways.map(w => L.polygon(w, { color: '#e5e7eb', weight: 1.5, fillColor: '#9ca3af', fillOpacity: 0.35, interactive: false }))).addTo(state.map);
+      if (state.poly) state.poly.bringToFront();
+      report();
+    } catch (e) { /* building outlines are a nice-to-have */ }
+  }
+
   const api = {
     init(el, onChange) { state.onChange = onChange; return ensureMap(el); },
     setPlan(plan) { state.plan = plan; draw(); },
+    setSetbacks(sb) { state.setbacks = sb; if (state.map) drawZone(); },
     setRotation(deg) { state.rot = deg; draw(); },
     getRotation() { return state.rot; },
     faceStreet() { if (state.street && state.centre) { const g = toLocal(state.street.lat, state.street.lng, state.centre); const l = Math.hypot(g.e, g.n) || 1; state.rot = Math.round(Math.atan2(-g.e / l, -g.n / l) * 180 / Math.PI); draw(); } return state.rot; },
@@ -155,6 +216,8 @@
       if (state.parcelLayer) { state.map.removeLayer(state.parcelLayer); state.parcelLayer = null; }
       if (parcel) state.parcelLayer = L.polygon(parcel.ring.map(([lng, lat]) => [lat, lng]), { color: '#ffffff', weight: 2, dashArray: '6 5', fill: false, interactive: false }).addTo(state.map);
       autoPlace(geo, state.parcel);
+      drawZone();
+      fetchBuildings(geo);
       if (!state.handle) {
         const icon = L.divIcon({ className: 'ys-handle', html: '<span aria-hidden="true">&#x2725;</span>', iconSize: [34, 34], iconAnchor: [17, 17] });
         state.handle = L.marker([state.centre.lat, state.centre.lng], { draggable: true, icon, keyboard: true, title: 'Drag to move the suite', alt: 'Drag to move the suite' }).addTo(state.map);

@@ -148,6 +148,7 @@
     $('m-area').textContent = `${fmt(area)} sq ft${p.units > 1 ? `, ${p.units} units` : ''}`;
     $('m-height').textContent = `${h.toFixed(1)} m (${Math.round(h * 3.281)} ft)`;
     $('m-cost').textContent = `$${fmt(area * COST[0] / 1000)}k to $${fmt(area * COST[1] / 1000)}k`;
+    $('m-cost').title = 'Rough range; final pricing at your free consult';
     renderFit();
   }
   function renderFit() {
@@ -271,6 +272,9 @@
       el.classList.remove('hidden');
       el.innerHTML = !o.fits ? '<span class="text-amber-300 font-semibold">Part of the suite is outside your lot line.</span> Drag or turn it to fit.'
         : `<span class="text-emerald-300 font-semibold">Inside your lot.</span> Closest lot line: about ${o.closestM.toFixed(1)} m (${Math.round(o.closestM * 3.281)} ft).`;
+      if (o.overlap) el.innerHTML = '<span class="text-amber-300 font-semibold">It overlaps a building on your lot.</span> Drag it clear of the house or garage.';
+      else if (o.houseM != null) el.innerHTML += ` About ${o.houseM.toFixed(1)} m from the nearest building.`;
+      el.innerHTML += '<div class="text-[11px] text-white/50 mt-1">Green dashed line: where setbacks allow building. Grey: buildings from OpenStreetMap, may be out of date.</div>';
     } else el.classList.add('hidden');
     renderFit();
   }
@@ -291,9 +295,21 @@
     $('sum-area').textContent = fmt(E().floorArea(p)) + ' sq ft';
     $('sum-meta').textContent = `${p.W}' x ${p.D}'${p.storeys > 1 ? ', 2 storeys' : ''} · ${p.units > 1 ? p.units + ' units · ' : ''}${p.beds ? p.beds + ' bed' : 'studio'} · ${p.baths} bath`;
     if (S.studio) S.studio.setDesign(p, S.look);
-    if (S.mapReady) window.YSMap.setPlan(p);
+    if (S.mapReady) { window.YSMap.setPlan(p); const r = R().RULES[S.town] || R().RULES.other; window.YSMap.setSetbacks(r.setbacks); }
     if (S.view === 'plan') renderPlan();
+    prefillFinancing();
     persist();
+  }
+  function costMid() { return Math.round(E().floorArea(S.p) * (COST[0] + COST[1]) / 2 / 1000) * 1000; }
+  function costText() { const a = E().floorArea(S.p); return `$${fmt(a * COST[0] / 1000)}k to $${fmt(a * COST[1] / 1000)}k`; }
+  function prefillFinancing() {
+    const mid = costMid();
+    ['a-build-cost', 'b-build-cost', 'c-build-cost'].forEach(id => {
+      const el = $(id); if (!el || el.dataset.userSet) return;
+      if (!el.dataset.wired) { el.dataset.wired = '1'; el.addEventListener('input', () => { el.dataset.userSet = '1'; }); }
+      el.value = mid;
+    });
+    ['calcA', 'calcB', 'calcC'].forEach(f => { if (typeof window[f] === 'function') try { window[f](); } catch (e) { /* noop */ } });
   }
 
   // ---------- actions ----------
@@ -346,10 +362,68 @@
     const adj = () => S.studio && S.studio.setAdjust({ scale: +$('ph-scale').value, x: +$('ph-x').value, y: +$('ph-y').value });
     ['ph-scale', 'ph-x', 'ph-y'].forEach(id => $(id).addEventListener('input', adj));
     $('lot-rot').addEventListener('input', e => { window.YSMap.setRotation(+e.target.value); $('lot-rot-val').textContent = e.target.value + '°'; });
+    $('btn-plan').addEventListener('click', openPlan);
+    $('plan-close').addEventListener('click', closePlan);
+    $('plan-modal').addEventListener('click', e => { if (e.target.id === 'plan-modal') closePlan(); });
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closePlan(); });
+    $('plan-form').addEventListener('submit', makePlan);
     $('lot-face').addEventListener('click', () => { const r = window.YSMap.faceStreet(); $('lot-rot').value = r; $('lot-rot-val').textContent = r + '°'; });
   }
 
+  // ---------- plan PDF ----------
+  function openPlan() { $('plan-modal').classList.remove('hidden'); $('pl-msg').textContent = ''; setTimeout(() => $('pl-first').focus(), 50); }
+  function closePlan() { $('plan-modal').classList.add('hidden'); }
+  function ruleLines() {
+    const out = [];
+    document.querySelectorAll('#rules-list li').forEach(li => out.push(li.innerText.replace(/^•\s*/, '')));
+    const cap = $('rules-cap').innerText; if (cap) out.unshift(cap);
+    return out;
+  }
+  async function makePlan(e) {
+    e.preventDefault();
+    const btn = e.target.querySelector('button[type="submit"]'), msg = $('pl-msg');
+    const first = $('pl-first').value.trim(), email = $('pl-email').value.trim();
+    btn.disabled = true; btn.textContent = 'Building your plan…'; msg.textContent = '';
+    const fin = $('pl-fin').checked ? 'yes' : '';
+    if (fin) window._ysFinancing = 'yes';
+    let sent = true;
+    try { await window.postLead('yardsuite-plan', { firstName: first, email, phone: $('pl-phone').value.trim(), address: S.address, financing: fin }); } catch (x) { sent = false; }
+    try {
+      let image = null;
+      const st = await ensure3D();
+      if (st) { st.setDesign(S.p, S.look); try { image = await st.snapshot(); } catch (x) { image = null; } }
+      const holder = document.createElement('div'); holder.style.cssText = 'position:fixed;left:-9999px;top:0;width:900px';
+      document.body.appendChild(holder);
+      const plans = [];
+      for (let i = 0; i < S.p.floors.length; i++) { holder.innerHTML = window.YS_renderFloorPlan(S.p, i); plans.push(await window.YSPdf.svgToPng(holder.querySelector('svg'), 2)); }
+      holder.remove();
+      const r = R().RULES[S.town] || R().RULES.other;
+      const blob = await window.YSPdf.make({
+        p: S.p, firstName: first, address: S.address, townName: r.name, date: new Date().toLocaleDateString('en-CA', { year: 'numeric', month: 'long', day: 'numeric' }),
+        image, typeLabel: E().TYPES[S.type].label, area: E().floorArea(S.p), heightM: E().heightM(S.p, S.look),
+        lookText: `${LOOKS[S.preset] ? LOOKS[S.preset].label : 'Custom'}, ${colourName()} siding, ${S.look.roof} roof`,
+        costText: costText(), ruleLines: ruleLines(), fit: S.fit, rulesAsOf: 'October 31, 2026 (' + r.asOf + ')',
+        sourcesText: r.sources.map(x => x.t).join('; '), plans
+      });
+      const url = URL.createObjectURL(blob);
+      download(url, 'YardSuite plan - ' + S.p.name.replace(/[^\w ,.-]/g, '') + '.pdf');
+      setTimeout(() => URL.revokeObjectURL(url), 30000);
+      msg.textContent = sent ? "Your plan is downloading. We've got your details and will be in touch to set up your free consult." : "Your plan is downloading. We couldn't send your details just now, so please email info@devcomhomes.ca to book your consult.";
+      btn.textContent = 'Download again';
+    } catch (x) {
+      console.warn(x);
+      msg.textContent = "Sorry, the PDF couldn't be built on this device. We've got your details and will email your plan.";
+      btn.textContent = 'Try again';
+    }
+    btn.disabled = false;
+  }
+
   window.YSStudio = {
+    leadExtras() {
+      if (!S.p) return {};
+      const st = S.fit ? { fits: 'Fits the rules', variance: 'Needs a minor variance', rezoning: 'Needs a rezoning' }[S.fit.status] : '';
+      return { town: (R().RULES[S.town] || {}).name || '', design: designSummary(), fit: st, costRange: costText(), financing: window._ysFinancing || '' };
+    },
     activate() { setView(S.view); },
     openLot(addr) { window.goTab('visualize'); if (addr) { $('ys-address').value = addr; locate(); } setView('lot'); }
   };

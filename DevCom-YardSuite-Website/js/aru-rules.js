@@ -17,7 +17,7 @@
       maxDimM: null,
       setbacks: { side: 1.5, rear: 1.5, extSide: 3, front: 6, text: '1.5 m side and rear, 3 m on a corner side, 6 m front and never closer to the street than the house' },
       parking: '1 space per suite, 2 at most for all suites',
-      extra: ['Each suite needs its own outside door.', 'Rapid ARU incentive and pre-approved designs may apply; ask the Town.'],
+      extra: ['Each suite needs its own outside door.', 'Collingwood has offered a $10,000 incentive for suites kept as long-term rentals (2024 program) and pre-approved suite designs; ask us if they\'re still available.'],
       sources: [{ t: 'Town of Collingwood, Rapid ARU Initiative', u: 'https://www.collingwood.ca/rapidARU' }, { t: 'Zoning By-law 2010-040, consolidated Apr 2026', u: 'https://www.collingwood.ca/zoning-law' }],
       contact: 'ARU@collingwood.ca or planning@collingwood.ca'
     },
@@ -147,7 +147,8 @@
     // setbacks from the lot map
     if (lotFit && lotFit.fits !== null) {
       const need = Math.min(...[r.setbacks.side, r.setbacks.rear].filter(v => v != null).concat([99]));
-      if (!lotFit.fits) add(false, 'Setbacks', 'part of the suite is outside your lot line on the map');
+      if (lotFit.overlap) add(false, 'Placement', 'it overlaps a building on your lot; move it on the map');
+      else if (!lotFit.fits) add(false, 'Setbacks', 'part of the suite is outside your lot line on the map');
       else if (need < 99) add(lotFit.closestM >= need - 0.01, 'Setbacks', `closest lot line ${lotFit.closestM.toFixed(1)} m vs ${need} m minimum (side/rear)`);
     }
     const fails = items.filter(i => i.ok === false);
