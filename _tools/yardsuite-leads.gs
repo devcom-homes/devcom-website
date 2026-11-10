@@ -7,13 +7,22 @@
  *  3. Deploy > New deployment > Web app. Execute as: Me. Who has access: Anyone.
  *  4. Copy the web app URL and give it to Frank. He puts it in LEAD_HOOK in yardsuite.html.
  *
- * Every YardSuite form (waitlist, builder intro, plan request, report request) then adds a
- * row here, sends the person a short thank-you from DevCom, and emails info@devcomhomes.ca.
+ * Every YardSuite form (waitlist, builder intro, plan request, report request, ROI review)
+ * then adds a row here, sends the person a short thank-you, and emails the lead to you.
  * Netlify Forms keeps its own copy as a backup.
+ *
+ * Who gets the lead emails: in Apps Script, open Project Settings > Script properties and add
+ *   NOTIFY_EMAILS = info@devcomhomes.ca, your@email.com
+ * (comma-separated). Addresses live there, not in this file, because this file is public.
+ * With no property set, leads go to info@devcomhomes.ca.
  */
-var NOTIFY = 'info@devcomhomes.ca';
+var NOTIFY_DEFAULT = 'info@devcomhomes.ca';
+function notifyList_() {
+  var v = PropertiesService.getScriptProperties().getProperty('NOTIFY_EMAILS') || NOTIFY_DEFAULT;
+  return v.split(',').map(function (x) { return x.trim(); }).filter(function (x) { return /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(x); }).join(',') || NOTIFY_DEFAULT;
+}
 var SHEET = 'Leads';
-var FIELDS = ['form', 'firstName', 'lastName', 'email', 'phone', 'address', 'town', 'lotSize', 'timeline', 'goal', 'source', 'design', 'fit', 'costRange', 'financing', 'serviceArea', 'project', 'calculator'];
+var FIELDS = ['form', 'firstName', 'lastName', 'email', 'phone', 'address', 'town', 'lotSize', 'timeline', 'goal', 'source', 'design', 'fit', 'costRange', 'financing', 'serviceArea', 'project', 'bestTime', 'quickEstimate', 'calculator'];
 
 function doPost(e) {
   var p = (e && e.parameter) || {};
@@ -41,14 +50,21 @@ function doPost(e) {
 
   var first = String(p.firstName || '').trim();
   var design = String(p.design || '').trim();
-  var body = 'Hi' + (first ? ' ' + first : '') + ',\n\n' +
+  var roi = p['form-name'] === 'yardsuite-roi-review';
+  var body = roi
+    ? 'Hi' + (first ? ' ' + first : '') + ',\n\n' +
+      'Thanks for asking for a detailed look at your garden suite numbers. Trevor Hough will review your home, your design and your financing options and send you a full breakdown, usually within one business day.\n\n' +
+      'If you have a recent mortgage statement or your property tax bill handy, replying with those helps make the numbers more accurate.\n\n' +
+      'The DevCom team\ninfo@devcomhomes.ca · (705) 242-7323'
+    : 'Hi' + (first ? ' ' + first : '') + ',\n\n' +
     'Thanks for looking into a garden suite with YardSuite. We have your details' + (design ? ' and your design:\n' + design + '\n\n' : '.\n\n') +
     'Someone from our team will look at your property and get back to you within 2 to 3 business days to set up a free consult, where we firm up the size, siting, price and financing.\n\n' +
     'If you have a survey or photos of your yard, just reply to this email.\n\n' +
     'The DevCom team\ninfo@devcomhomes.ca · (705) 242-7323';
-  try { MailApp.sendEmail({ to: email, subject: 'Your YardSuite request', body: body, name: 'DevCom Homes', replyTo: NOTIFY }); } catch (err) { /* keep the row even if mail fails */ }
+  var notify = notifyList_();
+  try { MailApp.sendEmail({ to: email, subject: roi ? 'Your YardSuite numbers' : 'Your YardSuite request', body: body, name: 'DevCom Homes', replyTo: notify.split(',')[0] }); } catch (err) { /* keep the row even if mail fails */ }
   try {
-    MailApp.sendEmail({ to: NOTIFY, subject: 'New YardSuite lead: ' + (first || email) + (p.town ? ' (' + p.town + ')' : ''),
+    MailApp.sendEmail({ to: notify, subject: (roi ? 'ROI review request: ' : 'New YardSuite lead: ') + (first || email) + (p.town ? ' (' + p.town + ')' : ''),
       body: FIELDS.map(function (f) { return f + ': ' + (f === 'form' ? p['form-name'] : (p[f] || '')); }).join('\n') });
   } catch (err) { /* noop */ }
   return out_({ ok: true });
