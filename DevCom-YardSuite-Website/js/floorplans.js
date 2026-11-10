@@ -194,6 +194,99 @@
       }]
     },
 
+    // Narrow layouts: 20 ft wide for narrow lots, entry on the short south end, space comes from depth.
+    onebedN: {
+      key: 'onebedN', name: 'One Bedroom, narrow', tagline: 'For narrow lots: bedroom at the back, living at the front',
+      W: 20, D: 27, storeys: 1, beds: 1, baths: 1,
+      floors: [{
+        label: 'Main floor',
+        walls: [[12, 0, 12, 11.5], [12, 8, 20, 8], [0, 11.5, 12, 11.5]],
+        doors: [
+          { wall: 'S', at: 1.5, len: 3, swing: -1, entry: true },
+          { v: 12, at: 8.8, len: 2.5, swing: -1 },
+          { h: 8, at: 13, len: 2.5, swing: -1 }
+        ],
+        windows: [
+          { side: 'N', at: 3, len: 4 }, { side: 'N', at: 14.2, len: 2 },
+          { side: 'E', at: 14, len: 4 }, { side: 'E', at: 20.5, len: 3 }, { side: 'W', at: 18, len: 4 },
+          { side: 'S', at: 10.5, len: 5 }
+        ],
+        rooms: [
+          { name: 'Living / kitchen', x: 0, y: 11.5, w: 20, h: 15.5, lx: 14, ly: 17.2 },
+          { name: 'Bedroom', x: 0, y: 0, w: 12, h: 11.5, lx: 11.3, ly: 4.2, anchor: 'end' },
+          { name: 'Bath', x: 12, y: 0, w: 8, h: 8, lx: 16.1, ly: 4.7, nodim: true },
+          { name: 'Hall', x: 12, y: 8, w: 8, h: 3.5, lx: 16, ly: 10.3, small: true, nodim: true }
+        ],
+        fixtures: [
+          { t: 'bed', x: 0.3, y: 2.2, w: 6.8, h: 5, head: 'W' },
+          { t: 'nightstand', x: 0.3, y: 0.8, w: 1.4, h: 1.2 }, { t: 'nightstand', x: 0.3, y: 7.4, w: 1.4, h: 1.2 },
+          { t: 'closet', x: 1, y: 9.3, w: 7, h: 2 },
+          { t: 'tub', x: 12.3, y: 0.3, w: 2.5, h: 5, vertical: true },
+          { t: 'toilet', cx: 16.1, y: 0.3, dir: 'N' },
+          { t: 'vanity', x: 17.4, y: 0.3, w: 2.3, h: 1.8 },
+          { t: 'wd', x: 17.1, y: 5, w: 2.6, h: 2.7, label: 'W/D' },
+          { t: 'fridge', x: 0.3, y: 11.8, w: 2.6, h: 2.6 },
+          { t: 'counter', x: 3, y: 11.8, w: 8.7, h: 2 },
+          { t: 'sink', cx: 5.8, cy: 12.8 },
+          { t: 'range', x: 8.6, y: 11.8, w: 2.5, h: 2 },
+          { t: 'island', x: 3, y: 16.3, w: 5, h: 2.4 },
+          { t: 'sofa', x: 10, y: 23.4, w: 7.4, h: 3, facing: 'N' },
+          { t: 'coffee', x: 11.7, y: 20.6, w: 4, h: 2 }
+        ]
+      }]
+    },
+
+    twobedN: {
+      key: 'twobedN', name: 'Two Bedroom, narrow', tagline: 'For narrow lots: two bedrooms at the back, open kitchen and living at the front',
+      W: 20, D: 36, storeys: 1, beds: 2, baths: 1,
+      floors: [{
+        label: 'Main floor',
+        walls: [[11, 0, 11, 11.5], [0, 11.5, 20, 11.5], [7.5, 11.5, 7.5, 19.5], [0, 19.5, 7.5, 19.5], [15, 11.5, 15, 14.5], [15, 14.5, 20, 14.5]],
+        doors: [
+          { wall: 'S', at: 15.5, len: 3, swing: -1, entry: true },
+          { h: 11.5, at: 8, len: 2.5, swing: -1 },
+          { h: 11.5, at: 11.6, len: 2.5, swing: -1 },
+          { v: 7.5, at: 12, len: 2.5, swing: 1 },
+          { v: 15, at: 11.8, len: 2.5, swing: 1, type: 'bifold' }
+        ],
+        windows: [
+          { side: 'N', at: 3, len: 4 }, { side: 'N', at: 14, len: 4 },
+          { side: 'W', at: 13.5, len: 2 }, { side: 'E', at: 15.5, len: 3 },
+          { side: 'W', at: 26, len: 4 }, { side: 'E', at: 27, len: 4 },
+          { side: 'S', at: 3, len: 5 }, { side: 'S', at: 10, len: 4 }
+        ],
+        rooms: [
+          { name: 'Living / dining', x: 0, y: 23, w: 20, h: 13, lx: 10, ly: 25.2 },
+          { name: 'Kitchen', x: 7.5, y: 14.5, w: 12.5, h: 8.5, lx: 13, ly: 22.4, nodim: true },
+          { name: 'Bedroom 1', x: 0, y: 0, w: 11, h: 11.5, lx: 10.3, ly: 4.2, anchor: 'end' },
+          { name: 'Bedroom 2', x: 11, y: 0, w: 9, h: 11.5, lx: 11.6, ly: 8.3, anchor: 'start' },
+          { name: 'Bath', x: 0, y: 11.5, w: 7.5, h: 8, lx: 3.7, ly: 18.6, nodim: true },
+          { name: 'Hall', x: 7.5, y: 11.5, w: 7.5, h: 3, lx: 11.3, ly: 13.9, small: true, nodim: true },
+          { name: 'Laundry', x: 15, y: 11.5, w: 5, h: 3, lx: 17.6, ly: 13.4, small: true, nodim: true }
+        ],
+        fixtures: [
+          { t: 'bed', x: 0.3, y: 2.2, w: 6.8, h: 5, head: 'W' },
+          { t: 'nightstand', x: 0.3, y: 0.8, w: 1.4, h: 1.2 }, { t: 'nightstand', x: 0.3, y: 7.4, w: 1.4, h: 1.2 },
+          { t: 'closet', x: 1, y: 9.3, w: 6.5, h: 2 },
+          { t: 'bed', x: 13, y: 2.4, w: 6.7, h: 4.6, head: 'E' },
+          { t: 'nightstand', x: 18.3, y: 0.8, w: 1.4, h: 1.2 },
+          { t: 'closet', x: 15, y: 9.3, w: 4.7, h: 2 },
+          { t: 'tub', x: 0.3, y: 11.8, w: 2.5, h: 5, vertical: true },
+          { t: 'toilet', cx: 4, y: 11.8, dir: 'N' },
+          { t: 'vanity', x: 5.3, y: 11.8, w: 1.9, h: 3, vertical: true },
+          { t: 'wd', x: 15.4, y: 11.8, w: 4.2, h: 2.4, label: 'W   D', pair: true },
+          { t: 'fridge', x: 7.8, y: 15.2, w: 2.6, h: 2.6 },
+          { t: 'counter', x: 17.7, y: 15, w: 2, h: 7.8 },
+          { t: 'sink', cx: 18.7, cy: 17.2, vertical: true },
+          { t: 'range', x: 17.7, y: 19.7, w: 2, h: 2.5 },
+          { t: 'island', x: 11, y: 17.4, w: 4, h: 2.4 },
+          { t: 'table', x: 13, y: 25.4, w: 3.4, h: 5 },
+          { t: 'sofa', x: 2, y: 32.4, w: 7.4, h: 3, facing: 'N' },
+          { t: 'coffee', x: 3.7, y: 29.6, w: 4, h: 2 }
+        ]
+      }]
+    },
+
     loft: {
       key: 'loft', name: 'Two-Storey', tagline: 'Living down, two bedrooms and loft up',
       W: 24, D: 24, storeys: 2, beds: 2, baths: 1.5,
@@ -408,6 +501,7 @@
           for (let i = 0; i < Math.floor(o.w / 1.8); i++) out.push(`<circle cx="${X(o.x + 0.9 + i * 1.8)}" cy="${Y(o.y + o.h + 0.75)}" r="${L(0.5)}" ${fx()}/>`);
           break;
         case 'sink':
+          if (o.vertical) { out.push(`<rect x="${X(o.cx - 0.7)}" y="${Y(o.cy - 1.4)}" width="${L(1.4)}" height="${L(1.3)}" rx="2" fill="#eef4f8" stroke="${soft}" stroke-width="0.8"/><rect x="${X(o.cx - 0.7)}" y="${Y(o.cy + 0.1)}" width="${L(1.4)}" height="${L(1.3)}" rx="2" fill="#eef4f8" stroke="${soft}" stroke-width="0.8"/>`); break; }
           out.push(`<rect x="${X(o.cx - 1.4)}" y="${Y(o.cy - 0.7)}" width="${L(1.3)}" height="${L(1.4)}" rx="2" fill="#eef4f8" stroke="${soft}" stroke-width="0.8"/><rect x="${X(o.cx + 0.1)}" y="${Y(o.cy - 0.7)}" width="${L(1.3)}" height="${L(1.4)}" rx="2" fill="#eef4f8" stroke="${soft}" stroke-width="0.8"/>`);
           break;
         case 'range': {

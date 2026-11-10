@@ -15,24 +15,26 @@
     onebed: { sx: [5, 21], sy: [9, 15.5], wy: [0.3, 0.7] },
     twobed: { sx: [5, 23.5], sy: [9, 17.5], wy: [0.3, 0.7] },
     threebed: { sx: [5, 29.5, 39], sy: [9, 17.5], wy: [0.3, 0.7] },
+    onebedN: { sx: [5], sy: [9, 19], wy: [0.3, 0.7] },
+    twobedN: { sx: [9, 13], sy: [6, 27], wy: [0.35, 0.65] },
     loft: { sx: [14], sy: [21.5] }
   };
   // How much bigger than its starting (smallest) size each layout can get, in feet.
   // The starting sizes in js/floorplans.js are the smallest we draw each layout at:
   // below that a bedroom would fall under our minimum (MIN_BED).
-  const GROW = { studio: { w: 16, d: 12 }, onebed: { w: 20, d: 15 }, twobed: { w: 20, d: 17 }, threebed: { w: 16, d: 12 }, loft: { w: 16, d: 12 } };
+  const GROW = { studio: { w: 16, d: 12 }, onebed: { w: 20, d: 15 }, twobed: { w: 20, d: 17 }, threebed: { w: 16, d: 12 }, onebedN: { w: 8, d: 16 }, twobedN: { w: 8, d: 14 }, loft: { w: 16, d: 12 } };
   // Smallest bedroom we draw, in feet, measured the same way the plan labels it.
   // Ontario Building Code 9.5.7 minimums with a built-in closet are 95 sq ft (main bedroom) and 65 sq ft (others).
   const MIN_BED = { main: { w: 10, d: 10, sqft: 95 }, other: { w: 9, d: 9, sqft: 65 } };
 
   const TYPES = {
-    single: { label: 'One storey', units: 1, storeys: 1, blurb: 'One suite on one level', layouts: ['studio', 'onebed', 'twobed', 'threebed'] },
+    single: { label: 'One storey', units: 1, storeys: 1, blurb: 'One suite on one level', layouts: ['studio', 'onebed', 'onebedN', 'twobed', 'twobedN', 'threebed'] },
     loft: { label: 'Two storey', units: 1, storeys: 2, blurb: 'One suite, living down, bedrooms up', layouts: ['loft'] },
     side: { label: 'Two units, side by side', units: 2, storeys: 1, blurb: 'Two suites sharing one wall', layouts: ['studio', 'onebed'] },
-    stacked: { label: 'Two units, stacked', units: 2, storeys: 2, blurb: 'One suite up, one down, outside stair', layouts: ['onebed', 'studio'] },
-    lower: { label: 'Two units, raised lower level', units: 2, storeys: 2, aboveGrade: 1, blurb: 'One storey tall, second suite in a raised lower level', layouts: ['onebed', 'studio', 'twobed'] }
+    stacked: { label: 'Two units, stacked', units: 2, storeys: 2, blurb: 'One suite up, one down, outside stair', layouts: ['onebed', 'onebedN', 'studio'] },
+    lower: { label: 'Two units, raised lower level', units: 2, storeys: 2, aboveGrade: 1, blurb: 'One storey tall, second suite in a raised lower level', layouts: ['onebed', 'onebedN', 'studio', 'twobed', 'twobedN'] }
   };
-  const LAYOUT_LABEL = { studio: 'Studio', onebed: 'One bedroom', twobed: 'Two bedroom', threebed: 'Three bedroom', loft: 'Two bedroom loft' };
+  const LAYOUT_LABEL = { studio: 'Studio', onebed: 'One bedroom', twobed: 'Two bedroom', threebed: 'Three bedroom', onebedN: 'One bedroom, narrow', twobedN: 'Two bedroom, narrow', loft: 'Two bedroom loft' };
 
   function stretchFloor(f, base, W, D) {
     const s = STRETCH[base.key], dW = W - base.W, dD = D - base.D;
