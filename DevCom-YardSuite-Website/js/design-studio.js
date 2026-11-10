@@ -119,7 +119,8 @@
       single: `<rect x="30" y="22" width="50" height="34" fill="none" stroke="${g}" stroke-width="2.4"/><path d="M26 24 L55 8 L84 24" fill="none" stroke="${g}" stroke-width="2.4"/>`,
       loft: `<rect x="35" y="14" width="40" height="44" fill="none" stroke="${g}" stroke-width="2.4"/><line x1="35" y1="36" x2="75" y2="36" stroke="${g}" stroke-width="1.6"/><path d="M31 16 L55 4 L79 16" fill="none" stroke="${g}" stroke-width="2.4"/>`,
       side: `<rect x="15" y="24" width="80" height="32" fill="none" stroke="${g}" stroke-width="2.4"/><line x1="55" y1="24" x2="55" y2="56" stroke="${g}" stroke-width="2.4"/><path d="M11 26 L55 10 L99 26" fill="none" stroke="${g}" stroke-width="2.4"/>`,
-      stacked: `<rect x="32" y="14" width="46" height="44" fill="none" stroke="${g}" stroke-width="2.4"/><line x1="32" y1="36" x2="78" y2="36" stroke="${g}" stroke-width="2.4"/><path d="M32 36 L18 58" stroke="${g}" stroke-width="1.8"/><path d="M28 16 L55 4 L82 16" fill="none" stroke="${g}" stroke-width="2.4"/>`
+      stacked: `<rect x="32" y="14" width="46" height="44" fill="none" stroke="${g}" stroke-width="2.4"/><line x1="32" y1="36" x2="78" y2="36" stroke="${g}" stroke-width="2.4"/><path d="M32 36 L18 58" stroke="${g}" stroke-width="1.8"/><path d="M28 16 L55 4 L82 16" fill="none" stroke="${g}" stroke-width="2.4"/>`,
+      lower: `<rect x="28" y="22" width="54" height="38" fill="none" stroke="${g}" stroke-width="2.4"/><line x1="28" y1="41" x2="82" y2="41" stroke="${g}" stroke-width="2.4"/><line x1="10" y1="47" x2="100" y2="47" stroke="${g}" stroke-width="1.4" stroke-dasharray="4 3"/><path d="M24 24 L55 8 L86 24" fill="none" stroke="${g}" stroke-width="2.4"/>`
     };
     return `<svg viewBox="0 0 110 64" aria-hidden="true">${shapes[k]}</svg>`;
   }
@@ -137,6 +138,7 @@
   function wireSize() {
     $('type-picker').addEventListener('click', e => { const b = e.target.closest('[data-type]'); if (!b) return; S.type = b.dataset.type; S.W = S.D = null; update(); });
     $('layout-picker').addEventListener('click', e => { const b = e.target.closest('[data-layout]'); if (!b) return; S.layout = b.dataset.layout; S.W = S.D = null; update(); });
+    $('fit-status').addEventListener('click', e => { const b = e.target.closest('[data-goto-type]'); if (!b) return; S.type = b.dataset.gotoType; S.W = S.D = null; update(); });
     let t = null;
     const onSize = () => { S.W = +$('sz-w').value; S.D = +$('sz-d').value; clearTimeout(t); renderMetrics(); t = setTimeout(update, 120); };
     $('sz-w').addEventListener('input', onSize); $('sz-d').addEventListener('input', onSize);
@@ -166,7 +168,12 @@
     const rows = res.items.map(i => `<li class="flex gap-2"><span aria-hidden="true">${i.ok === true ? '✅' : i.ok === false ? '⚠️' : '•'}</span><span><b>${i.label}:</b> ${i.detail}</span></li>`).join('');
     el.className = 'mt-3 rounded-xl p-3 text-sm border ' + (res.status === 'fits' ? 'border-emerald-500/30 bg-emerald-500/5' : res.status === 'variance' ? 'border-amber-500/30 bg-amber-500/5' : 'border-red-500/30 bg-red-500/5');
     const hFail = res.items.some(i => i.label === 'Height' && i.ok === false) && S.look.roof !== 'flat';
-    const tip = hFail ? '<div class="text-xs text-white/70 mt-2">Tip: a flat or shed roof brings the height down.</div>' : '';
+    const hFailAny = res.items.some(i => i.label === 'Height' && i.ok === false);
+    const tallType = S.type === 'loft' || S.type === 'stacked';
+    const tips = [];
+    if (hFail) tips.push('a flat or shed roof brings the height down.');
+    if (hFailAny && tallType) tips.push('two storeys is over the height limit here. Try <button type="button" class="underline text-gold" data-goto-type="lower">Two units, raised lower level</button>: one storey tall, with the second suite in a lower level.');
+    const tip = tips.length ? `<div class="text-xs text-white/70 mt-2">Tip: ${tips.join(' Or ')}</div>` : '';
     el.innerHTML = head + `<ul class="mt-2 space-y-1 text-xs text-white/80">${rows}</ul>` + tip;
   }
 
@@ -337,6 +344,9 @@
     const a = E().floorArea(S.p);
     const inp = $('adu-size'), sl = $('adu-size-slider');
     if (inp) { inp.max = Math.max(+inp.max || 0, a); inp.value = a; } if (sl) { sl.max = Math.max(+sl.max || 0, a); sl.value = a; }
+    window.YS_DESIGN = { name: S.p.name, area: a, units: S.p.units };
+    const qu = $('q-units'); if (qu) qu.value = String(Math.min(2, S.p.units || 1));
+    const ra = $('rr-address'); if (ra && S.address && !ra.value) ra.value = S.address;
     if (typeof window.updateCalc === 'function') window.updateCalc();
     if (typeof window.saveCalcState === 'function') window.saveCalcState();
     window.goTab('calculator');

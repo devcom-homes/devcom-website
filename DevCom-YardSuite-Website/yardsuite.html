@@ -866,15 +866,15 @@
 
     <!-- 2. Type -->
     <div class="flex items-center gap-3 mb-3"><span class="ys-step">2</span><h3 class="font-bold text-forest text-lg">Choose a suite type</h3></div>
-    <div id="type-picker" class="grid grid-cols-2 lg:grid-cols-4 gap-3 mb-8" role="radiogroup" aria-label="Suite type"></div>
+    <div id="type-picker" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3 mb-8" role="radiogroup" aria-label="Suite type"></div>
 
     <!-- 3. Layout and size -->
     <div class="flex items-center gap-3 mb-3"><span class="ys-step">3</span><h3 class="font-bold text-forest text-lg">Pick a layout and size</h3></div>
     <div class="bg-white rounded-2xl border border-gray-100 p-5 mb-8 grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] gap-5">
       <div class="space-y-4">
         <div><div class="ys-label">Layout</div><div id="layout-picker" class="flex flex-wrap gap-2"></div></div>
-        <div><label for="sz-w" class="ys-label block">Width <span id="sz-w-val" class="text-white/60 font-normal normal-case tracking-normal"></span></label><input id="sz-w" type="range" step="2" class="w-full"/></div>
-        <div><label for="sz-d" class="ys-label block">Depth <span id="sz-d-val" class="text-white/60 font-normal normal-case tracking-normal"></span></label><input id="sz-d" type="range" step="2" class="w-full"/></div>
+        <div><label for="sz-w" class="ys-label block">Width <span id="sz-w-val" class="text-white/60 font-normal normal-case tracking-normal"></span></label><input id="sz-w" type="range" step="1" class="w-full"/></div>
+        <div><label for="sz-d" class="ys-label block">Depth <span id="sz-d-val" class="text-white/60 font-normal normal-case tracking-normal"></span></label><input id="sz-d" type="range" step="1" class="w-full"/></div>
       </div>
       <div>
         <div class="grid grid-cols-2 gap-2 text-sm">
@@ -996,10 +996,96 @@
       <div class="inline-block bg-leaf/10 text-leaf font-semibold text-sm px-4 py-2 rounded-full mb-4">
         ROI Calculator
       </div>
-      <h2 class="font-display text-4xl md:text-5xl font-bold text-forest">Run Your Numbers</h2>
-      <p class="text-gray-500 mt-4 max-w-xl mx-auto">Every number is adjustable. Model your exact project and see real-time returns.</p>
+      <h2 class="font-display text-4xl md:text-5xl font-bold text-forest">What Would It Cost, and Earn?</h2>
+      <p class="text-gray-500 mt-4 max-w-xl mx-auto">A quick estimate in seconds. For the full picture, Trevor Hough will put together a detailed breakdown of your costs, financing and returns.</p>
     </div>
 
+    <!-- QUICK ESTIMATE -->
+    <div class="grid lg:grid-cols-5 gap-6 mb-8">
+      <div class="lg:col-span-2 bg-cream rounded-2xl p-6 border border-gray-100" style="align-self:start">
+        <h3 class="font-bold text-forest text-lg mb-1">Your quick estimate</h3>
+        <p id="q-design-note" class="text-xs text-gold mb-4 hidden"></p>
+        <p class="text-xs text-gray-500 mb-5" id="q-design-help">Designed a suite in the <a href="#" onclick="goTab('visualize'); return false;" class="underline text-gold">design studio</a>? Press "Run the numbers" there and its size carries over.</p>
+        <div class="space-y-4">
+          <div class="grid grid-cols-2 gap-3">
+            <div>
+              <label for="q-size" class="block text-sm font-medium text-gray-700 mb-1.5">Suite size</label>
+              <div class="flex items-center gap-1 border border-gray-200 rounded-lg px-3 py-2 bg-white"><input type="number" id="q-size" min="200" max="4000" step="10" class="flex-1 min-w-0 text-right text-sm font-bold text-forest focus:outline-none"/><span class="text-sm text-gray-500">sq ft</span></div>
+            </div>
+            <div>
+              <label for="q-units" class="block text-sm font-medium text-gray-700 mb-1.5">Units</label>
+              <select id="q-units" class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm font-bold text-forest"><option value="1">1 suite</option><option value="2">2 suites</option></select>
+            </div>
+          </div>
+          <div>
+            <label for="q-home" class="block text-sm font-medium text-gray-700 mb-1.5">Your home's value today</label>
+            <div class="flex items-center gap-1 border border-gray-200 rounded-lg px-3 py-2 bg-white"><span class="text-sm text-gray-500">$</span><input type="number" id="q-home" min="100000" max="5000000" step="5000" class="flex-1 min-w-0 text-right text-sm font-bold text-forest focus:outline-none"/></div>
+          </div>
+          <div>
+            <label for="q-bal" class="block text-sm font-medium text-gray-700 mb-1.5">What you owe on your mortgage</label>
+            <div class="flex items-center gap-1 border border-gray-200 rounded-lg px-3 py-2 bg-white"><span class="text-sm text-gray-500">$</span><input type="number" id="q-bal" min="0" max="5000000" step="5000" class="flex-1 min-w-0 text-right text-sm font-bold text-forest focus:outline-none"/></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="lg:col-span-3 space-y-4">
+        <div class="grid sm:grid-cols-3 gap-3">
+          <div class="output-card p-5">
+            <div class="text-white/60 text-xs font-semibold uppercase tracking-wider mb-2">Rough build cost</div>
+            <div id="q-cost" class="text-gold font-bold text-xl font-display">$0</div>
+            <div class="text-white/50 text-[11px] mt-1">incl. permits, design and a contingency</div>
+          </div>
+          <div class="output-card p-5">
+            <div class="text-white/60 text-xs font-semibold uppercase tracking-wider mb-2">Likely rent</div>
+            <div id="q-rent" class="text-gold font-bold text-xl font-display">$0</div>
+            <div class="text-white/50 text-[11px] mt-1">per month, Simcoe County</div>
+          </div>
+          <div class="output-card p-5">
+            <div class="text-white/60 text-xs font-semibold uppercase tracking-wider mb-2">Monthly, after costs</div>
+            <div id="q-cf" class="text-gold font-bold text-xl font-display">$0</div>
+            <div id="q-cf-note" class="text-white/50 text-[11px] mt-1">rent less the build's mortgage, tax and insurance</div>
+          </div>
+        </div>
+        <p id="q-equity" class="text-xs text-white/70 bg-black/30 rounded-xl px-4 py-3"></p>
+
+        <!-- Review request -->
+        <div class="rounded-2xl border border-gold/40 bg-gold/10 p-6">
+          <div class="flex items-start gap-4 mb-4">
+            <img src="trevor.jpg" alt="" class="w-14 h-14 rounded-full object-cover flex-none border border-gold/50" onerror="this.style.display='none'"/>
+            <div>
+              <h3 class="font-bold text-white text-lg leading-tight">Get your detailed numbers, reviewed by Trevor Hough</h3>
+              <p class="text-white/70 text-sm mt-1">Trevor looks at your home, your design and your financing options, then sends you a full breakdown: build cost, how to pay for it, refinancing on the finished value, your new payment and carrying costs, and your expected return. Free, no obligation.</p>
+            </div>
+          </div>
+          <form id="roi-review-form" class="space-y-3" onsubmit="submitRoiReview(event)">
+            <div class="grid sm:grid-cols-2 gap-3">
+              <div><label for="rr-first" class="sr-only">First name</label><input id="rr-first" required autocomplete="given-name" placeholder="First name" class="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm"/></div>
+              <div><label for="rr-last" class="sr-only">Last name</label><input id="rr-last" autocomplete="family-name" placeholder="Last name" class="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm"/></div>
+              <div><label for="rr-email" class="sr-only">Email</label><input id="rr-email" type="email" required autocomplete="email" placeholder="Email" class="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm"/></div>
+              <div><label for="rr-phone" class="sr-only">Phone</label><input id="rr-phone" type="tel" required autocomplete="tel" placeholder="Phone" class="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm"/></div>
+              <div class="sm:col-span-2"><label for="rr-address" class="sr-only">Property address</label><input id="rr-address" autocomplete="street-address" placeholder="Property address (optional)" class="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm"/></div>
+              <div class="sm:col-span-2"><label for="rr-time" class="sr-only">Best time to reach you</label>
+                <select id="rr-time" class="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm"><option value="">Best time to reach you (optional)</option><option>Morning</option><option>Afternoon</option><option>Evening</option><option>Email is best</option></select></div>
+            </div>
+            <button type="submit" class="w-full bg-gold text-black font-bold py-3.5 rounded-xl text-sm hover:bg-yellow-400">Send me my detailed breakdown</button>
+            <p id="rr-error" class="hidden text-sm text-red-300" role="alert"></p>
+            <p class="text-[11px] text-white/50">Your estimate and design are sent along so Trevor can start from your numbers. No spam. See our <a href="privacy.html" class="underline">privacy policy</a>.</p>
+          </form>
+          <div id="roi-review-success" class="hidden text-center py-6">
+            <div class="text-3xl mb-2">✓</div>
+            <div class="text-white font-bold text-lg">Got it, thank you</div>
+            <div class="text-white/70 text-sm mt-1">Trevor Hough will review your numbers and get back to you with your detailed breakdown, usually within one business day.</div>
+          </div>
+        </div>
+        <p class="text-[11px] text-white/45 leading-relaxed">Estimates only, for planning. Rent and costs are typical ranges for Simcoe County, and the monthly figure assumes the whole build is borrowed at the rate and amortization in the full calculator. Your actual numbers depend on your site, your design, an appraisal and lender approval.</p>
+      </div>
+    </div>
+
+    <div class="text-center mb-8">
+      <button type="button" id="adv-toggle" class="text-sm text-white/70 hover:text-white underline underline-offset-4" aria-expanded="false" aria-controls="adv-calc">Run all the numbers yourself</button>
+    </div>
+
+    <div id="adv-calc" class="hidden">
     <div class="grid lg:grid-cols-5 gap-8">
       <!-- Inputs: 3 columns -->
       <div class="lg:col-span-3 space-y-8">
@@ -1197,6 +1283,62 @@
             </div>
           </div>
         </div>
+
+        <!-- As-complete refinance -->
+        <div class="bg-cream rounded-2xl p-6 border border-gray-100">
+          <h3 class="font-bold text-forest text-lg mb-2 flex items-center gap-2">
+            <span class="w-8 h-8 bg-gold rounded-lg flex items-center justify-center text-forest text-xs font-bold">6</span>
+            Refinance When It's Done
+          </h3>
+          <label class="flex items-center gap-2 text-sm text-gray-700 mb-5 cursor-pointer"><input type="checkbox" id="refi-on" class="w-4 h-4" onchange="updateCalc()"/> Show a refinance on the finished value: pay out your current mortgage and the whole build, then see your new payment and carrying costs</label>
+          <div id="refi-inputs" class="space-y-5 hidden">
+            <div>
+              <div class="flex justify-between items-center mb-2">
+                <label class="text-sm font-medium text-gray-700">Value When Complete</label>
+                <div class="flex items-center gap-1">
+                  <span class="text-sm text-gray-500">$</span>
+                  <input type="number" id="complete-value" value="850000" min="100000" max="5000000" step="5000" class="w-28 text-right border border-gray-200 rounded-lg px-2 py-1 text-sm font-bold text-forest focus:outline-none focus:ring-2 focus:ring-leaf" oninput="updateCalc()"/>
+                </div>
+              </div>
+              <p id="complete-hint" class="text-xs text-gray-400"></p>
+            </div>
+            <div>
+              <div class="flex justify-between items-center mb-2">
+                <label class="text-sm font-medium text-gray-700">Refinance Up To (loan to value)</label>
+                <div class="flex items-center gap-1">
+                  <input type="number" id="refi-ltv" value="80" min="50" max="90" step="1" class="w-16 text-right border border-gray-200 rounded-lg px-2 py-1 text-sm font-bold text-forest focus:outline-none focus:ring-2 focus:ring-leaf" oninput="updateCalc()"/>
+                  <span class="text-sm text-gray-500">%</span>
+                </div>
+              </div>
+              <input type="range" id="refi-ltv-slider" min="50" max="90" value="80" step="1" class="slider-input" oninput="syncSlider('refi-ltv','refi-ltv-slider'); updateCalc()"/>
+              <div class="flex justify-between text-xs text-gray-400 mt-1"><span>50%</span><span>80% standard · 90% insured</span></div>
+            </div>
+            <div class="grid grid-cols-2 gap-4">
+              <div>
+                <label class="block text-sm font-medium text-gray-700 mb-2">Refinance Rate</label>
+                <div class="flex items-center gap-1 border border-gray-200 rounded-lg px-3 py-2 bg-white">
+                  <input type="number" id="refi-rate" value="4.2" min="1" max="12" step="0.05" class="flex-1 min-w-0 text-right text-sm font-bold text-forest focus:outline-none" oninput="updateCalc()"/>
+                  <span class="text-sm text-gray-500">%</span>
+                </div>
+              </div>
+              <div>
+                <label class="block text-sm font-medium text-gray-700 mb-2">Amortization</label>
+                <div class="flex items-center gap-1 border border-gray-200 rounded-lg px-3 py-2 bg-white">
+                  <input type="number" id="refi-amort" value="30" min="5" max="30" step="1" class="flex-1 min-w-0 text-right text-sm font-bold text-forest focus:outline-none" oninput="updateCalc()"/>
+                  <span class="text-sm text-gray-500">yrs</span>
+                </div>
+              </div>
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-2">Your Current Monthly Mortgage Payment <span class="text-gray-400 font-normal">(optional, to compare)</span></label>
+              <div class="flex items-center gap-1 border border-gray-200 rounded-lg px-3 py-2 bg-white">
+                <span class="text-sm text-gray-500">$</span>
+                <input type="number" id="current-payment" value="" min="0" max="50000" step="25" placeholder="e.g. 1,750" class="flex-1 min-w-0 text-right text-sm font-bold text-forest focus:outline-none" oninput="updateCalc()"/>
+              </div>
+            </div>
+            <p class="text-xs text-gray-500 leading-relaxed">Uses your mortgage balance from step 3 and the total project cost from steps 1 and 2. The finished value is set by the lender's appraiser. An insurance premium may be applicable for LTVs over 80%.</p>
+          </div>
+        </div>
       </div>
 
       <!-- Outputs: 2 columns, sticky -->
@@ -1292,6 +1434,30 @@
             </div>
           </div>
 
+          <!-- As-complete refinance results -->
+          <div id="refi-card" class="output-card p-6 hidden">
+            <div class="text-white/60 text-xs font-semibold uppercase tracking-widest mb-4">When It's Done: Refinance</div>
+            <div class="space-y-2.5 text-sm">
+              <div class="flex justify-between"><span class="text-white/70">Value when complete</span><span id="rf-value" class="text-white font-semibold">$0</span></div>
+              <div class="flex justify-between"><span class="text-white/70">Max new mortgage (<span id="rf-ltv">80</span>%)</span><span id="rf-max" class="text-white/80">$0</span></div>
+              <div class="border-t border-white/10 pt-2.5 flex justify-between"><span class="text-white/70">Pays out current mortgage</span><span id="rf-old" class="text-white/80">$0</span></div>
+              <div class="flex justify-between"><span class="text-white/70">Pays out the whole build</span><span id="rf-build" class="text-white/80">$0</span></div>
+              <div class="flex justify-between"><span class="text-white font-medium">New mortgage</span><span id="rf-loan" class="text-white font-bold">$0</span></div>
+              <div id="rf-gap-row" class="flex justify-between"><span id="rf-gap-label" class="text-white/70">Cash needed at refinance</span><span id="rf-gap" class="font-semibold">$0</span></div>
+              <div class="flex justify-between"><span class="text-white/70">Equity left in the home</span><span id="rf-equity" class="text-green-300 font-semibold">$0</span></div>
+            </div>
+            <div class="bg-white/10 rounded-xl p-4 mt-4 space-y-1.5 text-sm">
+              <div class="text-white/50 text-xs uppercase tracking-wider mb-1">Monthly carrying cost, as complete</div>
+              <div class="flex justify-between"><span class="text-white/70">New mortgage payment</span><span id="rf-pmt" class="text-white font-semibold">$0</span></div>
+              <div class="flex justify-between"><span class="text-white/50 text-xs">Tax increase</span><span id="rf-tax" class="text-white/70 text-xs">$0</span></div>
+              <div class="flex justify-between"><span class="text-white/50 text-xs">Insurance increase</span><span id="rf-insur" class="text-white/70 text-xs">$0</span></div>
+              <div class="flex justify-between border-t border-white/10 pt-1.5"><span class="text-white/70">Total carrying cost</span><span id="rf-carry" class="text-red-300 font-semibold">$0</span></div>
+              <div class="flex justify-between"><span class="text-white/70">Less rent from the suite</span><span id="rf-rent" class="text-green-300">$0</span></div>
+              <div class="flex justify-between border-t border-white/10 pt-1.5"><span class="text-white font-medium">Your net monthly cost</span><span id="rf-net" class="text-gold font-bold text-lg">$0</span></div>
+              <div id="rf-compare-row" class="flex justify-between hidden"><span class="text-white/70">vs. your payment today</span><span id="rf-compare" class="font-semibold">$0</span></div>
+            </div>
+          </div>
+
           <div class="bg-white/10 rounded-xl p-4">
             <p class="text-white/60 text-xs leading-relaxed"><strong class="text-white/80">Note:</strong> In many cases, the appraised value increase from a garden suite can exceed the actual cost to build, meaning you may gain more equity than you spend. Every situation is different. The right builder and accurate numbers from the beginning make all the difference.</p>
           </div>
@@ -1302,6 +1468,7 @@
         </div>
       </div>
     </div>
+    </div><!-- /adv-calc -->
   </div>
 </section>
 
@@ -1955,19 +2122,143 @@
       tenEl.textContent = (tenYrIncome >= 0 ? '+' : '') + fmt(tenYrIncome);
       tenEl.style.color = tenYrIncome >= 0 ? '#0F2D27' : '#dc2626';
     }
+
+    // ── Step 6: refinance on the finished value ──
+    // New mortgage pays out the current balance and the whole project cost, capped at the LTV limit.
+    const refiOn = !!document.getElementById('refi-on')?.checked;
+    document.getElementById('refi-inputs')?.classList.toggle('hidden', !refiOn);
+    document.getElementById('refi-card')?.classList.toggle('hidden', !refiOn);
+    if (refiOn) {
+      const completeValue = numOr('complete-value', homeValue + totalCost);
+      const refiLtv   = Math.min(95, Math.max(0, numOr('refi-ltv', 80)));
+      const refiRate  = numOr('refi-rate', interestRate);
+      const refiAmort = numOr('refi-amort', 30);
+      const curPmtEl  = document.getElementById('current-payment');
+      const curPmt    = curPmtEl && curPmtEl.value !== '' ? parseFloat(curPmtEl.value) : null;
+      const maxNew    = completeValue * refiLtv / 100;
+      const needed    = mortgageOwing + totalCost;
+      const newLoan   = Math.min(needed, maxNew);
+      const gap       = needed - maxNew;               // > 0: cash needed; < 0: room left to borrow
+      const r = Math.pow(1 + (refiRate / 100) / 2, 1 / 6) - 1, n = refiAmort * 12;
+      const pmt = newLoan <= 0 ? 0 : r > 0 ? newLoan * r * Math.pow(1 + r, n) / (Math.pow(1 + r, n) - 1) : newLoan / n;
+      const carry = pmt + monthlyTax + monthlyInsur;
+      const net = carry - monthlyRent;
+      const added = completeValue - homeValue;
+      safeSet('complete-hint', `Adds ${fmt(added)} to today's ${fmt(homeValue)} value, against a ${fmt(totalCost)} project cost.`);
+      safeSet('rf-value', fmt(completeValue));
+      safeSet('rf-ltv', refiLtv);
+      safeSet('rf-max', fmt(maxNew));
+      safeSet('rf-old', fmt(mortgageOwing));
+      safeSet('rf-build', fmt(totalCost));
+      safeSet('rf-loan', fmt(newLoan));
+      safeSet('rf-gap-label', gap > 0 ? 'Cash needed at refinance' : 'Room left to borrow');
+      const gapEl = document.getElementById('rf-gap');
+      if (gapEl) { gapEl.textContent = fmt(Math.abs(gap)); gapEl.style.color = gap > 0 ? '#f87171' : '#86efac'; }
+      safeSet('rf-equity', fmt(completeValue - newLoan));
+      safeSet('rf-pmt', fmt(pmt) + '/mo');
+      safeSet('rf-tax', fmt(monthlyTax));
+      safeSet('rf-insur', fmt(monthlyInsur));
+      safeSet('rf-carry', fmt(carry) + '/mo');
+      safeSet('rf-rent', '−' + fmt(monthlyRent) + '/mo');
+      safeSet('rf-net', net <= 0 ? '+' + fmt(-net) + '/mo income' : fmt(net) + '/mo');
+      const cmpRow = document.getElementById('rf-compare-row');
+      if (cmpRow) cmpRow.classList.toggle('hidden', curPmt === null || isNaN(curPmt));
+      if (curPmt !== null && !isNaN(curPmt)) {
+        const diff = net - curPmt, el = document.getElementById('rf-compare');
+        if (el) { el.textContent = (diff > 0 ? fmt(diff) + ' more' : fmt(-diff) + ' less') + ' per month'; el.style.color = diff > 0 ? '#f87171' : '#86efac'; }
+      }
+    }
+    updateQuick();
   }
 
+  // ── Quick estimate (top of the ROI tab) ─────────────────
+  // Typical monthly rent per suite in Simcoe County, by the suite's own floor area.
+  const RENT_BANDS = [[450, 1500, 1800], [650, 1700, 2100], [900, 1950, 2400], [1200, 2200, 2700], [Infinity, 2400, 3000]];
+  const BUILD_PSF = [250, 300]; // same rough range as the design studio
+  const QUICK_MAP = { 'q-size': 'adu-size', 'q-home': 'home-value', 'q-bal': 'mortgage-balance' };
+  let lastQuick = '';
+  function roundTo(n, step) { return Math.round(n / step) * step; }
+  function pmtOf(loan, ratePct, years) {
+    const r = Math.pow(1 + (ratePct / 100) / 2, 1 / 6) - 1, n = years * 12;
+    if (loan <= 0 || n <= 0) return 0;
+    return r > 0 ? loan * r * Math.pow(1 + r, n) / (Math.pow(1 + r, n) - 1) : loan / n;
+  }
+  function updateQuick() {
+    const v = (id, d) => { const el = document.getElementById(id); const x = el ? parseFloat(el.value) : NaN; return isNaN(x) ? d : x; };
+    if (!document.getElementById('q-cost')) return;
+    Object.entries(QUICK_MAP).forEach(([q, a]) => { const qe = document.getElementById(q), ae = document.getElementById(a); if (qe && ae && document.activeElement !== qe) qe.value = ae.value; });
+    const size = v('adu-size', 600), units = Math.max(1, v('q-units', 1));
+    const soft = v('permits', 1500) + v('design', 4500) + v('engineering', 2500), cont = v('contingency', 10) / 100;
+    const costLo = roundTo(size * BUILD_PSF[0] + soft, 5000), costHi = roundTo((size * BUILD_PSF[1] + soft) * (1 + cont), 5000);
+    const per = size / units, band = RENT_BANDS.find(b => per < b[0]);
+    const rentLo = band[1] * units, rentHi = band[2] * units;
+    const rate = v('interest-rate', 4), amort = v('amortization', 25), extras = (v('prop-tax', 800) + v('insurance', 200)) / 12;
+    const cfLo = rentLo - pmtOf(costHi, rate, amort) - extras, cfHi = rentHi - pmtOf(costLo, rate, amort) - extras;
+    const sgn = (n) => (n >= 0 ? '+' : '−') + fmt(Math.abs(roundTo(n, 25)));
+    const set = (id, t) => { const el = document.getElementById(id); if (el) el.textContent = t; };
+    set('q-cost', fmtK(costLo) + ' to ' + fmtK(costHi));
+    set('q-rent', fmt(roundTo(rentLo, 50)) + ' to ' + fmt(roundTo(rentHi, 50)));
+    set('q-cf', sgn(cfLo) + ' to ' + sgn(cfHi));
+    set('q-cf-note', `rent less the build's mortgage (${rate}%, ${amort} yrs), tax and insurance`);
+    const equity = v('home-value', 650000) * 0.8 - v('mortgage-balance', 300000), mid = (costLo + costHi) / 2;
+    set('q-equity', equity >= mid
+      ? `Good sign: you have about ${fmt(equity)} in usable equity (up to 80% of your home's value), enough to cover a build like this without savings.`
+      : equity > 0
+        ? `You have about ${fmt(equity)} in usable equity today, less than the build cost. Refinancing on the finished value or a construction mortgage can often close the gap; Trevor will look at your options.`
+        : `Your mortgage is near 80% of your home's value, so the build would need other financing, such as refinancing on the finished value. Trevor will look at your options.`);
+    lastQuick = `Suite ${fmt(size).slice(1)} sq ft, ${units} unit${units > 1 ? 's' : ''}. Build ${fmtK(costLo)}-${fmtK(costHi)}. Rent ${fmt(rentLo)}-${fmt(rentHi)}/mo. Monthly after costs ${sgn(cfLo)} to ${sgn(cfHi)}. Home ${fmt(v('home-value', 0))}, owing ${fmt(v('mortgage-balance', 0))}, usable equity ${fmt(equity)}.`;
+    const d = window.YS_DESIGN, note = document.getElementById('q-design-note'), help = document.getElementById('q-design-help');
+    if (note && d && d.name) { note.textContent = 'From your design: ' + d.name + ' (' + fmt(d.area).slice(1) + ' sq ft)'; note.classList.remove('hidden'); if (help) help.classList.add('hidden'); }
+  }
+  Object.entries(QUICK_MAP).forEach(([q, a]) => {
+    document.getElementById(q)?.addEventListener('input', e => {
+      const ae = document.getElementById(a), sl = document.getElementById(a + '-slider');
+      if (ae) { if (+e.target.value > +ae.max) ae.max = e.target.value; ae.value = e.target.value; }
+      if (sl) { if (+e.target.value > +sl.max) sl.max = e.target.value; sl.value = e.target.value; }
+      updateCalc(); saveCalcState();
+    });
+  });
+  document.getElementById('q-units')?.addEventListener('change', () => { updateQuick(); saveCalcState(); });
+  document.getElementById('adv-toggle')?.addEventListener('click', e => {
+    const box = document.getElementById('adv-calc'), open = box.classList.toggle('hidden') === false;
+    e.target.setAttribute('aria-expanded', open); e.target.textContent = open ? 'Hide the full calculator' : 'Run all the numbers yourself';
+    if (open) updateCalc();
+  });
+
+  function submitRoiReview(e) {
+    e.preventDefault();
+    const g = id => (document.getElementById(id)?.value || '').trim();
+    const data = { firstName: g('rr-first'), lastName: g('rr-last'), email: g('rr-email'), phone: g('rr-phone'), address: g('rr-address'), bestTime: g('rr-time'),
+      quickEstimate: lastQuick, calculator: (() => { try { return localStorage.getItem('yardsuite_calc') || ''; } catch (x) { return ''; } })() };
+    const btn = e.target.querySelector('button[type="submit"]'), err = document.getElementById('rr-error');
+    err.classList.add('hidden'); busy(btn, true);
+    postLead('yardsuite-roi-review', data).then(() => {
+      if (window.gtag) gtag('event', 'generate_lead', { form: 'roi-review' });
+      e.target.classList.add('hidden');
+      document.getElementById('roi-review-success').classList.remove('hidden');
+    }).catch(() => {
+      busy(btn, false);
+      err.innerHTML = 'We couldn\'t send that just now. Please try again, call (705) 242-7323 or email <a class="underline" href="mailto:info@devcomhomes.ca">info@devcomhomes.ca</a>.';
+      err.classList.remove('hidden');
+    });
+  }
+  window.submitRoiReview = submitRoiReview;
+
   // ── Calculator localStorage ─────────────────────────────
-  const CALC_FIELDS = ['adu-size','cost-per-sqft','permits','design','engineering','contingency','home-value','mortgage-balance','interest-rate','amortization','monthly-rent','prop-tax','insurance'];
+  const CALC_FIELDS = ['adu-size','cost-per-sqft','permits','design','engineering','contingency','home-value','mortgage-balance','interest-rate','amortization','monthly-rent','prop-tax','insurance','complete-value','refi-ltv','refi-rate','refi-amort','current-payment','q-units'];
   function saveCalcState() {
     const s = {};
     CALC_FIELDS.forEach(id => { const el = document.getElementById(id); if (el) s[id] = el.value; });
-    localStorage.setItem('yardsuite_calc', JSON.stringify(s));
+    s['refi-on'] = !!document.getElementById('refi-on')?.checked;
+    if (window.YS_DESIGN) s.design = window.YS_DESIGN;
+    try { localStorage.setItem('yardsuite_calc', JSON.stringify(s)); } catch (e) {}
   }
   function restoreCalcState() {
     try {
       const s = JSON.parse(localStorage.getItem('yardsuite_calc') || 'null');
       if (!s) return;
+      const on = document.getElementById('refi-on'); if (on) on.checked = !!s['refi-on'];
+      if (s.design && !window.YS_DESIGN) window.YS_DESIGN = s.design;
       CALC_FIELDS.forEach(id => {
         if (s[id] === undefined) return;
         const el = document.getElementById(id);
@@ -1984,6 +2275,7 @@
     const slider = document.getElementById(id + '-slider');
     if (slider) slider.addEventListener('input', saveCalcState);
   });
+  document.getElementById('refi-on')?.addEventListener('change', saveCalcState);
 
   // Initialize calculator
   updateCalc();
@@ -2620,6 +2912,9 @@
 </form>
 <form name="yardsuite-report-request" data-netlify="true" netlify-honeypot="bot-field" hidden>
   <input name="bot-field"/><input name="email"/><input name="address"/><input name="town"/><input name="design"/><input name="fit"/><input name="costRange"/><input name="financing"/>
+</form>
+<form name="yardsuite-roi-review" data-netlify="true" netlify-honeypot="bot-field" hidden>
+  <input name="bot-field"/><input name="firstName"/><input name="lastName"/><input name="email"/><input name="phone"/><input name="address"/><input name="bestTime"/><input name="quickEstimate"/><input name="calculator"/><input name="town"/><input name="design"/><input name="fit"/><input name="costRange"/><input name="financing"/>
 </form>
 <form name="yardsuite-plan" data-netlify="true" netlify-honeypot="bot-field" hidden>
   <input name="bot-field"/><input name="firstName"/><input name="email"/><input name="phone"/><input name="address"/><input name="town"/><input name="design"/><input name="fit"/><input name="costRange"/><input name="financing"/>

@@ -9,21 +9,37 @@
   const ftIn = (f) => { const ft = Math.floor(f + 1e-6), i = Math.round((f - ft) * 12); return i === 12 ? (ft + 1) + "'-0\"" : ft + "'-" + i + '"'; };
 
   // Where each base layout stretches (feet). Lines pass through living space, never baths or stairs.
-  const STRETCH = { studio: { sx: [14], sy: [11.5] }, onebed: { sx: [5, 22], sy: [15] }, twobed: { sx: [6, 26], sy: [20] }, loft: { sx: [14], sy: [21.5] } };
-  const GROW = { w: 16, d: 12 }; // how much bigger than the base a layout can get
+  // wx / wy: share of the extra width / depth each line takes (equal when left out).
+  const STRETCH = {
+    studio: { sx: [14], sy: [11.5] },
+    onebed: { sx: [5, 21], sy: [9, 15.5], wy: [0.3, 0.7] },
+    twobed: { sx: [5, 23.5], sy: [9, 17.5], wy: [0.3, 0.7] },
+    threebed: { sx: [5, 29.5, 39], sy: [9, 17.5], wy: [0.3, 0.7] },
+    loft: { sx: [14], sy: [21.5] }
+  };
+  // How much bigger than its starting (smallest) size each layout can get, in feet.
+  // The starting sizes in js/floorplans.js are the smallest we draw each layout at:
+  // below that a bedroom would fall under our minimum (MIN_BED).
+  const GROW = { studio: { w: 16, d: 12 }, onebed: { w: 20, d: 15 }, twobed: { w: 20, d: 17 }, threebed: { w: 16, d: 12 }, loft: { w: 16, d: 12 } };
+  // Smallest bedroom we draw, in feet, measured the same way the plan labels it.
+  // Ontario Building Code 9.5.7 minimums with a built-in closet are 95 sq ft (main bedroom) and 65 sq ft (others).
+  const MIN_BED = { main: { w: 10, d: 10, sqft: 95 }, other: { w: 9, d: 9, sqft: 65 } };
 
   const TYPES = {
-    single: { label: 'One storey', units: 1, storeys: 1, blurb: 'One suite on one level', layouts: ['studio', 'onebed', 'twobed'] },
+    single: { label: 'One storey', units: 1, storeys: 1, blurb: 'One suite on one level', layouts: ['studio', 'onebed', 'twobed', 'threebed'] },
     loft: { label: 'Two storey', units: 1, storeys: 2, blurb: 'One suite, living down, bedrooms up', layouts: ['loft'] },
     side: { label: 'Two units, side by side', units: 2, storeys: 1, blurb: 'Two suites sharing one wall', layouts: ['studio', 'onebed'] },
-    stacked: { label: 'Two units, stacked', units: 2, storeys: 2, blurb: 'One suite up, one down, outside stair', layouts: ['onebed', 'studio'] }
+    stacked: { label: 'Two units, stacked', units: 2, storeys: 2, blurb: 'One suite up, one down, outside stair', layouts: ['onebed', 'studio'] },
+    lower: { label: 'Two units, raised lower level', units: 2, storeys: 2, aboveGrade: 1, blurb: 'One storey tall, second suite in a raised lower level', layouts: ['onebed', 'studio', 'twobed'] }
   };
-  const LAYOUT_LABEL = { studio: 'Studio', onebed: 'One bedroom', twobed: 'Two bedroom', loft: 'Two bedroom loft' };
+  const LAYOUT_LABEL = { studio: 'Studio', onebed: 'One bedroom', twobed: 'Two bedroom', threebed: 'Three bedroom', loft: 'Two bedroom loft' };
 
   function stretchFloor(f, base, W, D) {
     const s = STRETCH[base.key], dW = W - base.W, dD = D - base.D;
-    const mk = (lines, d) => (v) => lines.reduce((acc, l) => acc + (v > l + 1e-6 ? d / lines.length : 0), v);
-    const tx = mk(s.sx, dW), ty = mk(s.sy, dD);
+    const share = (lines, wts) => lines.map((l, i) => wts ? wts[i] : 1 / lines.length);
+    const shx = share(s.sx, s.wx), shy = share(s.sy, s.wy);
+    const mk = (lines, sh, d) => (v) => lines.reduce((acc, l, i) => acc + (v > l + 1e-6 ? d * sh[i] : 0), v);
+    const tx = mk(s.sx, shx, dW), ty = mk(s.sy, shy, dD);
     const spanX = (x, w) => s.sx.some(l => x < l && x + w > l), spanY = (y, h) => s.sy.some(l => y < l && y + h > l);
     const n = clone(f);
     n.walls = n.walls.map(w => { const r = [tx(w[0]), ty(w[1]), tx(w[2]), ty(w[3])]; if (w[4]) r.push(w[4]); return r; });
@@ -57,8 +73,8 @@
     });
     // add a window in long new stretches of blank wall
     const clear = (side, a, b) => n.windows.concat(n.doors.filter(d => d.wall)).every(o => { const sd = o.side || o.wall; return sd !== side || o.at + o.len < a - 0.5 || o.at > b + 0.5; });
-    s.sx.forEach(l => { const g = dW / s.sx.length; if (g >= 6) ['N', 'S'].forEach(side => { const a = tx(l) + g / 2 - 2 - g; const at = l + g / 2 - 2 + (tx(l) - l); if (clear(side, at, at + 4)) n.windows.push({ side, at, len: 4 }); }); });
-    s.sy.forEach(l => { const g = dD / s.sy.length; if (g >= 6) ['E', 'W'].forEach(side => { const at = l + g / 2 - 2 + (ty(l) - l); if (clear(side, at, at + 4)) n.windows.push({ side, at, len: 4 }); }); });
+    s.sx.forEach((l, i) => { const g = dW * shx[i]; if (g >= 6) ['N', 'S'].forEach(side => { const a = tx(l) + g / 2 - 2 - g; const at = l + g / 2 - 2 + (tx(l) - l); if (clear(side, at, at + 4)) n.windows.push({ side, at, len: 4 }); }); });
+    s.sy.forEach((l, i) => { const g = dD * shy[i]; if (g >= 6) ['E', 'W'].forEach(side => { const at = l + g / 2 - 2 + (ty(l) - l); if (clear(side, at, at + 4)) n.windows.push({ side, at, len: 4 }); }); });
     return n;
   }
 
@@ -139,15 +155,37 @@
     return p;
   }
 
+  // A one-storey suite over a raised lower-level suite. The lower level sits about half
+  // below grade (SINK feet), so the building reads as one storey from the yard.
+  const SINK = 4.5;
+  function lowerLevel(baseKey, W, D) {
+    const unit = stretch(baseKey, W, D);
+    const p = clone(unit);
+    const lower = clone(unit.floors[0]);
+    lower.label = 'Lower level unit';
+    const entry = lower.doors.find(d => d.entry);
+    lower.doors = lower.doors.filter(d => !d.entry);
+    lower.windows = lower.windows.filter(w => !(w.side === 'E' && w.at + w.len > D - 9));
+    lower.doors.push({ wall: 'E', at: D - 6, len: 3, swing: -1, entry: true, walkdown: true });
+    if (entry) lower.windows.push({ side: 'S', at: entry.at, len: entry.len });
+    const upper = clone(unit.floors[0]);
+    upper.label = 'Main floor unit';
+    upper.doors.forEach(d => { if (d.entry) d.stepsUp = true; });
+    p.floors = [lower, upper];
+    p.lowerLevel = { sink: SINK, well: { side: 'E', at: D - 6, len: 3 } };
+    return p;
+  }
+
   function build(typeKey, layoutKey, W, D) {
     const t = TYPES[typeKey];
     let p;
     if (typeKey === 'side') p = sideBySide(layoutKey, W, D);
     else if (typeKey === 'stacked') p = stacked(layoutKey, W, D);
+    else if (typeKey === 'lower') p = lowerLevel(layoutKey, W, D);
     else p = stretch(layoutKey, W, D);
-    p.type = typeKey; p.layout = layoutKey; p.units = t.units; p.storeys = t.storeys;
+    p.type = typeKey; p.layout = layoutKey; p.units = t.units; p.storeys = t.storeys; p.aboveGrade = t.aboveGrade || t.storeys;
     p.key = typeKey === 'loft' ? 'two-storey' : typeKey === 'single' ? layoutKey : typeKey + '-' + layoutKey;
-    p.name = typeKey === 'single' ? LAYOUT_LABEL[layoutKey] : typeKey === 'loft' ? 'Two-storey loft' : typeKey === 'side' ? '2 x ' + LAYOUT_LABEL[layoutKey].toLowerCase() + ', side by side' : '2 x ' + LAYOUT_LABEL[layoutKey].toLowerCase() + ', stacked';
+    p.name = typeKey === 'single' ? LAYOUT_LABEL[layoutKey] : typeKey === 'loft' ? 'Two-storey loft' : typeKey === 'side' ? '2 x ' + LAYOUT_LABEL[layoutKey].toLowerCase() + ', side by side' : typeKey === 'lower' ? '2 x ' + LAYOUT_LABEL[layoutKey].toLowerCase() + ', raised lower level' : '2 x ' + LAYOUT_LABEL[layoutKey].toLowerCase() + ', stacked';
     const unitBeds = B[layoutKey].beds;
     p.beds = unitBeds * t.units; p.baths = B[layoutKey].baths * t.units;
     p.tagline = t.blurb;
@@ -155,8 +193,8 @@
   }
 
   function sizeRange(typeKey, layoutKey) {
-    const b = B[layoutKey];
-    return { minW: b.W, maxW: b.W + GROW.w, minD: b.D, maxD: b.D + GROW.d, step: 2 };
+    const b = B[layoutKey], g = GROW[layoutKey];
+    return { minW: b.W, maxW: b.W + g.w, minD: b.D, maxD: b.D + g.d, step: 1 };
   }
   // footprint in sq ft, finished floor area in sq ft
   function footprint(p) { return p.W * p.D; }
@@ -165,8 +203,9 @@
   function heightM(p, look) {
     const span = Math.min(p.W, p.D);
     const roofFt = look.roof === 'gable' ? (span / 2) * look.pitch : look.roof === 'shed' ? p.D * look.pitch : 1.1;
-    return (0.9 + p.storeys * 9 + roofFt) * 0.3048;
+    const sunk = p.lowerLevel ? p.lowerLevel.sink : 0; // part of a raised lower level below grade
+    return (0.9 + p.storeys * 9 + roofFt - sunk) * 0.3048;
   }
 
-  window.YS_ENGINE = { TYPES, LAYOUT_LABEL, build, sizeRange, footprint, floorArea, heightM };
+  window.YS_ENGINE = { TYPES, LAYOUT_LABEL, MIN_BED, build, sizeRange, footprint, floorArea, heightM };
 })();

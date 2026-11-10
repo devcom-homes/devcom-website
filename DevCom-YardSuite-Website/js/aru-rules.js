@@ -135,9 +135,10 @@
       const cap = (look.roof === 'flat' && r.flatHeightM) ? Math.min(a.heightM, r.flatHeightM) : a.heightM;
       add(heightM <= cap + 0.01, 'Height', `about ${heightM.toFixed(1)} m vs ${cap.toFixed(1)} m allowed${r.heightLesserOfHouse ? ' (or your house height, if lower)' : ''}`);
     }
-    if (r.maxStoreys) add(design.storeys <= r.maxStoreys, 'Storeys', `${design.storeys} vs ${r.maxStoreys} allowed`);
+    const above = design.aboveGrade || design.storeys; // a raised lower level is about half below grade, so not counted as a storey
+    if (r.maxStoreys) add(above <= r.maxStoreys, 'Storeys', `${above} above grade vs ${r.maxStoreys} allowed${design.lowerLevel ? ' (the lower level is about half below grade; the Town confirms how it counts)' : ''}`);
     // floor area
-    if (a.maxFloorSqft) add(floor <= a.maxFloorSqft + 1, 'Floor area', `${fmt(floor)} sq ft vs ${fmt(a.maxFloorSqft)} sq ft allowed`);
+    if (a.maxFloorSqft) add(floor <= a.maxFloorSqft + 1, 'Floor area', `${fmt(floor)} sq ft${design.lowerLevel ? ' counting the lower level' : ''} vs ${fmt(a.maxFloorSqft)} sq ft allowed`);
     else if (r.gfaRule === 'pct' && !lot.houseGfaSqft) add(null, 'Floor area', `limit is ${r.gfaPctHouse}% of your house; add your house size to check`);
     // coverage
     if (a.maxFootprintSqft !== null) add(foot <= a.maxFootprintSqft + 1, 'Lot coverage', `${fmt(foot)} sq ft footprint vs ${fmt(a.maxFootprintSqft)} sq ft available`);

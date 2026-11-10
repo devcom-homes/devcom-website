@@ -42,98 +42,154 @@
       }]
     },
 
+    // Compact layouts: the smallest size each bedroom count is drawn at. Bedrooms here meet the
+    // minimums in plan-engine.js (MIN_BED); the plan engine grows them from these sizes.
     onebed: {
       key: 'onebed', name: 'One Bedroom', tagline: 'Separate bedroom, open kitchen and living',
-      W: 28, D: 24, storeys: 1, beds: 1, baths: 1,
+      W: 24, D: 21, storeys: 1, beds: 1, baths: 1,
       floors: [{
         label: 'Main floor',
-        walls: [[12, 0, 12, 13.5], [0, 11, 12, 11], [0, 13.5, 12, 13.5], [6, 11, 6, 13.5], [12, 8, 19, 8], [19, 0, 19, 8]],
+        walls: [[11, 0, 11, 11.5], [11, 8, 18, 8], [18, 0, 18, 8], [0, 11.5, 11, 11.5]],
         doors: [
-          { wall: 'S', at: 14, len: 3, swing: -1, entry: true },
-          { v: 12, at: 8.3, len: 2.5, swing: -1 },
-          { h: 11, at: 0.6, len: 5, swing: -1, type: 'bifold' },
-          { h: 13.5, at: 6.6, len: 4.8, swing: 1, type: 'bifold' },
-          { h: 8, at: 13, len: 2.5, swing: -1 }
+          { wall: 'S', at: 18.5, len: 3, swing: -1, entry: true },
+          { v: 11, at: 8.8, len: 2.5, swing: -1 },
+          { h: 8, at: 12, len: 2.5, swing: -1 }
         ],
         windows: [
-          { side: 'N', at: 3, len: 5 }, { side: 'N', at: 21.6, len: 3 }, { side: 'E', at: 13, len: 4 },
-          { side: 'S', at: 3, len: 6 }, { side: 'S', at: 21, len: 5 }, { side: 'W', at: 16, len: 4 }
+          { side: 'N', at: 3, len: 4 }, { side: 'N', at: 19.3, len: 2.5 }, { side: 'E', at: 12.5, len: 4 },
+          { side: 'S', at: 3, len: 5 }, { side: 'S', at: 11, len: 4 }, { side: 'W', at: 14, len: 4 }
         ],
         rooms: [
-          { name: 'Bedroom', x: 0, y: 0, w: 12, h: 11, lx: 9, ly: 9.3, anchor: 'end' },
-          { name: 'Bath', x: 12, y: 0, w: 7, h: 8, lx: 15.5, ly: 4.6 },
-          { name: 'Closet', x: 0, y: 11, w: 6, h: 2.5, lx: 3, ly: 12.6, small: true, nodim: true },
-          { name: 'Laundry', x: 6, y: 11, w: 6, h: 2.5, lx: 9, ly: 12.6, small: true, nodim: true },
-          { name: 'Kitchen', x: 19, y: 0, w: 9, h: 11, lx: 22.6, ly: 9.6, nodim: true },
-          { name: 'Living / dining', x: 0, y: 13.5, w: 28, h: 10.5, lx: 13.8, ly: 17.4, dimText: "28'-0\" x 10'-6\"" }
+          { name: 'Bedroom', x: 0, y: 0, w: 11, h: 11.5, lx: 10.3, ly: 4.2, anchor: 'end' },
+          { name: 'Bath', x: 11, y: 0, w: 7, h: 8, lx: 14.6, ly: 4.6, nodim: true },
+          { name: 'Hall', x: 11, y: 8, w: 7, h: 3.5, lx: 14.5, ly: 10.3, small: true, nodim: true },
+          { name: 'Kitchen', x: 18, y: 0, w: 6, h: 11.5, lx: 20.4, ly: 6.4, nodim: true },
+          { name: 'Living / dining', x: 0, y: 11.5, w: 24, h: 9.5, lx: 10.5, ly: 14.6 }
         ],
         fixtures: [
-          { t: 'bed', x: 0.3, y: 2.5, w: 6.8, h: 5, head: 'W' },
-          { t: 'nightstand', x: 0.3, y: 1.1, w: 1.4, h: 1.2 }, { t: 'nightstand', x: 0.3, y: 7.7, w: 1.4, h: 1.2 },
-          { t: 'tub', x: 12.3, y: 0.3, w: 4.6, h: 2.5 },
-          { t: 'toilet', cx: 18, y: 0.3, dir: 'N' },
-          { t: 'vanity', x: 15.9, y: 6, w: 2.8, h: 1.8 },
-          { t: 'rod', x: 0.4, y: 11.2, w: 5.2, h: 2.1 },
-          { t: 'wd', x: 6.6, y: 11.2, w: 4.8, h: 2.1, label: 'W   D', pair: true },
-          { t: 'counter', x: 19.3, y: 0.3, w: 6.7, h: 2 },
-          { t: 'counter', x: 25.7, y: 0.3, w: 2, h: 7.2 },
-          { t: 'sink', cx: 23.1, cy: 1.3 },
-          { t: 'range', x: 25.7, y: 3.2, w: 2, h: 2.5 },
-          { t: 'fridge', x: 25.1, y: 7.7, w: 2.6, h: 2.6 },
-          { t: 'island', x: 20.2, y: 4.6, w: 4.4, h: 2.4 },
-          { t: 'table', x: 20.6, y: 14.4, w: 3.4, h: 5 },
-          { t: 'sofa', x: 2, y: 20.6, w: 7.4, h: 3, facing: 'N' },
-          { t: 'coffee', x: 3.7, y: 17.6, w: 4, h: 2 }
+          { t: 'bed', x: 0.3, y: 2.2, w: 6.8, h: 5, head: 'W' },
+          { t: 'nightstand', x: 0.3, y: 0.8, w: 1.4, h: 1.2 }, { t: 'nightstand', x: 0.3, y: 7.4, w: 1.4, h: 1.2 },
+          { t: 'closet', x: 1, y: 9.3, w: 7, h: 2 },
+          { t: 'tub', x: 11.3, y: 0.3, w: 2.5, h: 5, vertical: true },
+          { t: 'toilet', cx: 14.9, y: 0.3, dir: 'N' },
+          { t: 'vanity', x: 16, y: 0.3, w: 1.7, h: 3, vertical: true },
+          { t: 'wd', x: 15.2, y: 5, w: 2.5, h: 2.7, label: 'W/D' },
+          { t: 'counter', x: 18.3, y: 0.3, w: 3.4, h: 2 },
+          { t: 'counter', x: 21.7, y: 0.3, w: 2, h: 7.4 },
+          { t: 'sink', cx: 20, cy: 1.3 },
+          { t: 'range', x: 21.7, y: 3.6, w: 2, h: 2.5 },
+          { t: 'fridge', x: 21.1, y: 8.2, w: 2.6, h: 2.6 },
+          { t: 'table', x: 14, y: 13.4, w: 3.4, h: 5 },
+          { t: 'sofa', x: 2, y: 17.4, w: 7.4, h: 3, facing: 'N' },
+          { t: 'coffee', x: 3.7, y: 14.6, w: 4, h: 2 }
         ]
       }]
     },
 
     twobed: {
       key: 'twobed', name: 'Two Bedroom', tagline: 'Two bedrooms, kitchen island, family living',
-      W: 32, D: 30, storeys: 1, beds: 2, baths: 1,
+      W: 28, D: 25, storeys: 1, beds: 2, baths: 1,
       floors: [{
         label: 'Main floor',
-        walls: [[12, 0, 12, 12], [20, 0, 20, 12], [12, 8, 20, 8], [0, 12, 12, 12], [20, 12, 32, 12]],
+        walls: [[11, 0, 11, 11.5], [18, 0, 18, 11.5], [11, 8, 18, 8], [0, 11.5, 11, 11.5], [18, 11.5, 28, 11.5]],
         doors: [
-          { wall: 'S', at: 15, len: 3, swing: -1, entry: true },
-          { v: 12, at: 9.1, len: 2.5, swing: -1 },
-          { v: 20, at: 9.1, len: 2.5, swing: 1 },
-          { h: 8, at: 13.4, len: 2.5, swing: -1 }
+          { wall: 'S', at: 17.5, len: 3, swing: -1, entry: true },
+          { v: 11, at: 8.8, len: 2.5, swing: -1 },
+          { v: 18, at: 8.8, len: 2.5, swing: 1 },
+          { h: 8, at: 12, len: 2.5, swing: -1 }
         ],
         windows: [
-          { side: 'N', at: 3, len: 5 }, { side: 'N', at: 14, len: 2 }, { side: 'N', at: 24, len: 5 },
-          { side: 'W', at: 17, len: 5 }, { side: 'E', at: 23.5, len: 4 },
-          { side: 'S', at: 3, len: 6 }, { side: 'S', at: 22, len: 6 }
+          { side: 'N', at: 3, len: 4 }, { side: 'N', at: 14.2, len: 2 }, { side: 'N', at: 21.5, len: 4 },
+          { side: 'W', at: 14, len: 4 }, { side: 'E', at: 19.5, len: 4 },
+          { side: 'S', at: 3, len: 5 }, { side: 'S', at: 22.5, len: 4 }
         ],
         rooms: [
-          { name: 'Bedroom 1', x: 0, y: 0, w: 12, h: 12, lx: 8.8, ly: 8.6, anchor: 'end' },
-          { name: 'Bath', x: 12, y: 0, w: 8, h: 8, lx: 15.6, ly: 4.3 },
-          { name: 'Bedroom 2', x: 20, y: 0, w: 12, h: 12, lx: 23.2, ly: 8.6, anchor: 'start' },
-          { name: 'Hall', x: 12, y: 8, w: 8, h: 4, lx: 16, ly: 10.6, small: true, nodim: true },
-          { name: 'Kitchen', x: 20, y: 12, w: 12, h: 10, lx: 24.4, ly: 21.6, nodim: true },
-          { name: 'Living / dining', x: 0, y: 12, w: 32, h: 18, lx: 11, ly: 16.4, dimText: "32'-0\" x 18'-0\"" }
+          { name: 'Bedroom 1', x: 0, y: 0, w: 11, h: 11.5, lx: 10.3, ly: 4.2, anchor: 'end' },
+          { name: 'Bath', x: 11, y: 0, w: 7, h: 8, lx: 14.6, ly: 4.6, nodim: true },
+          { name: 'Bedroom 2', x: 18, y: 0, w: 10, h: 11.5, lx: 18.7, ly: 7.9, anchor: 'start' },
+          { name: 'Hall', x: 11, y: 8, w: 7, h: 3.5, lx: 14.5, ly: 10.3, small: true, nodim: true },
+          { name: 'Kitchen', x: 18, y: 11.5, w: 10, h: 9, lx: 23, ly: 16.2, nodim: true },
+          { name: 'Living / dining', x: 0, y: 11.5, w: 28, h: 13.5, lx: 9.5, ly: 14.4 }
         ],
         fixtures: [
-          { t: 'bed', x: 0.3, y: 2.5, w: 6.8, h: 5, head: 'W' },
-          { t: 'nightstand', x: 0.3, y: 1.1, w: 1.4, h: 1.2 }, { t: 'nightstand', x: 0.3, y: 7.7, w: 1.4, h: 1.2 },
-          { t: 'closet', x: 1, y: 9.8, w: 7, h: 2 },
-          { t: 'tub', x: 12.3, y: 0.3, w: 2.5, h: 5, vertical: true },
-          { t: 'toilet', cx: 16.1, y: 0.3, dir: 'N' },
-          { t: 'vanity', x: 17.3, y: 0.3, w: 2.4, h: 1.8 },
-          { t: 'wd', x: 17.1, y: 5, w: 2.6, h: 2.7, label: 'W/D' },
-          { t: 'bed', x: 25, y: 3, w: 6.7, h: 4.6, head: 'E' },
-          { t: 'nightstand', x: 30.3, y: 1.6, w: 1.4, h: 1.2 },
-          { t: 'closet', x: 23.5, y: 9.8, w: 7.5, h: 2 },
-          { t: 'counter', x: 21, y: 12.3, w: 10.7, h: 2 },
-          { t: 'counter', x: 29.7, y: 14.3, w: 2, h: 7.2 },
-          { t: 'sink', cx: 25.6, cy: 13.3 },
-          { t: 'range', x: 29.7, y: 16.4, w: 2, h: 2.5 },
-          { t: 'fridge', x: 29.1, y: 21.8, w: 2.6, h: 2.6 },
-          { t: 'island', x: 22.6, y: 16.6, w: 5, h: 2.6 },
-          { t: 'table', x: 13.4, y: 18.2, w: 3.6, h: 5.2 },
-          { t: 'sofa', x: 2, y: 26.6, w: 7.6, h: 3, facing: 'N' },
-          { t: 'coffee', x: 3.8, y: 23.2, w: 4, h: 2 },
-          { t: 'sofa', x: 0.4, y: 18.4, w: 3, h: 5.4, facing: 'E' }
+          { t: 'bed', x: 0.3, y: 2.2, w: 6.8, h: 5, head: 'W' },
+          { t: 'nightstand', x: 0.3, y: 0.8, w: 1.4, h: 1.2 }, { t: 'nightstand', x: 0.3, y: 7.4, w: 1.4, h: 1.2 },
+          { t: 'closet', x: 1, y: 9.3, w: 7, h: 2 },
+          { t: 'tub', x: 11.3, y: 0.3, w: 2.5, h: 5, vertical: true },
+          { t: 'toilet', cx: 14.9, y: 0.3, dir: 'N' },
+          { t: 'vanity', x: 16, y: 0.3, w: 1.7, h: 3, vertical: true },
+          { t: 'wd', x: 15.2, y: 5, w: 2.5, h: 2.7, label: 'W/D' },
+          { t: 'bed', x: 21, y: 2.4, w: 6.7, h: 4.6, head: 'E' },
+          { t: 'nightstand', x: 26.3, y: 0.8, w: 1.4, h: 1.2 },
+          { t: 'closet', x: 21, y: 9.3, w: 6.5, h: 2 },
+          { t: 'counter', x: 18.3, y: 11.8, w: 9.4, h: 2 },
+          { t: 'sink', cx: 21.4, cy: 12.8 },
+          { t: 'range', x: 24.4, y: 11.8, w: 2.5, h: 2 },
+          { t: 'fridge', x: 25.1, y: 14.1, w: 2.6, h: 2.6 },
+          { t: 'island', x: 19.5, y: 16.9, w: 4.6, h: 2.4 },
+          { t: 'table', x: 13, y: 16.4, w: 3.4, h: 5 },
+          { t: 'sofa', x: 2, y: 21.4, w: 7.4, h: 3, facing: 'N' },
+          { t: 'coffee', x: 3.7, y: 18.7, w: 4, h: 2 },
+          { t: 'sofa', x: 0.4, y: 12.6, w: 3, h: 5.4, facing: 'E' }
+        ]
+      }]
+    },
+
+    threebed: {
+      key: 'threebed', name: 'Three Bedroom', tagline: 'Three bedrooms, two baths, open kitchen, dining and living',
+      W: 44, D: 26, storeys: 1, beds: 3, baths: 2,
+      floors: [{
+        label: 'Main floor',
+        walls: [[11, 0, 11, 11.5], [18, 0, 18, 8], [24, 0, 24, 11.5], [34, 0, 34, 11.5], [11, 8, 24, 8], [0, 11.5, 11, 11.5], [24, 11.5, 44, 11.5]],
+        doors: [
+          { wall: 'S', at: 15, len: 3, swing: -1, entry: true },
+          { v: 11, at: 8.8, len: 2.5, swing: -1 },
+          { v: 24, at: 8.8, len: 2.5, swing: 1 },
+          { h: 8, at: 12, len: 2.5, swing: -1 },
+          { h: 8, at: 18.6, len: 2.4, swing: -1 },
+          { h: 11.5, at: 35, len: 2.5, swing: -1 }
+        ],
+        windows: [
+          { side: 'N', at: 3, len: 4 }, { side: 'N', at: 14.2, len: 2 }, { side: 'N', at: 19.2, len: 1.6 }, { side: 'N', at: 27.5, len: 4 }, { side: 'N', at: 37, len: 4 },
+          { side: 'W', at: 14.5, len: 4 }, { side: 'E', at: 18, len: 4 },
+          { side: 'S', at: 3, len: 5 }, { side: 'S', at: 27, len: 4 }, { side: 'S', at: 37, len: 4 }
+        ],
+        rooms: [
+          { name: 'Bedroom 1', x: 0, y: 0, w: 11, h: 11.5, lx: 10.3, ly: 4.2, anchor: 'end' },
+          { name: 'Bath 1', x: 11, y: 0, w: 7, h: 8, lx: 14.6, ly: 4.6, nodim: true },
+          { name: 'Bath 2', x: 18, y: 0, w: 6, h: 8, lx: 20.3, ly: 6.2, nodim: true, small: true },
+          { name: 'Bedroom 2', x: 24, y: 0, w: 10, h: 11.5, lx: 24.7, ly: 7.9, anchor: 'start' },
+          { name: 'Bedroom 3', x: 34, y: 0, w: 10, h: 11.5, lx: 43.3, ly: 7.9, anchor: 'end' },
+          { name: 'Hall', x: 11, y: 8, w: 13, h: 3.5, lx: 17.5, ly: 10.3, small: true, nodim: true },
+          { name: 'Kitchen', x: 24, y: 11.5, w: 10, h: 9, lx: 29, ly: 16.2, nodim: true },
+          { name: 'Living / dining', x: 0, y: 11.5, w: 44, h: 14.5, lx: 9.5, ly: 14.4 }
+        ],
+        fixtures: [
+          { t: 'bed', x: 0.3, y: 2.2, w: 6.8, h: 5, head: 'W' },
+          { t: 'nightstand', x: 0.3, y: 0.8, w: 1.4, h: 1.2 }, { t: 'nightstand', x: 0.3, y: 7.4, w: 1.4, h: 1.2 },
+          { t: 'closet', x: 1, y: 9.3, w: 7, h: 2 },
+          { t: 'tub', x: 11.3, y: 0.3, w: 2.5, h: 5, vertical: true },
+          { t: 'toilet', cx: 14.9, y: 0.3, dir: 'N' },
+          { t: 'vanity', x: 16, y: 0.3, w: 1.7, h: 3, vertical: true },
+          { t: 'wd', x: 15.2, y: 5, w: 2.5, h: 2.7, label: 'W/D' },
+          { t: 'shower', x: 18.3, y: 0.3, w: 3.2, h: 3.4 },
+          { t: 'toilet', cx: 22.7, y: 0.3, dir: 'N' },
+          { t: 'vanity', x: 21.9, y: 4.3, w: 1.8, h: 3.2, vertical: true },
+          { t: 'bed', x: 27, y: 2.4, w: 6.7, h: 4.6, head: 'E' },
+          { t: 'nightstand', x: 32.3, y: 0.8, w: 1.4, h: 1.2 },
+          { t: 'closet', x: 27, y: 9.3, w: 6.5, h: 2 },
+          { t: 'bed', x: 37, y: 2.4, w: 6.7, h: 4.6, head: 'E' },
+          { t: 'nightstand', x: 42.3, y: 0.8, w: 1.4, h: 1.2 },
+          { t: 'closet', x: 38, y: 9.3, w: 5.5, h: 2 },
+          { t: 'fridge', x: 24.3, y: 11.8, w: 2.6, h: 2.6 },
+          { t: 'counter', x: 27, y: 11.8, w: 6.7, h: 2 },
+          { t: 'sink', cx: 28.8, cy: 12.8 },
+          { t: 'range', x: 31, y: 11.8, w: 2.5, h: 2 },
+          { t: 'island', x: 26, y: 16.9, w: 6, h: 2.4 },
+          { t: 'table', x: 37.5, y: 16, w: 3.4, h: 5 },
+          { t: 'sofa', x: 2, y: 22.4, w: 7.4, h: 3, facing: 'N' },
+          { t: 'coffee', x: 3.7, y: 19.6, w: 4, h: 2 },
+          { t: 'sofa', x: 0.4, y: 13.6, w: 3, h: 5.4, facing: 'E' }
         ]
       }]
     },
@@ -304,7 +360,7 @@
         out.push(`<path d="M${X(leafEndX)} ${Y(hx)} A${L(len)} ${L(len)} 0 0 ${s > 0 ? 1 : 0} ${X(wl.c)} ${Y(hx + len)}" fill="none" stroke="${soft}" stroke-width="0.9" stroke-dasharray="3 2"/>`);
       }
       if (d.entry) {
-        const lbl = d.upper ? 'ENTRY (OUTSIDE STAIR)' : 'ENTRY';
+        const lbl = d.walkdown ? 'ENTRY (WALK-DOWN)' : d.stepsUp ? 'ENTRY (STEPS UP)' : d.upper ? 'ENTRY (OUTSIDE STAIR)' : 'ENTRY';
         if (wl.horiz) {
           out.push(`<text x="${X(d.at + len / 2)}" y="${Y(wl.c > D / 2 ? D + 1.4 : -1.4)}" font-size="10" font-weight="700" fill="${gold}" text-anchor="middle" letter-spacing="1.5">${lbl}</text>`);
         } else {
@@ -336,6 +392,12 @@
         case 'vanity': {
           out.push(`<rect x="${X(o.x)}" y="${Y(o.y)}" width="${L(o.w)}" height="${L(o.h)}" ${fx()}/>`);
           out.push(`<ellipse cx="${X(o.x + o.w / 2)}" cy="${Y(o.y + o.h / 2)}" rx="${L(o.vertical ? 0.55 : 0.75)}" ry="${L(o.vertical ? 0.75 : 0.55)}" fill="#eef4f8" stroke="${soft}" stroke-width="0.7"/>`);
+          break;
+        }
+        case 'shower': {
+          out.push(`<rect x="${X(o.x)}" y="${Y(o.y)}" width="${L(o.w)}" height="${L(o.h)}" ${fx()}/>`);
+          out.push(`<line x1="${X(o.x)}" y1="${Y(o.y)}" x2="${X(o.x + o.w)}" y2="${Y(o.y + o.h)}" stroke="${soft}" stroke-width="0.6"/><line x1="${X(o.x + o.w)}" y1="${Y(o.y)}" x2="${X(o.x)}" y2="${Y(o.y + o.h)}" stroke="${soft}" stroke-width="0.6"/>`);
+          out.push(`<circle cx="${X(o.x + o.w / 2)}" cy="${Y(o.y + o.h / 2)}" r="${L(0.18)}" fill="${soft}"/>`);
           break;
         }
         case 'counter':
@@ -465,7 +527,9 @@
     out.push(`<g font-size="8.5" fill="${soft}">`);
     for (let i = 0; i < 4; i++) out.push(`<rect x="${sx + i * 2 * S}" y="${sy}" width="${2 * S}" height="5" fill="${i % 2 ? paper : ink}" stroke="${ink}" stroke-width="0.6"/>`);
     out.push(`<text x="${sx}" y="${sy + 17}">0</text><text x="${sx + 4 * S}" y="${sy + 17}" text-anchor="middle">4</text><text x="${sx + 8 * S}" y="${sy + 17}" text-anchor="middle">8 ft</text></g>`);
-    out.push(`<text x="${pad + W * S}" y="${sy + 9}" font-size="10" fill="${soft}" text-anchor="end">${esc(plan.name)} · ${esc(f.label)} · ${(W * D).toLocaleString('en-CA')} sq ft footprint</text>`);
+    const cap = `${plan.name} · ${f.label} · ${(W * D).toLocaleString('en-CA')} sq ft footprint`;
+    const capY = cap.length * 5.4 > W * S - 4 * S - 24 ? sy + 34 : sy + 9; // long captions go under the scale bar
+    out.push(`<text x="${pad + W * S}" y="${capY}" font-size="10" fill="${soft}" text-anchor="end">${esc(cap)}</text>`);
     out.push('</svg>');
     return out.join('');
   }

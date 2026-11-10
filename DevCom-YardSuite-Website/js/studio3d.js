@@ -146,6 +146,8 @@ function box(w, h, d, mat) { const m = new THREE.Mesh(new THREE.BoxGeometry(w, h
 
 function buildSuite(plan, look) {
   const W = plan.W, D = plan.D, Hw = plan.storeys * STOREY;
+  const sink = plan.lowerLevel ? plan.lowerLevel.sink : 0; // raised lower level: this much of the building is below grade
+  const gy = sink - BASE; // grade, in wall-frame height (0 = bottom of the walls)
   const root = new THREE.Group();
   const sidingTex = sidingTexture(look.siding, look.color);
   const wallMat = texMat(sidingTex, 0.25, 0.25, { roughness: look.siding === 'cedar' ? 0.75 : 0.88 });
@@ -159,8 +161,9 @@ function buildSuite(plan, look) {
   const openings = { N: [], S: [], E: [], W: [] };
   plan.floors.forEach((f, fi) => {
     const v0 = fi * STOREY;
-    (f.windows || []).forEach(w => openings[w.side].push({ kind: 'window', a: w.at, b: w.at + w.len, v1: v0 + (w.slider ? 0.15 : 3), v2: v0 + 7.2, slider: !!w.slider }));
-    (f.doors || []).filter(d => d.wall).forEach(d => openings[d.wall].push({ kind: 'door', a: d.at, b: d.at + d.len, v1: v0, v2: v0 + 7, entry: d.entry }));
+    const lowWin = sink && fi === 0; // lower-level windows sit high, above grade
+    (f.windows || []).forEach(w => openings[w.side].push({ kind: 'window', a: w.at, b: w.at + w.len, v1: v0 + (lowWin ? gy + 0.6 : w.slider ? 0.15 : 3), v2: v0 + (lowWin ? Math.max(7.4, gy + 3.6) : 7.2), slider: !!w.slider && !lowWin }));
+    (f.doors || []).filter(d => d.wall).forEach(d => openings[d.wall].push({ kind: 'door', a: d.at, b: d.at + d.len, v1: v0, v2: v0 + 7, entry: d.entry, walkdown: !!d.walkdown }));
   });
 
   // foundation
@@ -200,11 +203,21 @@ function buildSuite(plan, look) {
         const handle = box(0.08, 0.9, 0.14, new THREE.MeshStandardMaterial({ color: 0x222222, metalness: 0.8, roughness: 0.3 })); handle.position.set(cx + w * 0.32, cy, -TE * 0.5 + 0.15); fr.add(handle);
         const light = box(0.4, 0.7, 0.3, trimMat); light.position.set(o.b + 0.9, 6.3, 0.15); fr.add(light);
         const bulb = new THREE.Mesh(new THREE.BoxGeometry(0.26, 0.4, 0.05), new THREE.MeshStandardMaterial({ color: 0xffe3a8, emissive: 0xffc36a, emissiveIntensity: 0.6 })); bulb.position.set(o.b + 0.9, 6.3, 0.31); fr.add(bulb);
-        if (o.entry && o.v1 > 0.5) {
+        if (o.entry && o.walkdown) {
+          // lower-level unit: walk-down stairwell from the yard
+          const ww = w + 2, land = 2.6, n = Math.max(1, Math.ceil(gy / 0.62)), r = gy / n, run = 0.9, wl = land + n * run;
+          const pad = box(ww, 0.3, land, concrete); pad.position.set(cx, -0.15, land / 2); fr.add(pad);
+          for (let i = 1; i <= n; i++) { const st = box(ww - 0.6, r, run, concrete); st.position.set(cx, i * r - r / 2, land + (i - 0.5) * run); fr.add(st); }
+          [-1, 1].forEach(sg => {
+            const rw = box(0.6, gy + 1.2, wl, concrete); rw.position.set(cx + sg * (ww / 2 + 0.3), (gy + 1.2) / 2 - 0.6, wl / 2); fr.add(rw);
+            const rail = box(0.12, 0.12, wl, trimMat); rail.position.set(cx + sg * (ww / 2 + 0.3), gy + 3.4, wl / 2); fr.add(rail);
+            [0.4, wl / 2, wl - 0.2].forEach(zz => { const pst = box(0.2, 2.8, 0.2, trimMat); pst.position.set(cx + sg * (ww / 2 + 0.3), gy + 2, zz); fr.add(pst); });
+          });
+        } else if (o.entry && o.v1 > 0.5) {
           // upper unit: landing and an outside stair running along the wall
           const lw = Math.max(5.5, w + 2), ld = 4.5, top = o.v1;
           const land = box(lw, 0.35, ld, deckMat); land.position.set(cx, top - 0.18, ld / 2); fr.add(land);
-          const rise = top + BASE, n = Math.ceil(rise / 0.62), r = rise / n, run = 0.85, sw = 3.4;
+          const rise = top - gy, n = Math.ceil(rise / 0.62), r = rise / n, run = 0.85, sw = 3.4;
           const startU = cx - lw / 2;
           for (let i = 1; i <= n; i++) {
             const st = box(run + 0.05, 0.16, sw, deckMat);
@@ -213,7 +226,7 @@ function buildSuite(plan, look) {
           const len = n * run, ang = Math.atan2(rise, len);
           [ld - sw, ld].forEach(zz => { const s2 = box(Math.hypot(len, rise), 0.7, 0.18, trimMat); s2.position.set(startU - len / 2, top - rise / 2 - 0.2, zz); s2.rotation.z = ang; fr.add(s2); });
           const rail = box(Math.hypot(len, rise), 0.12, 0.12, trimMat); rail.position.set(startU - len / 2, top - rise / 2 + 3, ld); rail.rotation.z = ang; fr.add(rail);
-          [[cx - lw / 2, ld], [cx + lw / 2, ld], [cx + lw / 2, 0.3]].forEach(([u, zz]) => { const pst = box(0.3, 3.2 + top + BASE, 0.3, trimMat); pst.position.set(u, (top + 3.2 - BASE) / 2 - BASE / 2 + 0.2, zz); fr.add(pst); });
+          [[cx - lw / 2, ld], [cx + lw / 2, ld], [cx + lw / 2, 0.3]].forEach(([u, zz]) => { const pst = box(0.3, top + 3.2 - gy, 0.3, trimMat); pst.position.set(u, (top + 3.2 + gy) / 2, zz); fr.add(pst); });
           const lr = box(lw, 0.12, 0.12, trimMat); lr.position.set(cx, top + 3, ld); fr.add(lr);
         } else if (o.entry) {
           // deck and step at the entry
@@ -295,16 +308,26 @@ function buildSuite(plan, look) {
     root.add(g);
   }
 
-  root.position.set(-W / 2, 0, -D / 2);
+  root.position.set(-W / 2, -sink, -D / 2);
   root.traverse(o => { if (o.isMesh) { o.castShadow = true; o.receiveShadow = true; } });
-  root.userData.height = top + (look.roof === 'gable' ? ((W >= D ? D : W) / 2) * look.pitch : look.roof === 'shed' ? D * look.pitch : 1);
+  root.userData.height = top - sink + (look.roof === 'gable' ? ((W >= D ? D : W) / 2) * look.pitch : look.roof === 'shed' ? D * look.pitch : 1);
   return root;
 }
 
 function buildYard(plan) {
   const g = new THREE.Group();
   const grass = grassTexture().clone(); grass.needsUpdate = true; grass.repeat.set(30, 30);
-  const ground = new THREE.Mesh(new THREE.CircleGeometry(160, 64), new THREE.MeshStandardMaterial({ map: grass, roughness: 1 }));
+  let groundGeo = new THREE.CircleGeometry(160, 64);
+  const well = plan.lowerLevel && plan.lowerLevel.well;
+  if (well) {
+    // cut the walk-down stairwell out of the lawn (shape x = world x, shape y = -world z)
+    const sh = new THREE.Shape(); sh.absarc(0, 0, 160, 0, Math.PI * 2, false);
+    const ww = well.len + 2.6, wl = 2.6 + Math.ceil((plan.lowerLevel.sink - BASE) / 0.62) * 0.9, c = well.at + well.len / 2 - plan.D / 2, x0 = plan.W / 2;
+    const h = new THREE.Path(); h.moveTo(x0, -(c - ww / 2)); h.lineTo(x0 + wl, -(c - ww / 2)); h.lineTo(x0 + wl, -(c + ww / 2)); h.lineTo(x0, -(c + ww / 2)); h.closePath();
+    sh.holes.push(h); groundGeo = new THREE.ShapeGeometry(sh, 64);
+    const uv = groundGeo.attributes.uv; for (let i = 0; i < uv.count; i++) uv.setXY(i, uv.getX(i) / 320 + 0.5, uv.getY(i) / 320 + 0.5);
+  }
+  const ground = new THREE.Mesh(groundGeo, new THREE.MeshStandardMaterial({ map: grass, roughness: 1 }));
   ground.rotation.x = -Math.PI / 2; ground.receiveShadow = true; g.add(ground);
   // back and side fence
   const fenceMat = texMat(plankTexture('#8a6a4c'), 1, 1, { roughness: 0.9 });
